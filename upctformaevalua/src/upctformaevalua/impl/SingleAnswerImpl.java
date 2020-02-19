@@ -102,6 +102,7 @@ public class SingleAnswerImpl extends QuestionImpl implements SingleAnswer {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Paragraph getStatements() {
 		return statements;
 	}
@@ -126,6 +127,7 @@ public class SingleAnswerImpl extends QuestionImpl implements SingleAnswer {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setStatements(Paragraph newStatements) {
 		if (newStatements != statements) {
 			NotificationChain msgs = null;
@@ -145,6 +147,7 @@ public class SingleAnswerImpl extends QuestionImpl implements SingleAnswer {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Single> getAnswers() {
 		if (answers == null) {
 			answers = new EObjectContainmentEList<Single>(Single.class, this, UpctformaevaluaPackage.SINGLE_ANSWER__ANSWERS);
@@ -157,6 +160,7 @@ public class SingleAnswerImpl extends QuestionImpl implements SingleAnswer {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public int getCorrectanswer() {
 		return correctanswer;
 	}
@@ -166,6 +170,7 @@ public class SingleAnswerImpl extends QuestionImpl implements SingleAnswer {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setCorrectanswer(int newCorrectanswer) {
 		int oldCorrectanswer = correctanswer;
 		correctanswer = newCorrectanswer;
@@ -278,7 +283,7 @@ public class SingleAnswerImpl extends QuestionImpl implements SingleAnswer {
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (correctanswer: ");
 		result.append(correctanswer);
 		result.append(')');

@@ -81,6 +81,7 @@ public class MultipleAnswerImpl extends QuestionImpl implements MultipleAnswer {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Paragraph getStatements() {
 		return statements;
 	}
@@ -105,6 +106,7 @@ public class MultipleAnswerImpl extends QuestionImpl implements MultipleAnswer {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setStatements(Paragraph newStatements) {
 		if (newStatements != statements) {
 			NotificationChain msgs = null;
@@ -124,6 +126,7 @@ public class MultipleAnswerImpl extends QuestionImpl implements MultipleAnswer {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Multiple> getAnswers() {
 		if (answers == null) {
 			answers = new EObjectContainmentEList<Multiple>(Multiple.class, this, UpctformaevaluaPackage.MULTIPLE_ANSWER__ANSWERS);

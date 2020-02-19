@@ -15,12 +15,20 @@
       <genEnumLiterals ecoreEnumLiteral="upctformaevalua.ecore#//TypeHole/visible"/>
       <genEnumLiterals ecoreEnumLiteral="upctformaevalua.ecore#//TypeHole/hole"/>
     </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="upctformaevalua.ecore#//EvaluationLanguageType">
+      <genEnumLiterals ecoreEnumLiteral="upctformaevalua.ecore#//EvaluationLanguageType/EN"/>
+      <genEnumLiterals ecoreEnumLiteral="upctformaevalua.ecore#//EvaluationLanguageType/ES"/>
+      <genEnumLiterals ecoreEnumLiteral="upctformaevalua.ecore#//EvaluationLanguageType/FR"/>
+      <genEnumLiterals ecoreEnumLiteral="upctformaevalua.ecore#//EvaluationLanguageType/GR"/>
+      <genEnumLiterals ecoreEnumLiteral="upctformaevalua.ecore#//EvaluationLanguageType/LI"/>
+    </genEnums>
     <genClasses ecoreClass="upctformaevalua.ecore#//Evaluation">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference upctformaevalua.ecore#//Evaluation/units"/>
     </genClasses>
     <genClasses ecoreClass="upctformaevalua.ecore#//EvaluationUnit">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference upctformaevalua.ecore#//EvaluationUnit/questions"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute upctformaevalua.ecore#//EvaluationUnit/numberquestions"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute upctformaevalua.ecore#//EvaluationUnit/language"/>
     </genClasses>
     <genClasses ecoreClass="upctformaevalua.ecore#//Training">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute upctformaevalua.ecore#//Training/Attempts"/>

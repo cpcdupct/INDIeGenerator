@@ -234,7 +234,14 @@ public class UpctformaSemanticSequencer extends AbstractDelegatingSemanticSequen
 	 *     ContentUnit returns ContentUnit
 	 *
 	 * Constraint:
-	 *     (name=EString author=EString type=ContentUnitType sections+=Section sections+=Section*)
+	 *     (
+	 *         name=EString 
+	 *         author=EString 
+	 *         type=ContentUnitType 
+	 *         language=LanguageType 
+	 *         sections+=Section 
+	 *         sections+=Section*
+	 *     )
 	 */
 	protected void sequence_ContentUnit(ISerializationContext context, ContentUnit semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -302,7 +309,7 @@ public class UpctformaSemanticSequencer extends AbstractDelegatingSemanticSequen
 	 *     Image returns Image
 	 *
 	 * Constraint:
-	 *     url=EString?
+	 *     (url=EString? type=ImageType)
 	 */
 	protected void sequence_Image(ISerializationContext context, Image semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -572,7 +579,7 @@ public class UpctformaSemanticSequencer extends AbstractDelegatingSemanticSequen
 	 *     Video returns Video
 	 *
 	 * Constraint:
-	 *     (id=EString? title=EString?)
+	 *     (id=EString? title=EString? type=VideoType?)
 	 */
 	protected void sequence_Video(ISerializationContext context, Video semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

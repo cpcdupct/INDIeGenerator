@@ -16,6 +16,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link upctforma.ContentUnit#getSections <em>Sections</em>}</li>
  *   <li>{@link upctforma.ContentUnit#getAuthor <em>Author</em>}</li>
  *   <li>{@link upctforma.ContentUnit#getType <em>Type</em>}</li>
+ *   <li>{@link upctforma.ContentUnit#getLanguage <em>Language</em>}</li>
  * </ul>
  *
  * @see upctforma.UpctformaPackage#getContentUnit()
@@ -89,5 +90,30 @@ public interface ContentUnit extends NameElement {
 	 * @generated
 	 */
 	void setType(ContentUnitType value);
+
+	/**
+	 * Returns the value of the '<em><b>Language</b></em>' attribute.
+	 * The literals are from the enumeration {@link upctforma.LanguageType}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Language</em>' attribute.
+	 * @see upctforma.LanguageType
+	 * @see #setLanguage(LanguageType)
+	 * @see upctforma.UpctformaPackage#getContentUnit_Language()
+	 * @model
+	 * @generated
+	 */
+	LanguageType getLanguage();
+
+	/**
+	 * Sets the value of the '{@link upctforma.ContentUnit#getLanguage <em>Language</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Language</em>' attribute.
+	 * @see upctforma.LanguageType
+	 * @see #getLanguage()
+	 * @generated
+	 */
+	void setLanguage(LanguageType value);
 
 } // ContentUnit

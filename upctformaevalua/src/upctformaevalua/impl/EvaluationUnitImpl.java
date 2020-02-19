@@ -17,6 +17,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
+import upctformaevalua.EvaluationLanguageType;
 import upctformaevalua.EvaluationUnit;
 import upctformaevalua.Question;
 import upctformaevalua.UpctformaevaluaPackage;
@@ -31,6 +32,7 @@ import upctformaevalua.UpctformaevaluaPackage;
  * <ul>
  *   <li>{@link upctformaevalua.impl.EvaluationUnitImpl#getQuestions <em>Questions</em>}</li>
  *   <li>{@link upctformaevalua.impl.EvaluationUnitImpl#getNumberquestions <em>Numberquestions</em>}</li>
+ *   <li>{@link upctformaevalua.impl.EvaluationUnitImpl#getLanguage <em>Language</em>}</li>
  * </ul>
  *
  * @generated
@@ -67,6 +69,26 @@ public class EvaluationUnitImpl extends NameElementImpl implements EvaluationUni
 	protected int numberquestions = NUMBERQUESTIONS_EDEFAULT;
 
 	/**
+	 * The default value of the '{@link #getLanguage() <em>Language</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getLanguage()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final EvaluationLanguageType LANGUAGE_EDEFAULT = EvaluationLanguageType.EN;
+
+	/**
+	 * The cached value of the '{@link #getLanguage() <em>Language</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getLanguage()
+	 * @generated
+	 * @ordered
+	 */
+	protected EvaluationLanguageType language = LANGUAGE_EDEFAULT;
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -90,6 +112,7 @@ public class EvaluationUnitImpl extends NameElementImpl implements EvaluationUni
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Question> getQuestions() {
 		if (questions == null) {
 			questions = new EObjectContainmentEList<Question>(Question.class, this, UpctformaevaluaPackage.EVALUATION_UNIT__QUESTIONS);
@@ -102,6 +125,7 @@ public class EvaluationUnitImpl extends NameElementImpl implements EvaluationUni
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public int getNumberquestions() {
 		return numberquestions;
 	}
@@ -111,11 +135,35 @@ public class EvaluationUnitImpl extends NameElementImpl implements EvaluationUni
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setNumberquestions(int newNumberquestions) {
 		int oldNumberquestions = numberquestions;
 		numberquestions = newNumberquestions;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, UpctformaevaluaPackage.EVALUATION_UNIT__NUMBERQUESTIONS, oldNumberquestions, numberquestions));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EvaluationLanguageType getLanguage() {
+		return language;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setLanguage(EvaluationLanguageType newLanguage) {
+		EvaluationLanguageType oldLanguage = language;
+		language = newLanguage == null ? LANGUAGE_EDEFAULT : newLanguage;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, UpctformaevaluaPackage.EVALUATION_UNIT__LANGUAGE, oldLanguage, language));
 	}
 
 	/**
@@ -144,6 +192,8 @@ public class EvaluationUnitImpl extends NameElementImpl implements EvaluationUni
 				return getQuestions();
 			case UpctformaevaluaPackage.EVALUATION_UNIT__NUMBERQUESTIONS:
 				return getNumberquestions();
+			case UpctformaevaluaPackage.EVALUATION_UNIT__LANGUAGE:
+				return getLanguage();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -164,6 +214,9 @@ public class EvaluationUnitImpl extends NameElementImpl implements EvaluationUni
 			case UpctformaevaluaPackage.EVALUATION_UNIT__NUMBERQUESTIONS:
 				setNumberquestions((Integer)newValue);
 				return;
+			case UpctformaevaluaPackage.EVALUATION_UNIT__LANGUAGE:
+				setLanguage((EvaluationLanguageType)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -182,6 +235,9 @@ public class EvaluationUnitImpl extends NameElementImpl implements EvaluationUni
 			case UpctformaevaluaPackage.EVALUATION_UNIT__NUMBERQUESTIONS:
 				setNumberquestions(NUMBERQUESTIONS_EDEFAULT);
 				return;
+			case UpctformaevaluaPackage.EVALUATION_UNIT__LANGUAGE:
+				setLanguage(LANGUAGE_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -198,6 +254,8 @@ public class EvaluationUnitImpl extends NameElementImpl implements EvaluationUni
 				return questions != null && !questions.isEmpty();
 			case UpctformaevaluaPackage.EVALUATION_UNIT__NUMBERQUESTIONS:
 				return numberquestions != NUMBERQUESTIONS_EDEFAULT;
+			case UpctformaevaluaPackage.EVALUATION_UNIT__LANGUAGE:
+				return language != LANGUAGE_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -211,9 +269,11 @@ public class EvaluationUnitImpl extends NameElementImpl implements EvaluationUni
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (numberquestions: ");
 		result.append(numberquestions);
+		result.append(", language: ");
+		result.append(language);
 		result.append(')');
 		return result.toString();
 	}

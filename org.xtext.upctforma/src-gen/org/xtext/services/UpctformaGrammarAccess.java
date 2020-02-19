@@ -506,26 +506,30 @@ public class UpctformaGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cAuthorEStringParserRuleCall_2_0 = (RuleCall)cAuthorAssignment_2.eContents().get(0);
 		private final Assignment cTypeAssignment_3 = (Assignment)cGroup.eContents().get(3);
 		private final RuleCall cTypeContentUnitTypeEnumRuleCall_3_0 = (RuleCall)cTypeAssignment_3.eContents().get(0);
-		private final Keyword cLeftCurlyBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
-		private final Assignment cSectionsAssignment_5 = (Assignment)cGroup.eContents().get(5);
-		private final RuleCall cSectionsSectionParserRuleCall_5_0 = (RuleCall)cSectionsAssignment_5.eContents().get(0);
-		private final Group cGroup_6 = (Group)cGroup.eContents().get(6);
-		private final Keyword cCommaKeyword_6_0 = (Keyword)cGroup_6.eContents().get(0);
-		private final Assignment cSectionsAssignment_6_1 = (Assignment)cGroup_6.eContents().get(1);
-		private final RuleCall cSectionsSectionParserRuleCall_6_1_0 = (RuleCall)cSectionsAssignment_6_1.eContents().get(0);
-		private final Keyword cRightCurlyBracketKeyword_7 = (Keyword)cGroup.eContents().get(7);
+		private final Assignment cLanguageAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final RuleCall cLanguageLanguageTypeEnumRuleCall_4_0 = (RuleCall)cLanguageAssignment_4.eContents().get(0);
+		private final Keyword cLeftCurlyBracketKeyword_5 = (Keyword)cGroup.eContents().get(5);
+		private final Assignment cSectionsAssignment_6 = (Assignment)cGroup.eContents().get(6);
+		private final RuleCall cSectionsSectionParserRuleCall_6_0 = (RuleCall)cSectionsAssignment_6.eContents().get(0);
+		private final Group cGroup_7 = (Group)cGroup.eContents().get(7);
+		private final Keyword cCommaKeyword_7_0 = (Keyword)cGroup_7.eContents().get(0);
+		private final Assignment cSectionsAssignment_7_1 = (Assignment)cGroup_7.eContents().get(1);
+		private final RuleCall cSectionsSectionParserRuleCall_7_1_0 = (RuleCall)cSectionsAssignment_7_1.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_8 = (Keyword)cGroup.eContents().get(8);
 		
 		//ContentUnit:
 		//	'Unit'
 		//	name=EString
 		//	author=EString
 		//	type=ContentUnitType
+		//	language=LanguageType
 		//	'{'
 		//	sections+=Section ("," sections+=Section)*
 		//	'}';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'Unit' name=EString author=EString type=ContentUnitType '{' sections+=Section ("," sections+=Section)* '}'
+		//'Unit' name=EString author=EString type=ContentUnitType language=LanguageType '{' sections+=Section (","
+		//sections+=Section)* '}'
 		public Group getGroup() { return cGroup; }
 		
 		//'Unit'
@@ -549,29 +553,35 @@ public class UpctformaGrammarAccess extends AbstractGrammarElementFinder {
 		//ContentUnitType
 		public RuleCall getTypeContentUnitTypeEnumRuleCall_3_0() { return cTypeContentUnitTypeEnumRuleCall_3_0; }
 		
+		//language=LanguageType
+		public Assignment getLanguageAssignment_4() { return cLanguageAssignment_4; }
+		
+		//LanguageType
+		public RuleCall getLanguageLanguageTypeEnumRuleCall_4_0() { return cLanguageLanguageTypeEnumRuleCall_4_0; }
+		
 		//'{'
-		public Keyword getLeftCurlyBracketKeyword_4() { return cLeftCurlyBracketKeyword_4; }
+		public Keyword getLeftCurlyBracketKeyword_5() { return cLeftCurlyBracketKeyword_5; }
 		
 		//sections+=Section
-		public Assignment getSectionsAssignment_5() { return cSectionsAssignment_5; }
+		public Assignment getSectionsAssignment_6() { return cSectionsAssignment_6; }
 		
 		//Section
-		public RuleCall getSectionsSectionParserRuleCall_5_0() { return cSectionsSectionParserRuleCall_5_0; }
+		public RuleCall getSectionsSectionParserRuleCall_6_0() { return cSectionsSectionParserRuleCall_6_0; }
 		
 		//("," sections+=Section)*
-		public Group getGroup_6() { return cGroup_6; }
+		public Group getGroup_7() { return cGroup_7; }
 		
 		//","
-		public Keyword getCommaKeyword_6_0() { return cCommaKeyword_6_0; }
+		public Keyword getCommaKeyword_7_0() { return cCommaKeyword_7_0; }
 		
 		//sections+=Section
-		public Assignment getSectionsAssignment_6_1() { return cSectionsAssignment_6_1; }
+		public Assignment getSectionsAssignment_7_1() { return cSectionsAssignment_7_1; }
 		
 		//Section
-		public RuleCall getSectionsSectionParserRuleCall_6_1_0() { return cSectionsSectionParserRuleCall_6_1_0; }
+		public RuleCall getSectionsSectionParserRuleCall_7_1_0() { return cSectionsSectionParserRuleCall_7_1_0; }
 		
 		//'}'
-		public Keyword getRightCurlyBracketKeyword_7() { return cRightCurlyBracketKeyword_7; }
+		public Keyword getRightCurlyBracketKeyword_8() { return cRightCurlyBracketKeyword_8; }
 	}
 	public class Type_ImplElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtext.Upctforma.Type_Impl");
@@ -845,16 +855,20 @@ public class UpctformaGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cUrlKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
 		private final Assignment cUrlAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
 		private final RuleCall cUrlEStringParserRuleCall_3_1_0 = (RuleCall)cUrlAssignment_3_1.eContents().get(0);
-		private final Keyword cRightCurlyBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
+		private final Keyword cCommaKeyword_4 = (Keyword)cGroup.eContents().get(4);
+		private final Assignment cTypeAssignment_5 = (Assignment)cGroup.eContents().get(5);
+		private final RuleCall cTypeImageTypeEnumRuleCall_5_0 = (RuleCall)cTypeAssignment_5.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		
 		//Image:
 		//	{Image}
 		//	'Image'
-		//	'{' ('url' url=EString)?
+		//	'{' ('url' url=EString)? ","
+		//	type=ImageType
 		//	'}';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//{Image} 'Image' '{' ('url' url=EString)? '}'
+		//{Image} 'Image' '{' ('url' url=EString)? "," type=ImageType '}'
 		public Group getGroup() { return cGroup; }
 		
 		//{Image}
@@ -878,8 +892,17 @@ public class UpctformaGrammarAccess extends AbstractGrammarElementFinder {
 		//EString
 		public RuleCall getUrlEStringParserRuleCall_3_1_0() { return cUrlEStringParserRuleCall_3_1_0; }
 		
+		//","
+		public Keyword getCommaKeyword_4() { return cCommaKeyword_4; }
+		
+		//type=ImageType
+		public Assignment getTypeAssignment_5() { return cTypeAssignment_5; }
+		
+		//ImageType
+		public RuleCall getTypeImageTypeEnumRuleCall_5_0() { return cTypeImageTypeEnumRuleCall_5_0; }
+		
 		//'}'
-		public Keyword getRightCurlyBracketKeyword_4() { return cRightCurlyBracketKeyword_4; }
+		public Keyword getRightCurlyBracketKeyword_6() { return cRightCurlyBracketKeyword_6; }
 	}
 	public class WidgetElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtext.Upctforma.Widget");
@@ -1116,16 +1139,21 @@ public class UpctformaGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cTitleKeyword_5_0 = (Keyword)cGroup_5.eContents().get(0);
 		private final Assignment cTitleAssignment_5_1 = (Assignment)cGroup_5.eContents().get(1);
 		private final RuleCall cTitleEStringParserRuleCall_5_1_0 = (RuleCall)cTitleAssignment_5_1.eContents().get(0);
-		private final Keyword cRightCurlyBracketKeyword_6 = (Keyword)cGroup.eContents().get(6);
+		private final Keyword cCommaKeyword_6 = (Keyword)cGroup.eContents().get(6);
+		private final Group cGroup_7 = (Group)cGroup.eContents().get(7);
+		private final Keyword cTypeKeyword_7_0 = (Keyword)cGroup_7.eContents().get(0);
+		private final Assignment cTypeAssignment_7_1 = (Assignment)cGroup_7.eContents().get(1);
+		private final RuleCall cTypeVideoTypeEnumRuleCall_7_1_0 = (RuleCall)cTypeAssignment_7_1.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_8 = (Keyword)cGroup.eContents().get(8);
 		
 		//Video:
 		//	{Video}
 		//	'Video'
-		//	'{' ('id' id=EString)? "," ('title' title=EString)?
+		//	'{' ('id' id=EString)? "," ('title' title=EString)? "," ('type' type=VideoType)?
 		//	'}';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//{Video} 'Video' '{' ('id' id=EString)? "," ('title' title=EString)? '}'
+		//{Video} 'Video' '{' ('id' id=EString)? "," ('title' title=EString)? "," ('type' type=VideoType)? '}'
 		public Group getGroup() { return cGroup; }
 		
 		//{Video}
@@ -1164,8 +1192,23 @@ public class UpctformaGrammarAccess extends AbstractGrammarElementFinder {
 		//EString
 		public RuleCall getTitleEStringParserRuleCall_5_1_0() { return cTitleEStringParserRuleCall_5_1_0; }
 		
+		//","
+		public Keyword getCommaKeyword_6() { return cCommaKeyword_6; }
+		
+		//('type' type=VideoType)?
+		public Group getGroup_7() { return cGroup_7; }
+		
+		//'type'
+		public Keyword getTypeKeyword_7_0() { return cTypeKeyword_7_0; }
+		
+		//type=VideoType
+		public Assignment getTypeAssignment_7_1() { return cTypeAssignment_7_1; }
+		
+		//VideoType
+		public RuleCall getTypeVideoTypeEnumRuleCall_7_1_0() { return cTypeVideoTypeEnumRuleCall_7_1_0; }
+		
 		//'}'
-		public Keyword getRightCurlyBracketKeyword_6() { return cRightCurlyBracketKeyword_6; }
+		public Keyword getRightCurlyBracketKeyword_8() { return cRightCurlyBracketKeyword_8; }
 	}
 	public class SimpleElement_ImplElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtext.Upctforma.SimpleElement_Impl");
@@ -1815,6 +1858,111 @@ public class UpctformaGrammarAccess extends AbstractGrammarElementFinder {
 		//'Preview'
 		public Keyword getPreviewPreviewKeyword_2_0() { return cPreviewPreviewKeyword_2_0; }
 	}
+	public class VideoTypeElements extends AbstractEnumRuleElementFinder {
+		private final EnumRule rule = (EnumRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtext.Upctforma.VideoType");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final EnumLiteralDeclaration cNormalEnumLiteralDeclaration_0 = (EnumLiteralDeclaration)cAlternatives.eContents().get(0);
+		private final Keyword cNormalNormalKeyword_0_0 = (Keyword)cNormalEnumLiteralDeclaration_0.eContents().get(0);
+		private final EnumLiteralDeclaration cInteractiveEnumLiteralDeclaration_1 = (EnumLiteralDeclaration)cAlternatives.eContents().get(1);
+		private final Keyword cInteractiveInteractiveKeyword_1_0 = (Keyword)cInteractiveEnumLiteralDeclaration_1.eContents().get(0);
+		
+		//enum VideoType:
+		//	Normal | Interactive;
+		public EnumRule getRule() { return rule; }
+		
+		//Normal | Interactive
+		public Alternatives getAlternatives() { return cAlternatives; }
+		
+		//Normal
+		public EnumLiteralDeclaration getNormalEnumLiteralDeclaration_0() { return cNormalEnumLiteralDeclaration_0; }
+		
+		//'Normal'
+		public Keyword getNormalNormalKeyword_0_0() { return cNormalNormalKeyword_0_0; }
+		
+		//Interactive
+		public EnumLiteralDeclaration getInteractiveEnumLiteralDeclaration_1() { return cInteractiveEnumLiteralDeclaration_1; }
+		
+		//'Interactive'
+		public Keyword getInteractiveInteractiveKeyword_1_0() { return cInteractiveInteractiveKeyword_1_0; }
+	}
+	public class LanguageTypeElements extends AbstractEnumRuleElementFinder {
+		private final EnumRule rule = (EnumRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtext.Upctforma.LanguageType");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final EnumLiteralDeclaration cESEnumLiteralDeclaration_0 = (EnumLiteralDeclaration)cAlternatives.eContents().get(0);
+		private final Keyword cESESKeyword_0_0 = (Keyword)cESEnumLiteralDeclaration_0.eContents().get(0);
+		private final EnumLiteralDeclaration cENEnumLiteralDeclaration_1 = (EnumLiteralDeclaration)cAlternatives.eContents().get(1);
+		private final Keyword cENENKeyword_1_0 = (Keyword)cENEnumLiteralDeclaration_1.eContents().get(0);
+		private final EnumLiteralDeclaration cFREnumLiteralDeclaration_2 = (EnumLiteralDeclaration)cAlternatives.eContents().get(2);
+		private final Keyword cFRFRKeyword_2_0 = (Keyword)cFREnumLiteralDeclaration_2.eContents().get(0);
+		private final EnumLiteralDeclaration cGREnumLiteralDeclaration_3 = (EnumLiteralDeclaration)cAlternatives.eContents().get(3);
+		private final Keyword cGRGRKeyword_3_0 = (Keyword)cGREnumLiteralDeclaration_3.eContents().get(0);
+		private final EnumLiteralDeclaration cLIEnumLiteralDeclaration_4 = (EnumLiteralDeclaration)cAlternatives.eContents().get(4);
+		private final Keyword cLILIKeyword_4_0 = (Keyword)cLIEnumLiteralDeclaration_4.eContents().get(0);
+		
+		//enum LanguageType:
+		//	ES | EN | FR | GR | LI;
+		public EnumRule getRule() { return rule; }
+		
+		//ES | EN | FR | GR | LI
+		public Alternatives getAlternatives() { return cAlternatives; }
+		
+		//ES
+		public EnumLiteralDeclaration getESEnumLiteralDeclaration_0() { return cESEnumLiteralDeclaration_0; }
+		
+		//'ES'
+		public Keyword getESESKeyword_0_0() { return cESESKeyword_0_0; }
+		
+		//EN
+		public EnumLiteralDeclaration getENEnumLiteralDeclaration_1() { return cENEnumLiteralDeclaration_1; }
+		
+		//'EN'
+		public Keyword getENENKeyword_1_0() { return cENENKeyword_1_0; }
+		
+		//FR
+		public EnumLiteralDeclaration getFREnumLiteralDeclaration_2() { return cFREnumLiteralDeclaration_2; }
+		
+		//'FR'
+		public Keyword getFRFRKeyword_2_0() { return cFRFRKeyword_2_0; }
+		
+		//GR
+		public EnumLiteralDeclaration getGREnumLiteralDeclaration_3() { return cGREnumLiteralDeclaration_3; }
+		
+		//'GR'
+		public Keyword getGRGRKeyword_3_0() { return cGRGRKeyword_3_0; }
+		
+		//LI
+		public EnumLiteralDeclaration getLIEnumLiteralDeclaration_4() { return cLIEnumLiteralDeclaration_4; }
+		
+		//'LI'
+		public Keyword getLILIKeyword_4_0() { return cLILIKeyword_4_0; }
+	}
+	public class ImageTypeElements extends AbstractEnumRuleElementFinder {
+		private final EnumRule rule = (EnumRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtext.Upctforma.ImageType");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final EnumLiteralDeclaration cOriginalEnumLiteralDeclaration_0 = (EnumLiteralDeclaration)cAlternatives.eContents().get(0);
+		private final Keyword cOriginalOriginalKeyword_0_0 = (Keyword)cOriginalEnumLiteralDeclaration_0.eContents().get(0);
+		private final EnumLiteralDeclaration cFitEnumLiteralDeclaration_1 = (EnumLiteralDeclaration)cAlternatives.eContents().get(1);
+		private final Keyword cFitFitKeyword_1_0 = (Keyword)cFitEnumLiteralDeclaration_1.eContents().get(0);
+		
+		//enum ImageType:
+		//	Original | Fit;
+		public EnumRule getRule() { return rule; }
+		
+		//Original | Fit
+		public Alternatives getAlternatives() { return cAlternatives; }
+		
+		//Original
+		public EnumLiteralDeclaration getOriginalEnumLiteralDeclaration_0() { return cOriginalEnumLiteralDeclaration_0; }
+		
+		//'Original'
+		public Keyword getOriginalOriginalKeyword_0_0() { return cOriginalOriginalKeyword_0_0; }
+		
+		//Fit
+		public EnumLiteralDeclaration getFitEnumLiteralDeclaration_1() { return cFitEnumLiteralDeclaration_1; }
+		
+		//'Fit'
+		public Keyword getFitFitKeyword_1_0() { return cFitFitKeyword_1_0; }
+	}
 	public class SectionTypeElements extends AbstractEnumRuleElementFinder {
 		private final EnumRule rule = (EnumRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtext.Upctforma.SectionType");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
@@ -1853,6 +2001,9 @@ public class UpctformaGrammarAccess extends AbstractGrammarElementFinder {
 	private final EStringElements pEString;
 	private final TemplateDefElements pTemplateDef;
 	private final ContentUnitTypeElements eContentUnitType;
+	private final VideoTypeElements eVideoType;
+	private final LanguageTypeElements eLanguageType;
+	private final ImageTypeElements eImageType;
 	private final ContentUnitElements pContentUnit;
 	private final Type_ImplElements pType_Impl;
 	private final RowElements pRow;
@@ -1903,6 +2054,9 @@ public class UpctformaGrammarAccess extends AbstractGrammarElementFinder {
 		this.pEString = new EStringElements();
 		this.pTemplateDef = new TemplateDefElements();
 		this.eContentUnitType = new ContentUnitTypeElements();
+		this.eVideoType = new VideoTypeElements();
+		this.eLanguageType = new LanguageTypeElements();
+		this.eImageType = new ImageTypeElements();
 		this.pContentUnit = new ContentUnitElements();
 		this.pType_Impl = new Type_ImplElements();
 		this.pRow = new RowElements();
@@ -2073,11 +2227,42 @@ public class UpctformaGrammarAccess extends AbstractGrammarElementFinder {
 		return getContentUnitTypeAccess().getRule();
 	}
 	
+	//enum VideoType:
+	//	Normal | Interactive;
+	public VideoTypeElements getVideoTypeAccess() {
+		return eVideoType;
+	}
+	
+	public EnumRule getVideoTypeRule() {
+		return getVideoTypeAccess().getRule();
+	}
+	
+	//enum LanguageType:
+	//	ES | EN | FR | GR | LI;
+	public LanguageTypeElements getLanguageTypeAccess() {
+		return eLanguageType;
+	}
+	
+	public EnumRule getLanguageTypeRule() {
+		return getLanguageTypeAccess().getRule();
+	}
+	
+	//enum ImageType:
+	//	Original | Fit;
+	public ImageTypeElements getImageTypeAccess() {
+		return eImageType;
+	}
+	
+	public EnumRule getImageTypeRule() {
+		return getImageTypeAccess().getRule();
+	}
+	
 	//ContentUnit:
 	//	'Unit'
 	//	name=EString
 	//	author=EString
 	//	type=ContentUnitType
+	//	language=LanguageType
 	//	'{'
 	//	sections+=Section ("," sections+=Section)*
 	//	'}';
@@ -2152,7 +2337,8 @@ public class UpctformaGrammarAccess extends AbstractGrammarElementFinder {
 	//Image:
 	//	{Image}
 	//	'Image'
-	//	'{' ('url' url=EString)?
+	//	'{' ('url' url=EString)? ","
+	//	type=ImageType
 	//	'}';
 	public ImageElements getImageAccess() {
 		return pImage;
@@ -2230,7 +2416,7 @@ public class UpctformaGrammarAccess extends AbstractGrammarElementFinder {
 	//Video:
 	//	{Video}
 	//	'Video'
-	//	'{' ('id' id=EString)? "," ('title' title=EString)?
+	//	'{' ('id' id=EString)? "," ('title' title=EString)? "," ('type' type=VideoType)?
 	//	'}';
 	public VideoElements getVideoAccess() {
 		return pVideo;

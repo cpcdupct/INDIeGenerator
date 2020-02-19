@@ -178,13 +178,22 @@ public interface UpctformaevaluaPackage extends EPackage {
 	int EVALUATION_UNIT__NUMBERQUESTIONS = NAME_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
+	 * The feature id for the '<em><b>Language</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVALUATION_UNIT__LANGUAGE = NAME_ELEMENT_FEATURE_COUNT + 2;
+
+	/**
 	 * The number of structural features of the '<em>Evaluation Unit</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EVALUATION_UNIT_FEATURE_COUNT = NAME_ELEMENT_FEATURE_COUNT + 2;
+	int EVALUATION_UNIT_FEATURE_COUNT = NAME_ELEMENT_FEATURE_COUNT + 3;
 
 	/**
 	 * The operation id for the '<em>EClass</em>' operation.
@@ -366,6 +375,15 @@ public interface UpctformaevaluaPackage extends EPackage {
 	 * @ordered
 	 */
 	int TRAINING__NUMBERQUESTIONS = EVALUATION_UNIT__NUMBERQUESTIONS;
+
+	/**
+	 * The feature id for the '<em><b>Language</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TRAINING__LANGUAGE = EVALUATION_UNIT__LANGUAGE;
 
 	/**
 	 * The feature id for the '<em><b>Attempts</b></em>' attribute.
@@ -574,6 +592,15 @@ public interface UpctformaevaluaPackage extends EPackage {
 	 * @ordered
 	 */
 	int FINAL__NUMBERQUESTIONS = EVALUATION_UNIT__NUMBERQUESTIONS;
+
+	/**
+	 * The feature id for the '<em><b>Language</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FINAL__LANGUAGE = EVALUATION_UNIT__LANGUAGE;
 
 	/**
 	 * The number of structural features of the '<em>Final</em>' class.
@@ -1327,6 +1354,16 @@ public interface UpctformaevaluaPackage extends EPackage {
 	 */
 	int TYPE_HOLE = 18;
 
+	/**
+	 * The meta object id for the '{@link upctformaevalua.EvaluationLanguageType <em>Evaluation Language Type</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see upctformaevalua.EvaluationLanguageType
+	 * @see upctformaevalua.impl.UpctformaevaluaPackageImpl#getEvaluationLanguageType()
+	 * @generated
+	 */
+	int EVALUATION_LANGUAGE_TYPE = 19;
+
 
 	/**
 	 * Returns the meta object for class '{@link upctformaevalua.Evaluation <em>Evaluation</em>}'.
@@ -1380,6 +1417,17 @@ public interface UpctformaevaluaPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getEvaluationUnit_Numberquestions();
+
+	/**
+	 * Returns the meta object for the attribute '{@link upctformaevalua.EvaluationUnit#getLanguage <em>Language</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Language</em>'.
+	 * @see upctformaevalua.EvaluationUnit#getLanguage()
+	 * @see #getEvaluationUnit()
+	 * @generated
+	 */
+	EAttribute getEvaluationUnit_Language();
 
 	/**
 	 * Returns the meta object for class '{@link upctformaevalua.Training <em>Training</em>}'.
@@ -1739,6 +1787,16 @@ public interface UpctformaevaluaPackage extends EPackage {
 	EEnum getTypeHole();
 
 	/**
+	 * Returns the meta object for enum '{@link upctformaevalua.EvaluationLanguageType <em>Evaluation Language Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Evaluation Language Type</em>'.
+	 * @see upctformaevalua.EvaluationLanguageType
+	 * @generated
+	 */
+	EEnum getEvaluationLanguageType();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1804,6 +1862,14 @@ public interface UpctformaevaluaPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute EVALUATION_UNIT__NUMBERQUESTIONS = eINSTANCE.getEvaluationUnit_Numberquestions();
+
+		/**
+		 * The meta object literal for the '<em><b>Language</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute EVALUATION_UNIT__LANGUAGE = eINSTANCE.getEvaluationUnit_Language();
 
 		/**
 		 * The meta object literal for the '{@link upctformaevalua.impl.TrainingImpl <em>Training</em>}' class.
@@ -2110,6 +2176,16 @@ public interface UpctformaevaluaPackage extends EPackage {
 		 * @generated
 		 */
 		EEnum TYPE_HOLE = eINSTANCE.getTypeHole();
+
+		/**
+		 * The meta object literal for the '{@link upctformaevalua.EvaluationLanguageType <em>Evaluation Language Type</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see upctformaevalua.EvaluationLanguageType
+		 * @see upctformaevalua.impl.UpctformaevaluaPackageImpl#getEvaluationLanguageType()
+		 * @generated
+		 */
+		EEnum EVALUATION_LANGUAGE_TYPE = eINSTANCE.getEvaluationLanguageType();
 
 	}
 

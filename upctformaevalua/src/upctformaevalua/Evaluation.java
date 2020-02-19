@@ -25,10 +25,6 @@ public interface Evaluation extends NameElement {
 	 * Returns the value of the '<em><b>Units</b></em>' containment reference list.
 	 * The list contents are of type {@link upctformaevalua.EvaluationUnit}.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Units</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Units</em>' containment reference list.
 	 * @see upctformaevalua.UpctformaevaluaPackage#getEvaluation_Units()

@@ -26,10 +26,6 @@ public interface SingleAnswer extends Question {
 	/**
 	 * Returns the value of the '<em><b>Statements</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Statements</em>' containment reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Statements</em>' containment reference.
 	 * @see #setStatements(Paragraph)
@@ -53,10 +49,6 @@ public interface SingleAnswer extends Question {
 	 * Returns the value of the '<em><b>Answers</b></em>' containment reference list.
 	 * The list contents are of type {@link upctformaevalua.Single}.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Answers</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Answers</em>' containment reference list.
 	 * @see upctformaevalua.UpctformaevaluaPackage#getSingleAnswer_Answers()
@@ -68,10 +60,6 @@ public interface SingleAnswer extends Question {
 	/**
 	 * Returns the value of the '<em><b>Correctanswer</b></em>' attribute.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Correctanswer</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Correctanswer</em>' attribute.
 	 * @see #setCorrectanswer(int)

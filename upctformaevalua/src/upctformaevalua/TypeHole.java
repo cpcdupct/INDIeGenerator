@@ -41,10 +41,6 @@ public enum TypeHole implements Enumerator {
 	/**
 	 * The '<em><b>Visible</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>Visible</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #VISIBLE
 	 * @model name="visible"
@@ -56,10 +52,6 @@ public enum TypeHole implements Enumerator {
 	/**
 	 * The '<em><b>Hole</b></em>' literal value.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>Hole</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #HOLE
 	 * @model name="hole"
@@ -178,6 +170,7 @@ public enum TypeHole implements Enumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public int getValue() {
 	  return value;
 	}
@@ -187,6 +180,7 @@ public enum TypeHole implements Enumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getName() {
 	  return name;
 	}
@@ -196,6 +190,7 @@ public enum TypeHole implements Enumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getLiteral() {
 	  return literal;
 	}

@@ -421,21 +421,40 @@ ruleEvaluationUnit_Impl returns [EObject current=null]
 				}
 			)
 		)
-		otherlv_3='{'
+		(
+			(
+				{
+					newCompositeNode(grammarAccess.getEvaluationUnit_ImplAccess().getLanguageEvaluationLanguageTypeEnumRuleCall_3_0());
+				}
+				lv_language_3_0=ruleEvaluationLanguageType
+				{
+					if ($current==null) {
+						$current = createModelElementForParent(grammarAccess.getEvaluationUnit_ImplRule());
+					}
+					set(
+						$current,
+						"language",
+						lv_language_3_0,
+						"org.xtext.Upctformaevalua.EvaluationLanguageType");
+					afterParserOrEnumRuleCall();
+				}
+			)
+		)
+		otherlv_4='{'
 		{
-			newLeafNode(otherlv_3, grammarAccess.getEvaluationUnit_ImplAccess().getLeftCurlyBracketKeyword_3());
+			newLeafNode(otherlv_4, grammarAccess.getEvaluationUnit_ImplAccess().getLeftCurlyBracketKeyword_4());
 		}
 		(
-			otherlv_4='numberquestions'
+			otherlv_5='numberquestions'
 			{
-				newLeafNode(otherlv_4, grammarAccess.getEvaluationUnit_ImplAccess().getNumberquestionsKeyword_4_0());
+				newLeafNode(otherlv_5, grammarAccess.getEvaluationUnit_ImplAccess().getNumberquestionsKeyword_5_0());
 			}
 			(
 				(
 					{
-						newCompositeNode(grammarAccess.getEvaluationUnit_ImplAccess().getNumberquestionsEIntParserRuleCall_4_1_0());
+						newCompositeNode(grammarAccess.getEvaluationUnit_ImplAccess().getNumberquestionsEIntParserRuleCall_5_1_0());
 					}
-					lv_numberquestions_5_0=ruleEInt
+					lv_numberquestions_6_0=ruleEInt
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getEvaluationUnit_ImplRule());
@@ -443,7 +462,7 @@ ruleEvaluationUnit_Impl returns [EObject current=null]
 						set(
 							$current,
 							"numberquestions",
-							lv_numberquestions_5_0,
+							lv_numberquestions_6_0,
 							"org.xtext.Upctformaevalua.EInt");
 						afterParserOrEnumRuleCall();
 					}
@@ -451,20 +470,20 @@ ruleEvaluationUnit_Impl returns [EObject current=null]
 			)
 		)?
 		(
-			otherlv_6='questions'
+			otherlv_7='questions'
 			{
-				newLeafNode(otherlv_6, grammarAccess.getEvaluationUnit_ImplAccess().getQuestionsKeyword_5_0());
+				newLeafNode(otherlv_7, grammarAccess.getEvaluationUnit_ImplAccess().getQuestionsKeyword_6_0());
 			}
-			otherlv_7='{'
+			otherlv_8='{'
 			{
-				newLeafNode(otherlv_7, grammarAccess.getEvaluationUnit_ImplAccess().getLeftCurlyBracketKeyword_5_1());
+				newLeafNode(otherlv_8, grammarAccess.getEvaluationUnit_ImplAccess().getLeftCurlyBracketKeyword_6_1());
 			}
 			(
 				(
 					{
-						newCompositeNode(grammarAccess.getEvaluationUnit_ImplAccess().getQuestionsQuestionParserRuleCall_5_2_0());
+						newCompositeNode(grammarAccess.getEvaluationUnit_ImplAccess().getQuestionsQuestionParserRuleCall_6_2_0());
 					}
-					lv_questions_8_0=ruleQuestion
+					lv_questions_9_0=ruleQuestion
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getEvaluationUnit_ImplRule());
@@ -472,23 +491,23 @@ ruleEvaluationUnit_Impl returns [EObject current=null]
 						add(
 							$current,
 							"questions",
-							lv_questions_8_0,
+							lv_questions_9_0,
 							"org.xtext.Upctformaevalua.Question");
 						afterParserOrEnumRuleCall();
 					}
 				)
 			)
 			(
-				otherlv_9=','
+				otherlv_10=','
 				{
-					newLeafNode(otherlv_9, grammarAccess.getEvaluationUnit_ImplAccess().getCommaKeyword_5_3_0());
+					newLeafNode(otherlv_10, grammarAccess.getEvaluationUnit_ImplAccess().getCommaKeyword_6_3_0());
 				}
 				(
 					(
 						{
-							newCompositeNode(grammarAccess.getEvaluationUnit_ImplAccess().getQuestionsQuestionParserRuleCall_5_3_1_0());
+							newCompositeNode(grammarAccess.getEvaluationUnit_ImplAccess().getQuestionsQuestionParserRuleCall_6_3_1_0());
 						}
-						lv_questions_10_0=ruleQuestion
+						lv_questions_11_0=ruleQuestion
 						{
 							if ($current==null) {
 								$current = createModelElementForParent(grammarAccess.getEvaluationUnit_ImplRule());
@@ -496,21 +515,21 @@ ruleEvaluationUnit_Impl returns [EObject current=null]
 							add(
 								$current,
 								"questions",
-								lv_questions_10_0,
+								lv_questions_11_0,
 								"org.xtext.Upctformaevalua.Question");
 							afterParserOrEnumRuleCall();
 						}
 					)
 				)
 			)*
-			otherlv_11='}'
+			otherlv_12='}'
 			{
-				newLeafNode(otherlv_11, grammarAccess.getEvaluationUnit_ImplAccess().getRightCurlyBracketKeyword_5_4());
+				newLeafNode(otherlv_12, grammarAccess.getEvaluationUnit_ImplAccess().getRightCurlyBracketKeyword_6_4());
 			}
 		)?
-		otherlv_12='}'
+		otherlv_13='}'
 		{
-			newLeafNode(otherlv_12, grammarAccess.getEvaluationUnit_ImplAccess().getRightCurlyBracketKeyword_6());
+			newLeafNode(otherlv_13, grammarAccess.getEvaluationUnit_ImplAccess().getRightCurlyBracketKeyword_7());
 		}
 	)
 ;
@@ -682,21 +701,40 @@ ruleTraining returns [EObject current=null]
 				}
 			)
 		)
-		otherlv_3='{'
+		(
+			(
+				{
+					newCompositeNode(grammarAccess.getTrainingAccess().getLanguageEvaluationLanguageTypeEnumRuleCall_3_0());
+				}
+				lv_language_3_0=ruleEvaluationLanguageType
+				{
+					if ($current==null) {
+						$current = createModelElementForParent(grammarAccess.getTrainingRule());
+					}
+					set(
+						$current,
+						"language",
+						lv_language_3_0,
+						"org.xtext.Upctformaevalua.EvaluationLanguageType");
+					afterParserOrEnumRuleCall();
+				}
+			)
+		)
+		otherlv_4='{'
 		{
-			newLeafNode(otherlv_3, grammarAccess.getTrainingAccess().getLeftCurlyBracketKeyword_3());
+			newLeafNode(otherlv_4, grammarAccess.getTrainingAccess().getLeftCurlyBracketKeyword_4());
 		}
 		(
-			otherlv_4='numberquestions'
+			otherlv_5='numberquestions'
 			{
-				newLeafNode(otherlv_4, grammarAccess.getTrainingAccess().getNumberquestionsKeyword_4_0());
+				newLeafNode(otherlv_5, grammarAccess.getTrainingAccess().getNumberquestionsKeyword_5_0());
 			}
 			(
 				(
 					{
-						newCompositeNode(grammarAccess.getTrainingAccess().getNumberquestionsEIntParserRuleCall_4_1_0());
+						newCompositeNode(grammarAccess.getTrainingAccess().getNumberquestionsEIntParserRuleCall_5_1_0());
 					}
-					lv_numberquestions_5_0=ruleEInt
+					lv_numberquestions_6_0=ruleEInt
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getTrainingRule());
@@ -704,7 +742,7 @@ ruleTraining returns [EObject current=null]
 						set(
 							$current,
 							"numberquestions",
-							lv_numberquestions_5_0,
+							lv_numberquestions_6_0,
 							"org.xtext.Upctformaevalua.EInt");
 						afterParserOrEnumRuleCall();
 					}
@@ -712,16 +750,16 @@ ruleTraining returns [EObject current=null]
 			)
 		)?
 		(
-			otherlv_6='Attempts'
+			otherlv_7='Attempts'
 			{
-				newLeafNode(otherlv_6, grammarAccess.getTrainingAccess().getAttemptsKeyword_5_0());
+				newLeafNode(otherlv_7, grammarAccess.getTrainingAccess().getAttemptsKeyword_6_0());
 			}
 			(
 				(
 					{
-						newCompositeNode(grammarAccess.getTrainingAccess().getAttemptsEIntParserRuleCall_5_1_0());
+						newCompositeNode(grammarAccess.getTrainingAccess().getAttemptsEIntParserRuleCall_6_1_0());
 					}
-					lv_Attempts_7_0=ruleEInt
+					lv_Attempts_8_0=ruleEInt
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getTrainingRule());
@@ -729,7 +767,7 @@ ruleTraining returns [EObject current=null]
 						set(
 							$current,
 							"Attempts",
-							lv_Attempts_7_0,
+							lv_Attempts_8_0,
 							"org.xtext.Upctformaevalua.EInt");
 						afterParserOrEnumRuleCall();
 					}
@@ -737,16 +775,16 @@ ruleTraining returns [EObject current=null]
 			)
 		)?
 		(
-			otherlv_8='grade'
+			otherlv_9='grade'
 			{
-				newLeafNode(otherlv_8, grammarAccess.getTrainingAccess().getGradeKeyword_6_0());
+				newLeafNode(otherlv_9, grammarAccess.getTrainingAccess().getGradeKeyword_7_0());
 			}
 			(
 				(
 					{
-						newCompositeNode(grammarAccess.getTrainingAccess().getGradeTypeGradeEnumRuleCall_6_1_0());
+						newCompositeNode(grammarAccess.getTrainingAccess().getGradeTypeGradeEnumRuleCall_7_1_0());
 					}
-					lv_grade_9_0=ruleTypeGrade
+					lv_grade_10_0=ruleTypeGrade
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getTrainingRule());
@@ -754,7 +792,7 @@ ruleTraining returns [EObject current=null]
 						set(
 							$current,
 							"grade",
-							lv_grade_9_0,
+							lv_grade_10_0,
 							"org.xtext.Upctformaevalua.TypeGrade");
 						afterParserOrEnumRuleCall();
 					}
@@ -762,20 +800,20 @@ ruleTraining returns [EObject current=null]
 			)
 		)?
 		(
-			otherlv_10='questions'
+			otherlv_11='questions'
 			{
-				newLeafNode(otherlv_10, grammarAccess.getTrainingAccess().getQuestionsKeyword_7_0());
+				newLeafNode(otherlv_11, grammarAccess.getTrainingAccess().getQuestionsKeyword_8_0());
 			}
-			otherlv_11='{'
+			otherlv_12='{'
 			{
-				newLeafNode(otherlv_11, grammarAccess.getTrainingAccess().getLeftCurlyBracketKeyword_7_1());
+				newLeafNode(otherlv_12, grammarAccess.getTrainingAccess().getLeftCurlyBracketKeyword_8_1());
 			}
 			(
 				(
 					{
-						newCompositeNode(grammarAccess.getTrainingAccess().getQuestionsQuestionParserRuleCall_7_2_0());
+						newCompositeNode(grammarAccess.getTrainingAccess().getQuestionsQuestionParserRuleCall_8_2_0());
 					}
-					lv_questions_12_0=ruleQuestion
+					lv_questions_13_0=ruleQuestion
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getTrainingRule());
@@ -783,23 +821,23 @@ ruleTraining returns [EObject current=null]
 						add(
 							$current,
 							"questions",
-							lv_questions_12_0,
+							lv_questions_13_0,
 							"org.xtext.Upctformaevalua.Question");
 						afterParserOrEnumRuleCall();
 					}
 				)
 			)
 			(
-				otherlv_13=','
+				otherlv_14=','
 				{
-					newLeafNode(otherlv_13, grammarAccess.getTrainingAccess().getCommaKeyword_7_3_0());
+					newLeafNode(otherlv_14, grammarAccess.getTrainingAccess().getCommaKeyword_8_3_0());
 				}
 				(
 					(
 						{
-							newCompositeNode(grammarAccess.getTrainingAccess().getQuestionsQuestionParserRuleCall_7_3_1_0());
+							newCompositeNode(grammarAccess.getTrainingAccess().getQuestionsQuestionParserRuleCall_8_3_1_0());
 						}
-						lv_questions_14_0=ruleQuestion
+						lv_questions_15_0=ruleQuestion
 						{
 							if ($current==null) {
 								$current = createModelElementForParent(grammarAccess.getTrainingRule());
@@ -807,21 +845,21 @@ ruleTraining returns [EObject current=null]
 							add(
 								$current,
 								"questions",
-								lv_questions_14_0,
+								lv_questions_15_0,
 								"org.xtext.Upctformaevalua.Question");
 							afterParserOrEnumRuleCall();
 						}
 					)
 				)
 			)*
-			otherlv_15='}'
+			otherlv_16='}'
 			{
-				newLeafNode(otherlv_15, grammarAccess.getTrainingAccess().getRightCurlyBracketKeyword_7_4());
+				newLeafNode(otherlv_16, grammarAccess.getTrainingAccess().getRightCurlyBracketKeyword_8_4());
 			}
 		)?
-		otherlv_16='}'
+		otherlv_17='}'
 		{
-			newLeafNode(otherlv_16, grammarAccess.getTrainingAccess().getRightCurlyBracketKeyword_8());
+			newLeafNode(otherlv_17, grammarAccess.getTrainingAccess().getRightCurlyBracketKeyword_9());
 		}
 	)
 ;
@@ -872,21 +910,40 @@ ruleFinal returns [EObject current=null]
 				}
 			)
 		)
-		otherlv_3='{'
+		(
+			(
+				{
+					newCompositeNode(grammarAccess.getFinalAccess().getLanguageEvaluationLanguageTypeEnumRuleCall_3_0());
+				}
+				lv_language_3_0=ruleEvaluationLanguageType
+				{
+					if ($current==null) {
+						$current = createModelElementForParent(grammarAccess.getFinalRule());
+					}
+					set(
+						$current,
+						"language",
+						lv_language_3_0,
+						"org.xtext.Upctformaevalua.EvaluationLanguageType");
+					afterParserOrEnumRuleCall();
+				}
+			)
+		)
+		otherlv_4='{'
 		{
-			newLeafNode(otherlv_3, grammarAccess.getFinalAccess().getLeftCurlyBracketKeyword_3());
+			newLeafNode(otherlv_4, grammarAccess.getFinalAccess().getLeftCurlyBracketKeyword_4());
 		}
 		(
-			otherlv_4='numberquestions'
+			otherlv_5='numberquestions'
 			{
-				newLeafNode(otherlv_4, grammarAccess.getFinalAccess().getNumberquestionsKeyword_4_0());
+				newLeafNode(otherlv_5, grammarAccess.getFinalAccess().getNumberquestionsKeyword_5_0());
 			}
 			(
 				(
 					{
-						newCompositeNode(grammarAccess.getFinalAccess().getNumberquestionsEIntParserRuleCall_4_1_0());
+						newCompositeNode(grammarAccess.getFinalAccess().getNumberquestionsEIntParserRuleCall_5_1_0());
 					}
-					lv_numberquestions_5_0=ruleEInt
+					lv_numberquestions_6_0=ruleEInt
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getFinalRule());
@@ -894,7 +951,7 @@ ruleFinal returns [EObject current=null]
 						set(
 							$current,
 							"numberquestions",
-							lv_numberquestions_5_0,
+							lv_numberquestions_6_0,
 							"org.xtext.Upctformaevalua.EInt");
 						afterParserOrEnumRuleCall();
 					}
@@ -902,20 +959,20 @@ ruleFinal returns [EObject current=null]
 			)
 		)?
 		(
-			otherlv_6='questions'
+			otherlv_7='questions'
 			{
-				newLeafNode(otherlv_6, grammarAccess.getFinalAccess().getQuestionsKeyword_5_0());
+				newLeafNode(otherlv_7, grammarAccess.getFinalAccess().getQuestionsKeyword_6_0());
 			}
-			otherlv_7='{'
+			otherlv_8='{'
 			{
-				newLeafNode(otherlv_7, grammarAccess.getFinalAccess().getLeftCurlyBracketKeyword_5_1());
+				newLeafNode(otherlv_8, grammarAccess.getFinalAccess().getLeftCurlyBracketKeyword_6_1());
 			}
 			(
 				(
 					{
-						newCompositeNode(grammarAccess.getFinalAccess().getQuestionsQuestionParserRuleCall_5_2_0());
+						newCompositeNode(grammarAccess.getFinalAccess().getQuestionsQuestionParserRuleCall_6_2_0());
 					}
-					lv_questions_8_0=ruleQuestion
+					lv_questions_9_0=ruleQuestion
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getFinalRule());
@@ -923,23 +980,23 @@ ruleFinal returns [EObject current=null]
 						add(
 							$current,
 							"questions",
-							lv_questions_8_0,
+							lv_questions_9_0,
 							"org.xtext.Upctformaevalua.Question");
 						afterParserOrEnumRuleCall();
 					}
 				)
 			)
 			(
-				otherlv_9=','
+				otherlv_10=','
 				{
-					newLeafNode(otherlv_9, grammarAccess.getFinalAccess().getCommaKeyword_5_3_0());
+					newLeafNode(otherlv_10, grammarAccess.getFinalAccess().getCommaKeyword_6_3_0());
 				}
 				(
 					(
 						{
-							newCompositeNode(grammarAccess.getFinalAccess().getQuestionsQuestionParserRuleCall_5_3_1_0());
+							newCompositeNode(grammarAccess.getFinalAccess().getQuestionsQuestionParserRuleCall_6_3_1_0());
 						}
-						lv_questions_10_0=ruleQuestion
+						lv_questions_11_0=ruleQuestion
 						{
 							if ($current==null) {
 								$current = createModelElementForParent(grammarAccess.getFinalRule());
@@ -947,21 +1004,21 @@ ruleFinal returns [EObject current=null]
 							add(
 								$current,
 								"questions",
-								lv_questions_10_0,
+								lv_questions_11_0,
 								"org.xtext.Upctformaevalua.Question");
 							afterParserOrEnumRuleCall();
 						}
 					)
 				)
 			)*
-			otherlv_11='}'
+			otherlv_12='}'
 			{
-				newLeafNode(otherlv_11, grammarAccess.getFinalAccess().getRightCurlyBracketKeyword_5_4());
+				newLeafNode(otherlv_12, grammarAccess.getFinalAccess().getRightCurlyBracketKeyword_6_4());
 			}
 		)?
-		otherlv_12='}'
+		otherlv_13='}'
 		{
-			newLeafNode(otherlv_12, grammarAccess.getFinalAccess().getRightCurlyBracketKeyword_6());
+			newLeafNode(otherlv_13, grammarAccess.getFinalAccess().getRightCurlyBracketKeyword_7());
 		}
 	)
 ;
@@ -1968,6 +2025,57 @@ ruleAssertion returns [EObject current=null]
 		{
 			newLeafNode(otherlv_5, grammarAccess.getAssertionAccess().getRightCurlyBracketKeyword_4());
 		}
+	)
+;
+
+// Rule EvaluationLanguageType
+ruleEvaluationLanguageType returns [Enumerator current=null]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		(
+			enumLiteral_0='ES'
+			{
+				$current = grammarAccess.getEvaluationLanguageTypeAccess().getESEnumLiteralDeclaration_0().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_0, grammarAccess.getEvaluationLanguageTypeAccess().getESEnumLiteralDeclaration_0());
+			}
+		)
+		    |
+		(
+			enumLiteral_1='EN'
+			{
+				$current = grammarAccess.getEvaluationLanguageTypeAccess().getENEnumLiteralDeclaration_1().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_1, grammarAccess.getEvaluationLanguageTypeAccess().getENEnumLiteralDeclaration_1());
+			}
+		)
+		    |
+		(
+			enumLiteral_2='FR'
+			{
+				$current = grammarAccess.getEvaluationLanguageTypeAccess().getFREnumLiteralDeclaration_2().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_2, grammarAccess.getEvaluationLanguageTypeAccess().getFREnumLiteralDeclaration_2());
+			}
+		)
+		    |
+		(
+			enumLiteral_3='GR'
+			{
+				$current = grammarAccess.getEvaluationLanguageTypeAccess().getGREnumLiteralDeclaration_3().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_3, grammarAccess.getEvaluationLanguageTypeAccess().getGREnumLiteralDeclaration_3());
+			}
+		)
+		    |
+		(
+			enumLiteral_4='LI'
+			{
+				$current = grammarAccess.getEvaluationLanguageTypeAccess().getLIEnumLiteralDeclaration_4().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_4, grammarAccess.getEvaluationLanguageTypeAccess().getLIEnumLiteralDeclaration_4());
+			}
+		)
 	)
 ;
 

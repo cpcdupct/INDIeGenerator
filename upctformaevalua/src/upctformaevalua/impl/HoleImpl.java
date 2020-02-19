@@ -70,6 +70,7 @@ public class HoleImpl extends StatementImpl implements Hole {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public TypeHole getType() {
 		return type;
 	}
@@ -79,6 +80,7 @@ public class HoleImpl extends StatementImpl implements Hole {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setType(TypeHole newType) {
 		TypeHole oldType = type;
 		type = newType == null ? TYPE_EDEFAULT : newType;
@@ -153,7 +155,7 @@ public class HoleImpl extends StatementImpl implements Hole {
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (type: ");
 		result.append(type);
 		result.append(')');

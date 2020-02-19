@@ -12,6 +12,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Image" eSuperTypes="#//SimpleElement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="url" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//ImageType"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="NameElement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -29,6 +30,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="Video" eSuperTypes="#//SimpleElement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="title" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//VideoType"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ContentDefinition" eSuperTypes="#//NameElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="templates" upperBound="-1"
@@ -56,6 +58,7 @@
         upperBound="-1" eType="#//Section" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="author" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//ContentUnitType"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="language" eType="#//LanguageType"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Section" eSuperTypes="#//NameElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="rows" upperBound="-1" eType="#//Row"
@@ -120,5 +123,20 @@
     <eLiterals name="Interoperability"/>
     <eLiterals name="Open" value="1"/>
     <eLiterals name="Preview" value="2"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="VideoType">
+    <eLiterals name="Normal"/>
+    <eLiterals name="Interactive" value="1"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="LanguageType">
+    <eLiterals name="EN"/>
+    <eLiterals name="ES" value="1"/>
+    <eLiterals name="FR" value="2"/>
+    <eLiterals name="GR" value="3"/>
+    <eLiterals name="LI" value="4"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="ImageType">
+    <eLiterals name="Original"/>
+    <eLiterals name="Fit" value="1"/>
   </eClassifiers>
 </ecore:EPackage>

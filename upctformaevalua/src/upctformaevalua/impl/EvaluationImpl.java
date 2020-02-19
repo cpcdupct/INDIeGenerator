@@ -66,6 +66,7 @@ public class EvaluationImpl extends NameElementImpl implements Evaluation {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<EvaluationUnit> getUnits() {
 		if (units == null) {
 			units = new EObjectContainmentEList<EvaluationUnit>(EvaluationUnit.class, this, UpctformaevaluaPackage.EVALUATION__UNITS);

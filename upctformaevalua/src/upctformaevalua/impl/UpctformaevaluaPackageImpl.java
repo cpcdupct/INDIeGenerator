@@ -7,10 +7,13 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
+
 import org.eclipse.emf.ecore.impl.EPackageImpl;
+
 import upctformaevalua.Answer;
 import upctformaevalua.Assertion;
 import upctformaevalua.Evaluation;
+import upctformaevalua.EvaluationLanguageType;
 import upctformaevalua.EvaluationUnit;
 import upctformaevalua.FillingAnswer;
 import upctformaevalua.Final;
@@ -171,6 +174,13 @@ public class UpctformaevaluaPackageImpl extends EPackageImpl implements Upctform
 	private EEnum typeHoleEEnum = null;
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum evaluationLanguageTypeEEnum = null;
+
+	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
 	 * {@link org.eclipse.emf.ecore.EPackage.Registry EPackage.Registry} by the package
 	 * package URI value.
@@ -198,7 +208,7 @@ public class UpctformaevaluaPackageImpl extends EPackageImpl implements Upctform
 
 	/**
 	 * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
-	 * 
+	 *
 	 * <p>This method is used to initialize {@link UpctformaevaluaPackage#eINSTANCE} when that field is accessed.
 	 * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
 	 * <!-- begin-user-doc -->
@@ -212,7 +222,8 @@ public class UpctformaevaluaPackageImpl extends EPackageImpl implements Upctform
 		if (isInited) return (UpctformaevaluaPackage)EPackage.Registry.INSTANCE.getEPackage(UpctformaevaluaPackage.eNS_URI);
 
 		// Obtain or create and register package
-		UpctformaevaluaPackageImpl theUpctformaevaluaPackage = (UpctformaevaluaPackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof UpctformaevaluaPackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new UpctformaevaluaPackageImpl());
+		Object registeredUpctformaevaluaPackage = EPackage.Registry.INSTANCE.get(eNS_URI);
+		UpctformaevaluaPackageImpl theUpctformaevaluaPackage = registeredUpctformaevaluaPackage instanceof UpctformaevaluaPackageImpl ? (UpctformaevaluaPackageImpl)registeredUpctformaevaluaPackage : new UpctformaevaluaPackageImpl();
 
 		isInited = true;
 
@@ -225,7 +236,6 @@ public class UpctformaevaluaPackageImpl extends EPackageImpl implements Upctform
 		// Mark meta-data to indicate it can't be changed
 		theUpctformaevaluaPackage.freeze();
 
-  
 		// Update the registry and return the package
 		EPackage.Registry.INSTANCE.put(UpctformaevaluaPackage.eNS_URI, theUpctformaevaluaPackage);
 		return theUpctformaevaluaPackage;
@@ -236,6 +246,7 @@ public class UpctformaevaluaPackageImpl extends EPackageImpl implements Upctform
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getEvaluation() {
 		return evaluationEClass;
 	}
@@ -245,6 +256,7 @@ public class UpctformaevaluaPackageImpl extends EPackageImpl implements Upctform
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getEvaluation_Units() {
 		return (EReference)evaluationEClass.getEStructuralFeatures().get(0);
 	}
@@ -254,6 +266,7 @@ public class UpctformaevaluaPackageImpl extends EPackageImpl implements Upctform
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getEvaluationUnit() {
 		return evaluationUnitEClass;
 	}
@@ -263,6 +276,7 @@ public class UpctformaevaluaPackageImpl extends EPackageImpl implements Upctform
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getEvaluationUnit_Questions() {
 		return (EReference)evaluationUnitEClass.getEStructuralFeatures().get(0);
 	}
@@ -272,6 +286,7 @@ public class UpctformaevaluaPackageImpl extends EPackageImpl implements Upctform
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getEvaluationUnit_Numberquestions() {
 		return (EAttribute)evaluationUnitEClass.getEStructuralFeatures().get(1);
 	}
@@ -281,6 +296,17 @@ public class UpctformaevaluaPackageImpl extends EPackageImpl implements Upctform
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
+	public EAttribute getEvaluationUnit_Language() {
+		return (EAttribute)evaluationUnitEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getTraining() {
 		return trainingEClass;
 	}
@@ -290,6 +316,7 @@ public class UpctformaevaluaPackageImpl extends EPackageImpl implements Upctform
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getTraining_Attempts() {
 		return (EAttribute)trainingEClass.getEStructuralFeatures().get(0);
 	}
@@ -299,6 +326,7 @@ public class UpctformaevaluaPackageImpl extends EPackageImpl implements Upctform
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getTraining_Grade() {
 		return (EAttribute)trainingEClass.getEStructuralFeatures().get(1);
 	}
@@ -308,6 +336,7 @@ public class UpctformaevaluaPackageImpl extends EPackageImpl implements Upctform
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getFinal() {
 		return finalEClass;
 	}
@@ -317,6 +346,7 @@ public class UpctformaevaluaPackageImpl extends EPackageImpl implements Upctform
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getQuestion() {
 		return questionEClass;
 	}
@@ -326,6 +356,7 @@ public class UpctformaevaluaPackageImpl extends EPackageImpl implements Upctform
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getQuestion_Correctfeedback() {
 		return (EAttribute)questionEClass.getEStructuralFeatures().get(0);
 	}
@@ -335,6 +366,7 @@ public class UpctformaevaluaPackageImpl extends EPackageImpl implements Upctform
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getQuestion_Incorrectfeedback() {
 		return (EAttribute)questionEClass.getEStructuralFeatures().get(1);
 	}
@@ -344,6 +376,7 @@ public class UpctformaevaluaPackageImpl extends EPackageImpl implements Upctform
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getStatement() {
 		return statementEClass;
 	}
@@ -353,6 +386,7 @@ public class UpctformaevaluaPackageImpl extends EPackageImpl implements Upctform
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getStatement_Text() {
 		return (EAttribute)statementEClass.getEStructuralFeatures().get(0);
 	}
@@ -362,6 +396,7 @@ public class UpctformaevaluaPackageImpl extends EPackageImpl implements Upctform
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getParagraph() {
 		return paragraphEClass;
 	}
@@ -371,6 +406,7 @@ public class UpctformaevaluaPackageImpl extends EPackageImpl implements Upctform
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getHole() {
 		return holeEClass;
 	}
@@ -380,6 +416,7 @@ public class UpctformaevaluaPackageImpl extends EPackageImpl implements Upctform
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getHole_Type() {
 		return (EAttribute)holeEClass.getEStructuralFeatures().get(0);
 	}
@@ -389,6 +426,7 @@ public class UpctformaevaluaPackageImpl extends EPackageImpl implements Upctform
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getAssertion() {
 		return assertionEClass;
 	}
@@ -398,6 +436,7 @@ public class UpctformaevaluaPackageImpl extends EPackageImpl implements Upctform
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getAssertion_Value() {
 		return (EAttribute)assertionEClass.getEStructuralFeatures().get(0);
 	}
@@ -407,6 +446,7 @@ public class UpctformaevaluaPackageImpl extends EPackageImpl implements Upctform
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getSingleAnswer() {
 		return singleAnswerEClass;
 	}
@@ -416,6 +456,7 @@ public class UpctformaevaluaPackageImpl extends EPackageImpl implements Upctform
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getSingleAnswer_Statements() {
 		return (EReference)singleAnswerEClass.getEStructuralFeatures().get(0);
 	}
@@ -425,6 +466,7 @@ public class UpctformaevaluaPackageImpl extends EPackageImpl implements Upctform
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getSingleAnswer_Answers() {
 		return (EReference)singleAnswerEClass.getEStructuralFeatures().get(1);
 	}
@@ -434,6 +476,7 @@ public class UpctformaevaluaPackageImpl extends EPackageImpl implements Upctform
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getSingleAnswer_Correctanswer() {
 		return (EAttribute)singleAnswerEClass.getEStructuralFeatures().get(2);
 	}
@@ -443,6 +486,7 @@ public class UpctformaevaluaPackageImpl extends EPackageImpl implements Upctform
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getMultipleAnswer() {
 		return multipleAnswerEClass;
 	}
@@ -452,6 +496,7 @@ public class UpctformaevaluaPackageImpl extends EPackageImpl implements Upctform
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getMultipleAnswer_Statements() {
 		return (EReference)multipleAnswerEClass.getEStructuralFeatures().get(0);
 	}
@@ -461,6 +506,7 @@ public class UpctformaevaluaPackageImpl extends EPackageImpl implements Upctform
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getMultipleAnswer_Answers() {
 		return (EReference)multipleAnswerEClass.getEStructuralFeatures().get(1);
 	}
@@ -470,6 +516,7 @@ public class UpctformaevaluaPackageImpl extends EPackageImpl implements Upctform
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getFillingAnswer() {
 		return fillingAnswerEClass;
 	}
@@ -479,6 +526,7 @@ public class UpctformaevaluaPackageImpl extends EPackageImpl implements Upctform
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getFillingAnswer_Holes() {
 		return (EReference)fillingAnswerEClass.getEStructuralFeatures().get(0);
 	}
@@ -488,6 +536,7 @@ public class UpctformaevaluaPackageImpl extends EPackageImpl implements Upctform
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getTrueOrFalse() {
 		return trueOrFalseEClass;
 	}
@@ -497,6 +546,7 @@ public class UpctformaevaluaPackageImpl extends EPackageImpl implements Upctform
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getTrueOrFalse_Assertions() {
 		return (EReference)trueOrFalseEClass.getEStructuralFeatures().get(0);
 	}
@@ -506,6 +556,7 @@ public class UpctformaevaluaPackageImpl extends EPackageImpl implements Upctform
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getNameElement() {
 		return nameElementEClass;
 	}
@@ -515,6 +566,7 @@ public class UpctformaevaluaPackageImpl extends EPackageImpl implements Upctform
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getNameElement_Name() {
 		return (EAttribute)nameElementEClass.getEStructuralFeatures().get(0);
 	}
@@ -524,6 +576,7 @@ public class UpctformaevaluaPackageImpl extends EPackageImpl implements Upctform
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getAnswer() {
 		return answerEClass;
 	}
@@ -533,6 +586,7 @@ public class UpctformaevaluaPackageImpl extends EPackageImpl implements Upctform
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getAnswer_Text() {
 		return (EAttribute)answerEClass.getEStructuralFeatures().get(0);
 	}
@@ -542,6 +596,7 @@ public class UpctformaevaluaPackageImpl extends EPackageImpl implements Upctform
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getSingle() {
 		return singleEClass;
 	}
@@ -551,6 +606,7 @@ public class UpctformaevaluaPackageImpl extends EPackageImpl implements Upctform
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getMultiple() {
 		return multipleEClass;
 	}
@@ -560,6 +616,7 @@ public class UpctformaevaluaPackageImpl extends EPackageImpl implements Upctform
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMultiple_Value() {
 		return (EAttribute)multipleEClass.getEStructuralFeatures().get(0);
 	}
@@ -569,6 +626,7 @@ public class UpctformaevaluaPackageImpl extends EPackageImpl implements Upctform
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EEnum getTypeGrade() {
 		return typeGradeEEnum;
 	}
@@ -578,6 +636,7 @@ public class UpctformaevaluaPackageImpl extends EPackageImpl implements Upctform
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EEnum getTypeHole() {
 		return typeHoleEEnum;
 	}
@@ -587,6 +646,17 @@ public class UpctformaevaluaPackageImpl extends EPackageImpl implements Upctform
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
+	public EEnum getEvaluationLanguageType() {
+		return evaluationLanguageTypeEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public UpctformaevaluaFactory getUpctformaevaluaFactory() {
 		return (UpctformaevaluaFactory)getEFactoryInstance();
 	}
@@ -616,6 +686,7 @@ public class UpctformaevaluaPackageImpl extends EPackageImpl implements Upctform
 		evaluationUnitEClass = createEClass(EVALUATION_UNIT);
 		createEReference(evaluationUnitEClass, EVALUATION_UNIT__QUESTIONS);
 		createEAttribute(evaluationUnitEClass, EVALUATION_UNIT__NUMBERQUESTIONS);
+		createEAttribute(evaluationUnitEClass, EVALUATION_UNIT__LANGUAGE);
 
 		trainingEClass = createEClass(TRAINING);
 		createEAttribute(trainingEClass, TRAINING__ATTEMPTS);
@@ -667,6 +738,7 @@ public class UpctformaevaluaPackageImpl extends EPackageImpl implements Upctform
 		// Create enums
 		typeGradeEEnum = createEEnum(TYPE_GRADE);
 		typeHoleEEnum = createEEnum(TYPE_HOLE);
+		evaluationLanguageTypeEEnum = createEEnum(EVALUATION_LANGUAGE_TYPE);
 	}
 
 	/**
@@ -719,6 +791,7 @@ public class UpctformaevaluaPackageImpl extends EPackageImpl implements Upctform
 		initEClass(evaluationUnitEClass, EvaluationUnit.class, "EvaluationUnit", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getEvaluationUnit_Questions(), this.getQuestion(), null, "questions", null, 0, -1, EvaluationUnit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getEvaluationUnit_Numberquestions(), ecorePackage.getEInt(), "numberquestions", null, 0, 1, EvaluationUnit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getEvaluationUnit_Language(), this.getEvaluationLanguageType(), "language", null, 0, 1, EvaluationUnit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(trainingEClass, Training.class, "Training", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getTraining_Attempts(), ecorePackage.getEInt(), "Attempts", null, 0, 1, Training.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -776,6 +849,13 @@ public class UpctformaevaluaPackageImpl extends EPackageImpl implements Upctform
 		initEEnum(typeHoleEEnum, TypeHole.class, "TypeHole");
 		addEEnumLiteral(typeHoleEEnum, TypeHole.VISIBLE);
 		addEEnumLiteral(typeHoleEEnum, TypeHole.HOLE);
+
+		initEEnum(evaluationLanguageTypeEEnum, EvaluationLanguageType.class, "EvaluationLanguageType");
+		addEEnumLiteral(evaluationLanguageTypeEEnum, EvaluationLanguageType.EN);
+		addEEnumLiteral(evaluationLanguageTypeEEnum, EvaluationLanguageType.ES);
+		addEEnumLiteral(evaluationLanguageTypeEEnum, EvaluationLanguageType.FR);
+		addEEnumLiteral(evaluationLanguageTypeEEnum, EvaluationLanguageType.GR);
+		addEEnumLiteral(evaluationLanguageTypeEEnum, EvaluationLanguageType.LI);
 
 		// Create resource
 		createResource(eNS_URI);

@@ -70,6 +70,7 @@ public class AnswerImpl extends MinimalEObjectImpl.Container implements Answer {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getText() {
 		return text;
 	}
@@ -79,6 +80,7 @@ public class AnswerImpl extends MinimalEObjectImpl.Container implements Answer {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setText(String newText) {
 		String oldText = text;
 		text = newText;
@@ -153,7 +155,7 @@ public class AnswerImpl extends MinimalEObjectImpl.Container implements Answer {
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (text: ");
 		result.append(text);
 		result.append(')');

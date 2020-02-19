@@ -19,7 +19,9 @@ import upctforma.Field;
 import upctforma.FieldValue;
 import upctforma.Game;
 import upctforma.Image;
+import upctforma.ImageType;
 import upctforma.Import;
+import upctforma.LanguageType;
 import upctforma.ListType;
 import upctforma.ListValue;
 import upctforma.Literal;
@@ -39,6 +41,7 @@ import upctforma.UpctformaFactory;
 import upctforma.UpctformaPackage;
 import upctforma.UseTemplate;
 import upctforma.Video;
+import upctforma.VideoType;
 import upctforma.Widget;
 import upctforma.WidgetType;
 
@@ -274,6 +277,27 @@ public class UpctformaPackageImpl extends EPackageImpl implements UpctformaPacka
 	private EEnum contentUnitTypeEEnum = null;
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum videoTypeEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum languageTypeEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum imageTypeEEnum = null;
+
+	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
 	 * {@link org.eclipse.emf.ecore.EPackage.Registry EPackage.Registry} by the package
 	 * package URI value.
@@ -410,6 +434,16 @@ public class UpctformaPackageImpl extends EPackageImpl implements UpctformaPacka
 	 * @generated
 	 */
 	@Override
+	public EAttribute getImage_Type() {
+		return (EAttribute)imageEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getNameElement() {
 		return nameElementEClass;
 	}
@@ -512,6 +546,16 @@ public class UpctformaPackageImpl extends EPackageImpl implements UpctformaPacka
 	@Override
 	public EAttribute getVideo_Title() {
 		return (EAttribute)videoEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getVideo_Type() {
+		return (EAttribute)videoEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -672,6 +716,16 @@ public class UpctformaPackageImpl extends EPackageImpl implements UpctformaPacka
 	@Override
 	public EAttribute getContentUnit_Type() {
 		return (EAttribute)contentUnitEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getContentUnit_Language() {
+		return (EAttribute)contentUnitEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -1030,6 +1084,36 @@ public class UpctformaPackageImpl extends EPackageImpl implements UpctformaPacka
 	 * @generated
 	 */
 	@Override
+	public EEnum getVideoType() {
+		return videoTypeEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EEnum getLanguageType() {
+		return languageTypeEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EEnum getImageType() {
+		return imageTypeEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public UpctformaFactory getUpctformaFactory() {
 		return (UpctformaFactory)getEFactoryInstance();
 	}
@@ -1062,6 +1146,7 @@ public class UpctformaPackageImpl extends EPackageImpl implements UpctformaPacka
 
 		imageEClass = createEClass(IMAGE);
 		createEAttribute(imageEClass, IMAGE__URL);
+		createEAttribute(imageEClass, IMAGE__TYPE);
 
 		nameElementEClass = createEClass(NAME_ELEMENT);
 		createEAttribute(nameElementEClass, NAME_ELEMENT__NAME);
@@ -1078,6 +1163,7 @@ public class UpctformaPackageImpl extends EPackageImpl implements UpctformaPacka
 		videoEClass = createEClass(VIDEO);
 		createEAttribute(videoEClass, VIDEO__ID);
 		createEAttribute(videoEClass, VIDEO__TITLE);
+		createEAttribute(videoEClass, VIDEO__TYPE);
 
 		contentDefinitionEClass = createEClass(CONTENT_DEFINITION);
 		createEReference(contentDefinitionEClass, CONTENT_DEFINITION__TEMPLATES);
@@ -1100,6 +1186,7 @@ public class UpctformaPackageImpl extends EPackageImpl implements UpctformaPacka
 		createEReference(contentUnitEClass, CONTENT_UNIT__SECTIONS);
 		createEAttribute(contentUnitEClass, CONTENT_UNIT__AUTHOR);
 		createEAttribute(contentUnitEClass, CONTENT_UNIT__TYPE);
+		createEAttribute(contentUnitEClass, CONTENT_UNIT__LANGUAGE);
 
 		sectionEClass = createEClass(SECTION);
 		createEReference(sectionEClass, SECTION__ROWS);
@@ -1153,6 +1240,9 @@ public class UpctformaPackageImpl extends EPackageImpl implements UpctformaPacka
 		// Create enums
 		sectionTypeEEnum = createEEnum(SECTION_TYPE);
 		contentUnitTypeEEnum = createEEnum(CONTENT_UNIT_TYPE);
+		videoTypeEEnum = createEEnum(VIDEO_TYPE);
+		languageTypeEEnum = createEEnum(LANGUAGE_TYPE);
+		imageTypeEEnum = createEEnum(IMAGE_TYPE);
 	}
 
 	/**
@@ -1221,6 +1311,7 @@ public class UpctformaPackageImpl extends EPackageImpl implements UpctformaPacka
 
 		initEClass(imageEClass, Image.class, "Image", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getImage_Url(), ecorePackage.getEString(), "url", null, 0, 1, Image.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getImage_Type(), this.getImageType(), "type", null, 0, 1, Image.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(nameElementEClass, NameElement.class, "NameElement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getNameElement_Name(), ecorePackage.getEString(), "name", null, 0, 1, NameElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1237,6 +1328,7 @@ public class UpctformaPackageImpl extends EPackageImpl implements UpctformaPacka
 		initEClass(videoEClass, Video.class, "Video", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getVideo_Id(), ecorePackage.getEString(), "id", null, 0, 1, Video.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getVideo_Title(), ecorePackage.getEString(), "title", null, 0, 1, Video.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getVideo_Type(), this.getVideoType(), "type", null, 0, 1, Video.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(contentDefinitionEClass, ContentDefinition.class, "ContentDefinition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getContentDefinition_Templates(), this.getTemplateDef(), null, "templates", null, 0, -1, ContentDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1259,6 +1351,7 @@ public class UpctformaPackageImpl extends EPackageImpl implements UpctformaPacka
 		initEReference(getContentUnit_Sections(), this.getSection(), null, "sections", null, 1, -1, ContentUnit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getContentUnit_Author(), ecorePackage.getEString(), "author", null, 0, 1, ContentUnit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getContentUnit_Type(), this.getContentUnitType(), "type", null, 0, 1, ContentUnit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getContentUnit_Language(), this.getLanguageType(), "language", null, 0, 1, ContentUnit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(sectionEClass, Section.class, "Section", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getSection_Rows(), this.getRow(), null, "rows", null, 0, -1, Section.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1318,6 +1411,21 @@ public class UpctformaPackageImpl extends EPackageImpl implements UpctformaPacka
 		addEEnumLiteral(contentUnitTypeEEnum, ContentUnitType.INTEROPERABILITY);
 		addEEnumLiteral(contentUnitTypeEEnum, ContentUnitType.OPEN);
 		addEEnumLiteral(contentUnitTypeEEnum, ContentUnitType.PREVIEW);
+
+		initEEnum(videoTypeEEnum, VideoType.class, "VideoType");
+		addEEnumLiteral(videoTypeEEnum, VideoType.NORMAL);
+		addEEnumLiteral(videoTypeEEnum, VideoType.INTERACTIVE);
+
+		initEEnum(languageTypeEEnum, LanguageType.class, "LanguageType");
+		addEEnumLiteral(languageTypeEEnum, LanguageType.EN);
+		addEEnumLiteral(languageTypeEEnum, LanguageType.ES);
+		addEEnumLiteral(languageTypeEEnum, LanguageType.FR);
+		addEEnumLiteral(languageTypeEEnum, LanguageType.GR);
+		addEEnumLiteral(languageTypeEEnum, LanguageType.LI);
+
+		initEEnum(imageTypeEEnum, ImageType.class, "ImageType");
+		addEEnumLiteral(imageTypeEEnum, ImageType.ORIGINAL);
+		addEEnumLiteral(imageTypeEEnum, ImageType.FIT);
 
 		// Create resource
 		createResource(eNS_URI);

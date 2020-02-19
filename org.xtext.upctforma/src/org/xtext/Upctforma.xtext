@@ -49,11 +49,21 @@ TemplateDef returns TemplateDef:
 enum ContentUnitType returns ContentUnitType:
 				Interoperability = 'Interoperability' | Open = 'Open' | Preview = 'Preview';
 				
+enum VideoType returns VideoType:
+				Normal = 'Normal' | Interactive = 'Interactive';				
+				
+enum LanguageType returns LanguageType:
+				ES = 'ES' | EN = 'EN' | FR = 'FR' | GR = 'GR' | LI = 'LI';	
+								
+enum ImageType returns ImageType:
+				Original = 'Original' | Fit = 'Fit';	
+								
 ContentUnit returns ContentUnit:
 	'Unit'
 	name=EString
 	author=EString
 	type=ContentUnitType
+	language = LanguageType
 	'{'
 		sections+=Section ( "," sections+=Section)*
 	'}';
@@ -93,8 +103,9 @@ ContentElement_Impl returns ContentElement:
 Image returns Image:
 	{Image}
 	'Image'
-	'{'
-		('url' url=EString)?
+	'{'		
+		('url' url=EString)?","
+		type = ImageType
 	'}';
 
 Widget returns Widget:
@@ -129,7 +140,8 @@ Video returns Video:
 	'Video'
 	'{'
 		('id' id=EString)?","
-		('title' title=EString)?
+		('title' title=EString)?","
+		('type' type=VideoType)?
 	'}';
 
 

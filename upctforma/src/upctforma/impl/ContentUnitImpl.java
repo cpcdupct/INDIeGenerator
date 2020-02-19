@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 
 import upctforma.ContentUnit;
 import upctforma.ContentUnitType;
+import upctforma.LanguageType;
 import upctforma.Section;
 import upctforma.UpctformaPackage;
 
@@ -33,6 +34,7 @@ import upctforma.UpctformaPackage;
  *   <li>{@link upctforma.impl.ContentUnitImpl#getSections <em>Sections</em>}</li>
  *   <li>{@link upctforma.impl.ContentUnitImpl#getAuthor <em>Author</em>}</li>
  *   <li>{@link upctforma.impl.ContentUnitImpl#getType <em>Type</em>}</li>
+ *   <li>{@link upctforma.impl.ContentUnitImpl#getLanguage <em>Language</em>}</li>
  * </ul>
  *
  * @generated
@@ -87,6 +89,26 @@ public class ContentUnitImpl extends NameElementImpl implements ContentUnit {
 	 * @ordered
 	 */
 	protected ContentUnitType type = TYPE_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getLanguage() <em>Language</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getLanguage()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final LanguageType LANGUAGE_EDEFAULT = LanguageType.EN;
+
+	/**
+	 * The cached value of the '{@link #getLanguage() <em>Language</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getLanguage()
+	 * @generated
+	 * @ordered
+	 */
+	protected LanguageType language = LANGUAGE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -172,6 +194,29 @@ public class ContentUnitImpl extends NameElementImpl implements ContentUnit {
 	 * @generated
 	 */
 	@Override
+	public LanguageType getLanguage() {
+		return language;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setLanguage(LanguageType newLanguage) {
+		LanguageType oldLanguage = language;
+		language = newLanguage == null ? LANGUAGE_EDEFAULT : newLanguage;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, UpctformaPackage.CONTENT_UNIT__LANGUAGE, oldLanguage, language));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case UpctformaPackage.CONTENT_UNIT__SECTIONS:
@@ -194,6 +239,8 @@ public class ContentUnitImpl extends NameElementImpl implements ContentUnit {
 				return getAuthor();
 			case UpctformaPackage.CONTENT_UNIT__TYPE:
 				return getType();
+			case UpctformaPackage.CONTENT_UNIT__LANGUAGE:
+				return getLanguage();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -217,6 +264,9 @@ public class ContentUnitImpl extends NameElementImpl implements ContentUnit {
 			case UpctformaPackage.CONTENT_UNIT__TYPE:
 				setType((ContentUnitType)newValue);
 				return;
+			case UpctformaPackage.CONTENT_UNIT__LANGUAGE:
+				setLanguage((LanguageType)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -238,6 +288,9 @@ public class ContentUnitImpl extends NameElementImpl implements ContentUnit {
 			case UpctformaPackage.CONTENT_UNIT__TYPE:
 				setType(TYPE_EDEFAULT);
 				return;
+			case UpctformaPackage.CONTENT_UNIT__LANGUAGE:
+				setLanguage(LANGUAGE_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -256,6 +309,8 @@ public class ContentUnitImpl extends NameElementImpl implements ContentUnit {
 				return AUTHOR_EDEFAULT == null ? author != null : !AUTHOR_EDEFAULT.equals(author);
 			case UpctformaPackage.CONTENT_UNIT__TYPE:
 				return type != TYPE_EDEFAULT;
+			case UpctformaPackage.CONTENT_UNIT__LANGUAGE:
+				return language != LANGUAGE_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -274,6 +329,8 @@ public class ContentUnitImpl extends NameElementImpl implements ContentUnit {
 		result.append(author);
 		result.append(", type: ");
 		result.append(type);
+		result.append(", language: ");
+		result.append(language);
 		result.append(')');
 		return result.toString();
 	}

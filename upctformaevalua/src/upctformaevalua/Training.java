@@ -24,10 +24,6 @@ public interface Training extends EvaluationUnit {
 	/**
 	 * Returns the value of the '<em><b>Attempts</b></em>' attribute.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Attempts</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Attempts</em>' attribute.
 	 * @see #setAttempts(int)
@@ -51,10 +47,6 @@ public interface Training extends EvaluationUnit {
 	 * Returns the value of the '<em><b>Grade</b></em>' attribute.
 	 * The literals are from the enumeration {@link upctformaevalua.TypeGrade}.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Grade</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Grade</em>' attribute.
 	 * @see upctformaevalua.TypeGrade

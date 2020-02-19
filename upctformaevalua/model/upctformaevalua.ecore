@@ -10,6 +10,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="questions" upperBound="-1"
         eType="#//Question" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="numberquestions" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="language" eType="#//EvaluationLanguageType"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Training" eSuperTypes="#//EvaluationUnit">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="Attempts" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
@@ -69,5 +70,12 @@
   <eClassifiers xsi:type="ecore:EEnum" name="TypeHole">
     <eLiterals name="visible" value="1"/>
     <eLiterals name="hole" value="2"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="EvaluationLanguageType">
+    <eLiterals name="EN"/>
+    <eLiterals name="ES" value="1"/>
+    <eLiterals name="FR" value="2"/>
+    <eLiterals name="GR" value="3"/>
+    <eLiterals name="LI" value="4"/>
   </eClassifiers>
 </ecore:EPackage>

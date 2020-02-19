@@ -22,7 +22,9 @@ import upctforma.Field;
 import upctforma.FieldValue;
 import upctforma.Game;
 import upctforma.Image;
+import upctforma.ImageType;
 import upctforma.Import;
+import upctforma.LanguageType;
 import upctforma.ListType;
 import upctforma.ListValue;
 import upctforma.Literal;
@@ -42,6 +44,7 @@ import upctforma.UpctformaFactory;
 import upctforma.UpctformaPackage;
 import upctforma.UseTemplate;
 import upctforma.Video;
+import upctforma.VideoType;
 import upctforma.Widget;
 import upctforma.WidgetType;
 
@@ -136,6 +139,12 @@ public class UpctformaFactoryImpl extends EFactoryImpl implements UpctformaFacto
 				return createSectionTypeFromString(eDataType, initialValue);
 			case UpctformaPackage.CONTENT_UNIT_TYPE:
 				return createContentUnitTypeFromString(eDataType, initialValue);
+			case UpctformaPackage.VIDEO_TYPE:
+				return createVideoTypeFromString(eDataType, initialValue);
+			case UpctformaPackage.LANGUAGE_TYPE:
+				return createLanguageTypeFromString(eDataType, initialValue);
+			case UpctformaPackage.IMAGE_TYPE:
+				return createImageTypeFromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -153,6 +162,12 @@ public class UpctformaFactoryImpl extends EFactoryImpl implements UpctformaFacto
 				return convertSectionTypeToString(eDataType, instanceValue);
 			case UpctformaPackage.CONTENT_UNIT_TYPE:
 				return convertContentUnitTypeToString(eDataType, instanceValue);
+			case UpctformaPackage.VIDEO_TYPE:
+				return convertVideoTypeToString(eDataType, instanceValue);
+			case UpctformaPackage.LANGUAGE_TYPE:
+				return convertLanguageTypeToString(eDataType, instanceValue);
+			case UpctformaPackage.IMAGE_TYPE:
+				return convertImageTypeToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -525,6 +540,66 @@ public class UpctformaFactoryImpl extends EFactoryImpl implements UpctformaFacto
 	 * @generated
 	 */
 	public String convertContentUnitTypeToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public VideoType createVideoTypeFromString(EDataType eDataType, String initialValue) {
+		VideoType result = VideoType.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertVideoTypeToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public LanguageType createLanguageTypeFromString(EDataType eDataType, String initialValue) {
+		LanguageType result = LanguageType.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertLanguageTypeToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ImageType createImageTypeFromString(EDataType eDataType, String initialValue) {
+		ImageType result = ImageType.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertImageTypeToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 

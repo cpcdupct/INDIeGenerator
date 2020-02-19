@@ -14,6 +14,7 @@ package upctforma;
  * <ul>
  *   <li>{@link upctforma.Video#getId <em>Id</em>}</li>
  *   <li>{@link upctforma.Video#getTitle <em>Title</em>}</li>
+ *   <li>{@link upctforma.Video#getType <em>Type</em>}</li>
  * </ul>
  *
  * @see upctforma.UpctformaPackage#getVideo()
@@ -68,5 +69,30 @@ public interface Video extends SimpleElement {
 	 * @generated
 	 */
 	void setTitle(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Type</b></em>' attribute.
+	 * The literals are from the enumeration {@link upctforma.VideoType}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Type</em>' attribute.
+	 * @see upctforma.VideoType
+	 * @see #setType(VideoType)
+	 * @see upctforma.UpctformaPackage#getVideo_Type()
+	 * @model
+	 * @generated
+	 */
+	VideoType getType();
+
+	/**
+	 * Sets the value of the '{@link upctforma.Video#getType <em>Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Type</em>' attribute.
+	 * @see upctforma.VideoType
+	 * @see #getType()
+	 * @generated
+	 */
+	void setType(VideoType value);
 
 } // Video

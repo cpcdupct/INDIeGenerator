@@ -91,6 +91,8 @@ public class UpctformaevaluaFactoryImpl extends EFactoryImpl implements Upctform
 				return createTypeGradeFromString(eDataType, initialValue);
 			case UpctformaevaluaPackage.TYPE_HOLE:
 				return createTypeHoleFromString(eDataType, initialValue);
+			case UpctformaevaluaPackage.EVALUATION_LANGUAGE_TYPE:
+				return createEvaluationLanguageTypeFromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -108,6 +110,8 @@ public class UpctformaevaluaFactoryImpl extends EFactoryImpl implements Upctform
 				return convertTypeGradeToString(eDataType, instanceValue);
 			case UpctformaevaluaPackage.TYPE_HOLE:
 				return convertTypeHoleToString(eDataType, instanceValue);
+			case UpctformaevaluaPackage.EVALUATION_LANGUAGE_TYPE:
+				return convertEvaluationLanguageTypeToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -118,6 +122,7 @@ public class UpctformaevaluaFactoryImpl extends EFactoryImpl implements Upctform
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Evaluation createEvaluation() {
 		EvaluationImpl evaluation = new EvaluationImpl();
 		return evaluation;
@@ -128,6 +133,7 @@ public class UpctformaevaluaFactoryImpl extends EFactoryImpl implements Upctform
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EvaluationUnit createEvaluationUnit() {
 		EvaluationUnitImpl evaluationUnit = new EvaluationUnitImpl();
 		return evaluationUnit;
@@ -138,6 +144,7 @@ public class UpctformaevaluaFactoryImpl extends EFactoryImpl implements Upctform
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Training createTraining() {
 		TrainingImpl training = new TrainingImpl();
 		return training;
@@ -148,6 +155,7 @@ public class UpctformaevaluaFactoryImpl extends EFactoryImpl implements Upctform
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Final createFinal() {
 		FinalImpl final_ = new FinalImpl();
 		return final_;
@@ -158,6 +166,7 @@ public class UpctformaevaluaFactoryImpl extends EFactoryImpl implements Upctform
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Question createQuestion() {
 		QuestionImpl question = new QuestionImpl();
 		return question;
@@ -168,6 +177,7 @@ public class UpctformaevaluaFactoryImpl extends EFactoryImpl implements Upctform
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Statement createStatement() {
 		StatementImpl statement = new StatementImpl();
 		return statement;
@@ -178,6 +188,7 @@ public class UpctformaevaluaFactoryImpl extends EFactoryImpl implements Upctform
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Paragraph createParagraph() {
 		ParagraphImpl paragraph = new ParagraphImpl();
 		return paragraph;
@@ -188,6 +199,7 @@ public class UpctformaevaluaFactoryImpl extends EFactoryImpl implements Upctform
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Hole createHole() {
 		HoleImpl hole = new HoleImpl();
 		return hole;
@@ -198,6 +210,7 @@ public class UpctformaevaluaFactoryImpl extends EFactoryImpl implements Upctform
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Assertion createAssertion() {
 		AssertionImpl assertion = new AssertionImpl();
 		return assertion;
@@ -208,6 +221,7 @@ public class UpctformaevaluaFactoryImpl extends EFactoryImpl implements Upctform
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public SingleAnswer createSingleAnswer() {
 		SingleAnswerImpl singleAnswer = new SingleAnswerImpl();
 		return singleAnswer;
@@ -218,6 +232,7 @@ public class UpctformaevaluaFactoryImpl extends EFactoryImpl implements Upctform
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public MultipleAnswer createMultipleAnswer() {
 		MultipleAnswerImpl multipleAnswer = new MultipleAnswerImpl();
 		return multipleAnswer;
@@ -228,6 +243,7 @@ public class UpctformaevaluaFactoryImpl extends EFactoryImpl implements Upctform
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FillingAnswer createFillingAnswer() {
 		FillingAnswerImpl fillingAnswer = new FillingAnswerImpl();
 		return fillingAnswer;
@@ -238,6 +254,7 @@ public class UpctformaevaluaFactoryImpl extends EFactoryImpl implements Upctform
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public TrueOrFalse createTrueOrFalse() {
 		TrueOrFalseImpl trueOrFalse = new TrueOrFalseImpl();
 		return trueOrFalse;
@@ -248,6 +265,7 @@ public class UpctformaevaluaFactoryImpl extends EFactoryImpl implements Upctform
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NameElement createNameElement() {
 		NameElementImpl nameElement = new NameElementImpl();
 		return nameElement;
@@ -258,6 +276,7 @@ public class UpctformaevaluaFactoryImpl extends EFactoryImpl implements Upctform
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Answer createAnswer() {
 		AnswerImpl answer = new AnswerImpl();
 		return answer;
@@ -268,6 +287,7 @@ public class UpctformaevaluaFactoryImpl extends EFactoryImpl implements Upctform
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Single createSingle() {
 		SingleImpl single = new SingleImpl();
 		return single;
@@ -278,6 +298,7 @@ public class UpctformaevaluaFactoryImpl extends EFactoryImpl implements Upctform
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Multiple createMultiple() {
 		MultipleImpl multiple = new MultipleImpl();
 		return multiple;
@@ -328,6 +349,27 @@ public class UpctformaevaluaFactoryImpl extends EFactoryImpl implements Upctform
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EvaluationLanguageType createEvaluationLanguageTypeFromString(EDataType eDataType, String initialValue) {
+		EvaluationLanguageType result = EvaluationLanguageType.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertEvaluationLanguageTypeToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public UpctformaevaluaPackage getUpctformaevaluaPackage() {
 		return (UpctformaevaluaPackage)getEPackage();
 	}

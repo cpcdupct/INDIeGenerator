@@ -1,6 +1,6 @@
 /**
  */
-package upctformaevalua;
+package upctforma;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -10,109 +10,153 @@ import org.eclipse.emf.common.util.Enumerator;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the literals of the enumeration '<em><b>Type Grade</b></em>',
+ * A representation of the literals of the enumeration '<em><b>Language Type</b></em>',
  * and utility methods for working with them.
  * <!-- end-user-doc -->
- * @see upctformaevalua.UpctformaevaluaPackage#getTypeGrade()
+ * @see upctforma.UpctformaPackage#getLanguageType()
  * @model
  * @generated
  */
-public enum TypeGrade implements Enumerator {
+public enum LanguageType implements Enumerator {
 	/**
-	 * The '<em><b>Highest</b></em>' literal object.
+	 * The '<em><b>EN</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #HIGHEST_VALUE
+	 * @see #EN_VALUE
 	 * @generated
 	 * @ordered
 	 */
-	HIGHEST(1, "highest", "highest"),
+	EN(0, "EN", "EN"),
 
 	/**
-	 * The '<em><b>Middle</b></em>' literal object.
+	 * The '<em><b>ES</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #MIDDLE_VALUE
+	 * @see #ES_VALUE
 	 * @generated
 	 * @ordered
 	 */
-	MIDDLE(2, "middle", "middle"),
+	ES(1, "ES", "ES"),
 
 	/**
-	 * The '<em><b>Lowest</b></em>' literal object.
+	 * The '<em><b>FR</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #LOWEST_VALUE
+	 * @see #FR_VALUE
 	 * @generated
 	 * @ordered
 	 */
-	LOWEST(3, "lowest", "lowest");
+	FR(2, "FR", "FR"),
 
 	/**
-	 * The '<em><b>Highest</b></em>' literal value.
+	 * The '<em><b>GR</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #HIGHEST
-	 * @model name="highest"
+	 * @see #GR_VALUE
 	 * @generated
 	 * @ordered
 	 */
-	public static final int HIGHEST_VALUE = 1;
+	GR(3, "GR", "GR"),
 
 	/**
-	 * The '<em><b>Middle</b></em>' literal value.
+	 * The '<em><b>LI</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #MIDDLE
-	 * @model name="middle"
+	 * @see #LI_VALUE
 	 * @generated
 	 * @ordered
 	 */
-	public static final int MIDDLE_VALUE = 2;
+	LI(4, "LI", "LI");
 
 	/**
-	 * The '<em><b>Lowest</b></em>' literal value.
+	 * The '<em><b>EN</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #LOWEST
-	 * @model name="lowest"
+	 * @see #EN
+	 * @model
 	 * @generated
 	 * @ordered
 	 */
-	public static final int LOWEST_VALUE = 3;
+	public static final int EN_VALUE = 0;
 
 	/**
-	 * An array of all the '<em><b>Type Grade</b></em>' enumerators.
+	 * The '<em><b>ES</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #ES
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int ES_VALUE = 1;
+
+	/**
+	 * The '<em><b>FR</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #FR
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int FR_VALUE = 2;
+
+	/**
+	 * The '<em><b>GR</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #GR
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int GR_VALUE = 3;
+
+	/**
+	 * The '<em><b>LI</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #LI
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int LI_VALUE = 4;
+
+	/**
+	 * An array of all the '<em><b>Language Type</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private static final TypeGrade[] VALUES_ARRAY =
-		new TypeGrade[] {
-			HIGHEST,
-			MIDDLE,
-			LOWEST,
+	private static final LanguageType[] VALUES_ARRAY =
+		new LanguageType[] {
+			EN,
+			ES,
+			FR,
+			GR,
+			LI,
 		};
 
 	/**
-	 * A public read-only list of all the '<em><b>Type Grade</b></em>' enumerators.
+	 * A public read-only list of all the '<em><b>Language Type</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static final List<TypeGrade> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
+	public static final List<LanguageType> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
-	 * Returns the '<em><b>Type Grade</b></em>' literal with the specified literal value.
+	 * Returns the '<em><b>Language Type</b></em>' literal with the specified literal value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param literal the literal.
 	 * @return the matching enumerator or <code>null</code>.
 	 * @generated
 	 */
-	public static TypeGrade get(String literal) {
+	public static LanguageType get(String literal) {
 		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
-			TypeGrade result = VALUES_ARRAY[i];
+			LanguageType result = VALUES_ARRAY[i];
 			if (result.toString().equals(literal)) {
 				return result;
 			}
@@ -121,16 +165,16 @@ public enum TypeGrade implements Enumerator {
 	}
 
 	/**
-	 * Returns the '<em><b>Type Grade</b></em>' literal with the specified name.
+	 * Returns the '<em><b>Language Type</b></em>' literal with the specified name.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param name the name.
 	 * @return the matching enumerator or <code>null</code>.
 	 * @generated
 	 */
-	public static TypeGrade getByName(String name) {
+	public static LanguageType getByName(String name) {
 		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
-			TypeGrade result = VALUES_ARRAY[i];
+			LanguageType result = VALUES_ARRAY[i];
 			if (result.getName().equals(name)) {
 				return result;
 			}
@@ -139,18 +183,20 @@ public enum TypeGrade implements Enumerator {
 	}
 
 	/**
-	 * Returns the '<em><b>Type Grade</b></em>' literal with the specified integer value.
+	 * Returns the '<em><b>Language Type</b></em>' literal with the specified integer value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the integer value.
 	 * @return the matching enumerator or <code>null</code>.
 	 * @generated
 	 */
-	public static TypeGrade get(int value) {
+	public static LanguageType get(int value) {
 		switch (value) {
-			case HIGHEST_VALUE: return HIGHEST;
-			case MIDDLE_VALUE: return MIDDLE;
-			case LOWEST_VALUE: return LOWEST;
+			case EN_VALUE: return EN;
+			case ES_VALUE: return ES;
+			case FR_VALUE: return FR;
+			case GR_VALUE: return GR;
+			case LI_VALUE: return LI;
 		}
 		return null;
 	}
@@ -182,7 +228,7 @@ public enum TypeGrade implements Enumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private TypeGrade(int value, String name, String literal) {
+	private LanguageType(int value, String name, String literal) {
 		this.value = value;
 		this.name = name;
 		this.literal = literal;
@@ -229,4 +275,4 @@ public enum TypeGrade implements Enumerator {
 		return literal;
 	}
 	
-} //TypeGrade
+} //LanguageType

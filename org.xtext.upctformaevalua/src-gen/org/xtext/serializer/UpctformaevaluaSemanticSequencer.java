@@ -108,7 +108,7 @@ public class UpctformaevaluaSemanticSequencer extends AbstractDelegatingSemantic
 	 *     EvaluationUnit_Impl returns EvaluationUnit
 	 *
 	 * Constraint:
-	 *     (name=EString numberquestions=EInt? (questions+=Question questions+=Question*)?)
+	 *     (name=EString language=EvaluationLanguageType numberquestions=EInt? (questions+=Question questions+=Question*)?)
 	 */
 	protected void sequence_EvaluationUnit_Impl(ISerializationContext context, EvaluationUnit semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -146,7 +146,7 @@ public class UpctformaevaluaSemanticSequencer extends AbstractDelegatingSemantic
 	 *     Final returns Final
 	 *
 	 * Constraint:
-	 *     (name=EString numberquestions=EInt? (questions+=Question questions+=Question*)?)
+	 *     (name=EString language=EvaluationLanguageType numberquestions=EInt? (questions+=Question questions+=Question*)?)
 	 */
 	protected void sequence_Final(ISerializationContext context, Final semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -246,7 +246,14 @@ public class UpctformaevaluaSemanticSequencer extends AbstractDelegatingSemantic
 	 *     Training returns Training
 	 *
 	 * Constraint:
-	 *     (name=EString numberquestions=EInt? Attempts=EInt? grade=TypeGrade? (questions+=Question questions+=Question*)?)
+	 *     (
+	 *         name=EString 
+	 *         language=EvaluationLanguageType 
+	 *         numberquestions=EInt? 
+	 *         Attempts=EInt? 
+	 *         grade=TypeGrade? 
+	 *         (questions+=Question questions+=Question*)?
+	 *     )
 	 */
 	protected void sequence_Training(ISerializationContext context, Training semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

@@ -91,6 +91,7 @@ public class TrainingImpl extends EvaluationUnitImpl implements Training {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public int getAttempts() {
 		return attempts;
 	}
@@ -100,6 +101,7 @@ public class TrainingImpl extends EvaluationUnitImpl implements Training {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setAttempts(int newAttempts) {
 		int oldAttempts = attempts;
 		attempts = newAttempts;
@@ -112,6 +114,7 @@ public class TrainingImpl extends EvaluationUnitImpl implements Training {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public TypeGrade getGrade() {
 		return grade;
 	}
@@ -121,6 +124,7 @@ public class TrainingImpl extends EvaluationUnitImpl implements Training {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setGrade(TypeGrade newGrade) {
 		TypeGrade oldGrade = grade;
 		grade = newGrade == null ? GRADE_EDEFAULT : newGrade;
@@ -205,7 +209,7 @@ public class TrainingImpl extends EvaluationUnitImpl implements Training {
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (Attempts: ");
 		result.append(attempts);
 		result.append(", grade: ");

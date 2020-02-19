@@ -1,6 +1,6 @@
 /**
  */
-package upctformaevalua;
+package upctforma;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -10,109 +10,87 @@ import org.eclipse.emf.common.util.Enumerator;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the literals of the enumeration '<em><b>Type Grade</b></em>',
+ * A representation of the literals of the enumeration '<em><b>Image Type</b></em>',
  * and utility methods for working with them.
  * <!-- end-user-doc -->
- * @see upctformaevalua.UpctformaevaluaPackage#getTypeGrade()
+ * @see upctforma.UpctformaPackage#getImageType()
  * @model
  * @generated
  */
-public enum TypeGrade implements Enumerator {
+public enum ImageType implements Enumerator {
 	/**
-	 * The '<em><b>Highest</b></em>' literal object.
+	 * The '<em><b>Original</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #HIGHEST_VALUE
+	 * @see #ORIGINAL_VALUE
 	 * @generated
 	 * @ordered
 	 */
-	HIGHEST(1, "highest", "highest"),
+	ORIGINAL(0, "Original", "Original"),
 
 	/**
-	 * The '<em><b>Middle</b></em>' literal object.
+	 * The '<em><b>Fit</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #MIDDLE_VALUE
+	 * @see #FIT_VALUE
 	 * @generated
 	 * @ordered
 	 */
-	MIDDLE(2, "middle", "middle"),
+	FIT(1, "Fit", "Fit");
 
 	/**
-	 * The '<em><b>Lowest</b></em>' literal object.
+	 * The '<em><b>Original</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #LOWEST_VALUE
+	 * @see #ORIGINAL
+	 * @model name="Original"
 	 * @generated
 	 * @ordered
 	 */
-	LOWEST(3, "lowest", "lowest");
+	public static final int ORIGINAL_VALUE = 0;
 
 	/**
-	 * The '<em><b>Highest</b></em>' literal value.
+	 * The '<em><b>Fit</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #HIGHEST
-	 * @model name="highest"
+	 * @see #FIT
+	 * @model name="Fit"
 	 * @generated
 	 * @ordered
 	 */
-	public static final int HIGHEST_VALUE = 1;
+	public static final int FIT_VALUE = 1;
 
 	/**
-	 * The '<em><b>Middle</b></em>' literal value.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #MIDDLE
-	 * @model name="middle"
-	 * @generated
-	 * @ordered
-	 */
-	public static final int MIDDLE_VALUE = 2;
-
-	/**
-	 * The '<em><b>Lowest</b></em>' literal value.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #LOWEST
-	 * @model name="lowest"
-	 * @generated
-	 * @ordered
-	 */
-	public static final int LOWEST_VALUE = 3;
-
-	/**
-	 * An array of all the '<em><b>Type Grade</b></em>' enumerators.
+	 * An array of all the '<em><b>Image Type</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private static final TypeGrade[] VALUES_ARRAY =
-		new TypeGrade[] {
-			HIGHEST,
-			MIDDLE,
-			LOWEST,
+	private static final ImageType[] VALUES_ARRAY =
+		new ImageType[] {
+			ORIGINAL,
+			FIT,
 		};
 
 	/**
-	 * A public read-only list of all the '<em><b>Type Grade</b></em>' enumerators.
+	 * A public read-only list of all the '<em><b>Image Type</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static final List<TypeGrade> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
+	public static final List<ImageType> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
-	 * Returns the '<em><b>Type Grade</b></em>' literal with the specified literal value.
+	 * Returns the '<em><b>Image Type</b></em>' literal with the specified literal value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param literal the literal.
 	 * @return the matching enumerator or <code>null</code>.
 	 * @generated
 	 */
-	public static TypeGrade get(String literal) {
+	public static ImageType get(String literal) {
 		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
-			TypeGrade result = VALUES_ARRAY[i];
+			ImageType result = VALUES_ARRAY[i];
 			if (result.toString().equals(literal)) {
 				return result;
 			}
@@ -121,16 +99,16 @@ public enum TypeGrade implements Enumerator {
 	}
 
 	/**
-	 * Returns the '<em><b>Type Grade</b></em>' literal with the specified name.
+	 * Returns the '<em><b>Image Type</b></em>' literal with the specified name.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param name the name.
 	 * @return the matching enumerator or <code>null</code>.
 	 * @generated
 	 */
-	public static TypeGrade getByName(String name) {
+	public static ImageType getByName(String name) {
 		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
-			TypeGrade result = VALUES_ARRAY[i];
+			ImageType result = VALUES_ARRAY[i];
 			if (result.getName().equals(name)) {
 				return result;
 			}
@@ -139,18 +117,17 @@ public enum TypeGrade implements Enumerator {
 	}
 
 	/**
-	 * Returns the '<em><b>Type Grade</b></em>' literal with the specified integer value.
+	 * Returns the '<em><b>Image Type</b></em>' literal with the specified integer value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the integer value.
 	 * @return the matching enumerator or <code>null</code>.
 	 * @generated
 	 */
-	public static TypeGrade get(int value) {
+	public static ImageType get(int value) {
 		switch (value) {
-			case HIGHEST_VALUE: return HIGHEST;
-			case MIDDLE_VALUE: return MIDDLE;
-			case LOWEST_VALUE: return LOWEST;
+			case ORIGINAL_VALUE: return ORIGINAL;
+			case FIT_VALUE: return FIT;
 		}
 		return null;
 	}
@@ -182,7 +159,7 @@ public enum TypeGrade implements Enumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private TypeGrade(int value, String name, String literal) {
+	private ImageType(int value, String name, String literal) {
 		this.value = value;
 		this.name = name;
 		this.literal = literal;
@@ -229,4 +206,4 @@ public enum TypeGrade implements Enumerator {
 		return literal;
 	}
 	
-} //TypeGrade
+} //ImageType

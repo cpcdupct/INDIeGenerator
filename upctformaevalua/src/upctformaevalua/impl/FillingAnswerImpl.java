@@ -66,6 +66,7 @@ public class FillingAnswerImpl extends QuestionImpl implements FillingAnswer {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Hole> getHoles() {
 		if (holes == null) {
 			holes = new EObjectContainmentEList<Hole>(Hole.class, this, UpctformaevaluaPackage.FILLING_ANSWER__HOLES);

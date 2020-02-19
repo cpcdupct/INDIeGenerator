@@ -290,13 +290,22 @@ public interface UpctformaPackage extends EPackage {
 	int IMAGE__URL = SIMPLE_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IMAGE__TYPE = SIMPLE_ELEMENT_FEATURE_COUNT + 1;
+
+	/**
 	 * The number of structural features of the '<em>Image</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int IMAGE_FEATURE_COUNT = SIMPLE_ELEMENT_FEATURE_COUNT + 1;
+	int IMAGE_FEATURE_COUNT = SIMPLE_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of operations of the '<em>Image</em>' class.
@@ -428,13 +437,22 @@ public interface UpctformaPackage extends EPackage {
 	int VIDEO__TITLE = SIMPLE_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
+	 * The feature id for the '<em><b>Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VIDEO__TYPE = SIMPLE_ELEMENT_FEATURE_COUNT + 2;
+
+	/**
 	 * The number of structural features of the '<em>Video</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int VIDEO_FEATURE_COUNT = SIMPLE_ELEMENT_FEATURE_COUNT + 2;
+	int VIDEO_FEATURE_COUNT = SIMPLE_ELEMENT_FEATURE_COUNT + 3;
 
 	/**
 	 * The number of operations of the '<em>Video</em>' class.
@@ -648,13 +666,22 @@ public interface UpctformaPackage extends EPackage {
 	int CONTENT_UNIT__TYPE = NAME_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
+	 * The feature id for the '<em><b>Language</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONTENT_UNIT__LANGUAGE = NAME_ELEMENT_FEATURE_COUNT + 3;
+
+	/**
 	 * The number of structural features of the '<em>Content Unit</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONTENT_UNIT_FEATURE_COUNT = NAME_ELEMENT_FEATURE_COUNT + 3;
+	int CONTENT_UNIT_FEATURE_COUNT = NAME_ELEMENT_FEATURE_COUNT + 4;
 
 	/**
 	 * The number of operations of the '<em>Content Unit</em>' class.
@@ -1369,6 +1396,36 @@ public interface UpctformaPackage extends EPackage {
 	int CONTENT_UNIT_TYPE = 31;
 
 	/**
+	 * The meta object id for the '{@link upctforma.VideoType <em>Video Type</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see upctforma.VideoType
+	 * @see upctforma.impl.UpctformaPackageImpl#getVideoType()
+	 * @generated
+	 */
+	int VIDEO_TYPE = 32;
+
+	/**
+	 * The meta object id for the '{@link upctforma.LanguageType <em>Language Type</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see upctforma.LanguageType
+	 * @see upctforma.impl.UpctformaPackageImpl#getLanguageType()
+	 * @generated
+	 */
+	int LANGUAGE_TYPE = 33;
+
+	/**
+	 * The meta object id for the '{@link upctforma.ImageType <em>Image Type</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see upctforma.ImageType
+	 * @see upctforma.impl.UpctformaPackageImpl#getImageType()
+	 * @generated
+	 */
+	int IMAGE_TYPE = 34;
+
+	/**
 	 * Returns the meta object for class '{@link upctforma.Column <em>Column</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1441,6 +1498,17 @@ public interface UpctformaPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getImage_Url();
+
+	/**
+	 * Returns the meta object for the attribute '{@link upctforma.Image#getType <em>Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Type</em>'.
+	 * @see upctforma.Image#getType()
+	 * @see #getImage()
+	 * @generated
+	 */
+	EAttribute getImage_Type();
 
 	/**
 	 * Returns the meta object for class '{@link upctforma.NameElement <em>Name Element</em>}'.
@@ -1557,6 +1625,17 @@ public interface UpctformaPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getVideo_Title();
+
+	/**
+	 * Returns the meta object for the attribute '{@link upctforma.Video#getType <em>Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Type</em>'.
+	 * @see upctforma.Video#getType()
+	 * @see #getVideo()
+	 * @generated
+	 */
+	EAttribute getVideo_Type();
 
 	/**
 	 * Returns the meta object for class '{@link upctforma.ContentDefinition <em>Content Definition</em>}'.
@@ -1727,6 +1806,17 @@ public interface UpctformaPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getContentUnit_Type();
+
+	/**
+	 * Returns the meta object for the attribute '{@link upctforma.ContentUnit#getLanguage <em>Language</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Language</em>'.
+	 * @see upctforma.ContentUnit#getLanguage()
+	 * @see #getContentUnit()
+	 * @generated
+	 */
+	EAttribute getContentUnit_Language();
 
 	/**
 	 * Returns the meta object for class '{@link upctforma.Section <em>Section</em>}'.
@@ -2096,6 +2186,36 @@ public interface UpctformaPackage extends EPackage {
 	EEnum getContentUnitType();
 
 	/**
+	 * Returns the meta object for enum '{@link upctforma.VideoType <em>Video Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Video Type</em>'.
+	 * @see upctforma.VideoType
+	 * @generated
+	 */
+	EEnum getVideoType();
+
+	/**
+	 * Returns the meta object for enum '{@link upctforma.LanguageType <em>Language Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Language Type</em>'.
+	 * @see upctforma.LanguageType
+	 * @generated
+	 */
+	EEnum getLanguageType();
+
+	/**
+	 * Returns the meta object for enum '{@link upctforma.ImageType <em>Image Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Image Type</em>'.
+	 * @see upctforma.ImageType
+	 * @generated
+	 */
+	EEnum getImageType();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2179,6 +2299,14 @@ public interface UpctformaPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute IMAGE__URL = eINSTANCE.getImage_Url();
+
+		/**
+		 * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute IMAGE__TYPE = eINSTANCE.getImage_Type();
 
 		/**
 		 * The meta object literal for the '{@link upctforma.impl.NameElementImpl <em>Name Element</em>}' class.
@@ -2277,6 +2405,14 @@ public interface UpctformaPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute VIDEO__TITLE = eINSTANCE.getVideo_Title();
+
+		/**
+		 * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute VIDEO__TYPE = eINSTANCE.getVideo_Type();
 
 		/**
 		 * The meta object literal for the '{@link upctforma.impl.ContentDefinitionImpl <em>Content Definition</em>}' class.
@@ -2417,6 +2553,14 @@ public interface UpctformaPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute CONTENT_UNIT__TYPE = eINSTANCE.getContentUnit_Type();
+
+		/**
+		 * The meta object literal for the '<em><b>Language</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CONTENT_UNIT__LANGUAGE = eINSTANCE.getContentUnit_Language();
 
 		/**
 		 * The meta object literal for the '{@link upctforma.impl.SectionImpl <em>Section</em>}' class.
@@ -2733,6 +2877,36 @@ public interface UpctformaPackage extends EPackage {
 		 * @generated
 		 */
 		EEnum CONTENT_UNIT_TYPE = eINSTANCE.getContentUnitType();
+
+		/**
+		 * The meta object literal for the '{@link upctforma.VideoType <em>Video Type</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see upctforma.VideoType
+		 * @see upctforma.impl.UpctformaPackageImpl#getVideoType()
+		 * @generated
+		 */
+		EEnum VIDEO_TYPE = eINSTANCE.getVideoType();
+
+		/**
+		 * The meta object literal for the '{@link upctforma.LanguageType <em>Language Type</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see upctforma.LanguageType
+		 * @see upctforma.impl.UpctformaPackageImpl#getLanguageType()
+		 * @generated
+		 */
+		EEnum LANGUAGE_TYPE = eINSTANCE.getLanguageType();
+
+		/**
+		 * The meta object literal for the '{@link upctforma.ImageType <em>Image Type</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see upctforma.ImageType
+		 * @see upctforma.impl.UpctformaPackageImpl#getImageType()
+		 * @generated
+		 */
+		EEnum IMAGE_TYPE = eINSTANCE.getImageType();
 
 	}
 

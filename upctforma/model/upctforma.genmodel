@@ -15,6 +15,21 @@
       <genEnumLiterals ecoreEnumLiteral="upctforma.ecore#//ContentUnitType/Open"/>
       <genEnumLiterals ecoreEnumLiteral="upctforma.ecore#//ContentUnitType/Preview"/>
     </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="upctforma.ecore#//VideoType">
+      <genEnumLiterals ecoreEnumLiteral="upctforma.ecore#//VideoType/Normal"/>
+      <genEnumLiterals ecoreEnumLiteral="upctforma.ecore#//VideoType/Interactive"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="upctforma.ecore#//LanguageType">
+      <genEnumLiterals ecoreEnumLiteral="upctforma.ecore#//LanguageType/EN"/>
+      <genEnumLiterals ecoreEnumLiteral="upctforma.ecore#//LanguageType/ES"/>
+      <genEnumLiterals ecoreEnumLiteral="upctforma.ecore#//LanguageType/FR"/>
+      <genEnumLiterals ecoreEnumLiteral="upctforma.ecore#//LanguageType/GR"/>
+      <genEnumLiterals ecoreEnumLiteral="upctforma.ecore#//LanguageType/LI"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="upctforma.ecore#//ImageType">
+      <genEnumLiterals ecoreEnumLiteral="upctforma.ecore#//ImageType/Original"/>
+      <genEnumLiterals ecoreEnumLiteral="upctforma.ecore#//ImageType/Fit"/>
+    </genEnums>
     <genClasses ecoreClass="upctforma.ecore#//Column">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference upctforma.ecore#//Column/elements"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute upctforma.ecore#//Column/width"/>
@@ -24,6 +39,7 @@
     </genClasses>
     <genClasses ecoreClass="upctforma.ecore#//Image">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute upctforma.ecore#//Image/url"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute upctforma.ecore#//Image/type"/>
     </genClasses>
     <genClasses ecoreClass="upctforma.ecore#//NameElement">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute upctforma.ecore#//NameElement/name"/>
@@ -39,6 +55,7 @@
     <genClasses ecoreClass="upctforma.ecore#//Video">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute upctforma.ecore#//Video/id"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute upctforma.ecore#//Video/title"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute upctforma.ecore#//Video/type"/>
     </genClasses>
     <genClasses ecoreClass="upctforma.ecore#//ContentDefinition">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference upctforma.ecore#//ContentDefinition/templates"/>
@@ -59,6 +76,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference upctforma.ecore#//ContentUnit/sections"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute upctforma.ecore#//ContentUnit/author"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute upctforma.ecore#//ContentUnit/type"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute upctforma.ecore#//ContentUnit/language"/>
     </genClasses>
     <genClasses ecoreClass="upctforma.ecore#//Section">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference upctforma.ecore#//Section/rows"/>

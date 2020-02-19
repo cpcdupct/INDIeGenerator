@@ -13,6 +13,7 @@ package upctforma;
  * </p>
  * <ul>
  *   <li>{@link upctforma.Image#getUrl <em>Url</em>}</li>
+ *   <li>{@link upctforma.Image#getType <em>Type</em>}</li>
  * </ul>
  *
  * @see upctforma.UpctformaPackage#getImage()
@@ -45,5 +46,30 @@ public interface Image extends SimpleElement {
 	 * @generated
 	 */
 	void setUrl(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Type</b></em>' attribute.
+	 * The literals are from the enumeration {@link upctforma.ImageType}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Type</em>' attribute.
+	 * @see upctforma.ImageType
+	 * @see #setType(ImageType)
+	 * @see upctforma.UpctformaPackage#getImage_Type()
+	 * @model
+	 * @generated
+	 */
+	ImageType getType();
+
+	/**
+	 * Sets the value of the '{@link upctforma.Image#getType <em>Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Type</em>' attribute.
+	 * @see upctforma.ImageType
+	 * @see #getType()
+	 * @generated
+	 */
+	void setType(ImageType value);
 
 } // Image

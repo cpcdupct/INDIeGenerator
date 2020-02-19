@@ -11,7 +11,7 @@ import upctforma.Text
 
 class TextualDragAndDrop {
 
-	def List<String> generateTextualDragAndDrop(Widget wg, String idgen, String title, List<ContentElement> args, int j, IFileSystemAccess2 fsa, String fileindex, String progresoobj, String filetextualp, Integer tipo){
+	def List<String> generateTextualDragAndDrop(Widget wg, String idgen, String title, List<ContentElement> args, int j, IFileSystemAccess2 fsa, String fileindex, String progresoobj, String filetextualp, Integer tipo,List<String> language){
 		var fileindexp = fileindex;
 		var progresoobjp = progresoobj;
 		var filetextual = filetextualp;		
@@ -20,25 +20,25 @@ class TextualDragAndDrop {
 		fileindexp=fileindexp + '''
 			<div class="row">
 				<div class="col-md-12 interview">
-					<h4><i class="fa fa-mouse-pointer"></i>&nbsp;Match each concept with its definition</h4>
-					<i id="objetivo«idgen»" class="far fa-check-square fa-2x" aria-hidden="true"></i>
+					<h4><i class="fa fa-mouse-pointer"></i>&nbsp;Â«language.get(6)Â»</h4>
+					<i id="objetivoÂ«idgenÂ»" class="far fa-check-square fa-2x" aria-hidden="true"></i>
 				</div>
 			</div>
 		'''
 		progresoobjp = progresoobjp + '''
-			,"objetivo«idgen»"
+			,"objetivoÂ«idgenÂ»"
 		'''
 
 		fileindexp=fileindexp + '''
 			<div class="row" style="margin:30px;">
-				<div id="drag-options-«idgen»" class="col-md-3"></div>
-			    <div id="drag-elections-«idgen»" class="col-md-3"></div>
-			    <div id="drag-descriptions-«idgen»" class="col-md-6"></div>
+				<div id="drag-options-Â«idgenÂ»" class="col-md-3 col-sm-3 col-xs-3"></div>
+			    <div id="drag-elections-Â«idgenÂ»" class="col-md-3 col-sm-3 col-xs-3"></div>
+			    <div id="drag-descriptions-Â«idgenÂ»" class="col-md-6 col-sm-6 col-xs-6"></div>
 			 </div>
 		'''
 	
 		filetextual=filetextual + '''		 	
-		     	var dragDropTerms«idgen» = [
+		     	var dragDropTermsÂ«idgenÂ» = [
 		'''
 		
 		var ListValue tempwg1;
@@ -54,15 +54,18 @@ class TextualDragAndDrop {
 			val tempwg3 = tempwg2.recordvalues.get(0).fieldvalue as Text;
 			val tempwg4 = tempwg2.recordvalues.get(1).fieldvalue as Text;
 			
-			filetextual=filetextual + '''{term: "«tempwg3.html»",definition: "«tempwg4.html»"}''' if (i!=tempwg1.listvalues.length-1){filetextual=filetextual + ''',
+			filetextual=filetextual + '''{term: "<p>Â«tempwg3.htmlÂ»</p>",definition: "Â«tempwg4.htmlÂ»"}''' if (i!=tempwg1.listvalues.length-1){filetextual=filetextual + ''',
 			'''}
 		}
 		filetextual=filetextual + '''];'''
 		
 		filetextual=filetextual + '''
-			DragDropPlugin.createDragDrop('#drag-options-«idgen»', '#drag-elections-«idgen»', '#drag-descriptions-«idgen»',dragDropTerms«idgen»,"objetivo«idgen»","«wg.name»");
+			DragDropPlugin.createDragDrop('#drag-options-Â«idgenÂ»', '#drag-elections-Â«idgenÂ»', '#drag-descriptions-Â«idgenÂ»',dragDropTermsÂ«idgenÂ»,"objetivoÂ«idgenÂ»","Â«wg.nameÂ»");
 		'''
-
+	
+		filetextual=filetextual + '''
+			getAltura('Â«idgenÂ»');
+		'''
 		
 		returnparameter.add(fileindexp);
 		returnparameter.add(progresoobjp);

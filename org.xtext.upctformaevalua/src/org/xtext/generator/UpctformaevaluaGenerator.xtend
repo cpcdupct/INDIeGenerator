@@ -16,6 +16,8 @@ import upctformaevalua.TrueOrFalse
 import upctformaevalua.Single
 import upctformaevalua.Answer
 import upctformaevalua.Multiple
+import java.util.List
+import java.util.ArrayList
 
 /**
  * Generates code from your model files on save.
@@ -25,6 +27,8 @@ import upctformaevalua.Multiple
 class UpctformaevaluaGenerator extends AbstractGenerator {
 	var String fileindex = ''; 
 	var String filejs = ''; 
+	
+	var List<String> language;
 	
 	override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
 		for (e : resource.allContents.toIterable.filter(EvaluationUnit)){
@@ -37,13 +41,12 @@ class UpctformaevaluaGenerator extends AbstractGenerator {
 		<html>
 		<head>
 			<meta charset="utf-8">
-			<title>�eu.name�</title>
+			<title>«eu.name»</title>
 		
 			<link rel="stylesheet" type="text/css" href="../../evaluationunit/bootstrap/css/bootstrap.min.css" />
 			<link rel="stylesheet" type="text/css" href="../../evaluationunit/css/base.css" >
-			<link rel="stylesheet" type="text/css" href="../../evaluationunit/css/main.css" >
-			<link rel="stylesheet" type="text/css" href="../../evaluationunit/css/icomoon.css">
-			<link rel="stylesheet" type="text/css" href="../../evaluationunit/css/animate-custom.css" >
+			<link rel="stylesheet" type="text/css" href="../../evaluationunit/css/main.css" >			
+			
 		
 		 	<link rel="stylesheet" href="../../evaluationunit/font-awesome/css/fontawesome-all.min.css" media="screen" charset="utf-8">
 		 		
@@ -59,7 +62,7 @@ class UpctformaevaluaGenerator extends AbstractGenerator {
 		 
 		<header>
 			<div id="cabecera">
-				<h1 class="titulo text-white text-center">�eu.name�</h1>
+				<h1 class="titulo text-white text-center">«eu.name»</h1>
 			</div>
 		</header>
 		
@@ -111,16 +114,14 @@ class UpctformaevaluaGenerator extends AbstractGenerator {
 		<html>
 		<head>
 			<meta charset="utf-8">
-			<title>�eu.name�</title>
+			<title>«eu.name»</title>
 		
 			<link rel="stylesheet" type="text/css" href="../../evaluationunit/bootstrap/css/bootstrap.min.css" />
+			
 			<link rel="stylesheet" type="text/css" href="../../evaluationunit/css/base.css" >
 			<link rel="stylesheet" type="text/css" href="../../evaluationunit/css/main.css" >
-			<link rel="stylesheet" type="text/css" href="../../evaluationunit/css/icomoon.css">
-			<link rel="stylesheet" type="text/css" href="../../evaluationunit/css/animate-custom.css" >
 		
-		 	<link rel="stylesheet" href="../../evaluationunit/font-awesome/css/fontawesome-all.min.css" media="screen" charset="utf-8">
-		 		
+		 	<link rel="stylesheet" href="../../evaluationunit/font-awesome/css/fontawesome-all.min.css" media="screen" charset="utf-8">		 		
 			<link rel="icon" href="../../evaluationunit/img/favicon.png" type="image/png">
 		</head>
 		
@@ -148,7 +149,7 @@ class UpctformaevaluaGenerator extends AbstractGenerator {
 		 
 		<header>
 			<div id="cabecera">
-				<h1 class="titulo text-white text-center">�eu.name�</h1>
+				<h1 class="titulo text-white text-center">«eu.name»</h1>
 			</div>
 		</header>
 		
@@ -175,14 +176,14 @@ class UpctformaevaluaGenerator extends AbstractGenerator {
 		</div>
 			    <div class="clearfix"></div>
 				<div class="col-md-4">  
-			    	<p><a href="#" id="buttonSubmit" class="btn btn-primary" role="button">Submit</a></p>
+			    	<p><a href="#" id="buttonSubmit" class="btn btn-primary btn-lg" role="button">«language.get(11)»</a></p>
 			    </div>
 			       
 			    
 			  </div>
 			  <!-- row --> 
 			  <div class="row">
-			   <div class="col-md-12" id="resultados">RESULTADO</div>			     
+			   <div class="col-md-12" id="resultados">«language.get(0)»</div>			     
 			  </div>
 			</div>
 			<!-- container --> 
@@ -211,9 +212,10 @@ class UpctformaevaluaGenerator extends AbstractGenerator {
 		
 			<!-- Placed at the end of the document so the pages load faster --> 
 			<script type="text/javascript" src="../../evaluationunit/js/jquery-1.10.2.min.js"></script>
-			<script type="text/javascript" src="../../evaluationunit/js/modernizr.custom.js"></script>
 			<script type="text/javascript" src="../../evaluationunit/bootstrap/js/bootstrap.min.js"></script>
+			
 			<script type="text/javascript" src="evaluacion.js"></script>
+			<script type="text/javascript" src="language.js"></script>
 			<script type="text/javascript" src="../../evaluationunit/js/funciones.js"></script>
 			<script type="text/javascript" src="../../evaluationunit/js/progreso_mapa.js"></script>
 			
@@ -223,6 +225,17 @@ class UpctformaevaluaGenerator extends AbstractGenerator {
 	def compile(EvaluationUnit eu, IFileSystemAccess2 fsa){	
 		fileindex = ''; 
 		filejs = '';
+		
+		switch eu.language.value{
+			case 0: language = #["Result","(Single Answer)","(Multiple Answer)","Correct","Incorrect","(True or False Question)","P1 correct answers from a total of P2","Grade over 10:","Grade over 100:","Mark the right answers and press the SUBMIT button","Wait until  the result appears", "Submit"]				
+			case 1: language = #["Resultado","(Respuesta Única)","(Respuesta múltiple)","Correcto","Incorrecto","(Pregunta Verdadero o Falso)","P1 respuestas correctas de un total de P2","Nota sobre 10:","Nota sobre 100:", "Marca las respuestas correctas y presiona el botón ENVIAR", "Espera hasta que los resultados aparezcan", "Enviar"]
+			case 2: language = #["Résultat","(Réponse unique)","(Réponse multiple)","Correct","Incorrect","(Question Vrai / Faux)","P1 réponses correctes sur un total de P2","Note sur 10:","Note sur 100:","Mark the right answers and press the SUBMIT button","Wait until  the result appears","Submit"]
+			case 3: language = #["Αποτέλεσμα","Mία Απάντηση)","(Πολλαπλή Απάντηση)","Σωστό","Λάθος","(Ερώτηση Σωστό ή Λάθος)","P1 σωστές απαντήσεις επί συνόλου P2","Βαθμός πάνω από 10:","Βαθμός πάνω από 100:","Mark the right answers and press the SUBMIT button","Wait until  the result appears","Submit"]
+			case 4: language = #["Rezultatas","(Tinka vienas atsakymas)","(Tinka keli atsakymai)","Teisingai","Neteisingai","(Klausimai su tiesa/netiesa atsakymais)","P1 teisingų atsakymų iš P2 klausimų","įvertinimas iš 10:","įvertinimas iš 100:","Mark the right answers and press the SUBMIT button","Wait until  the result appears","Submit"]
+		}
+		
+		var String languagejs = '''var language = ["«language.get(6)»","«language.get(7)»","«language.get(8)»","«language.get(9)»","«language.get(10)»"];'''.toString()
+		fsa.generateFile("language.js",languagejs)
 		
 		var pathcadena = fsa.getURI("").toFileString();
 		if (pathcadena !== null){			
@@ -250,71 +263,71 @@ class UpctformaevaluaGenerator extends AbstractGenerator {
 			if (q instanceof SingleAnswer){
 				contadorpreguntas++;
 				filejs = filejs +'''				
-					tipoPreguntas[�contadorpreguntas�] = 0;	
-					enunciados[�contadorpreguntas�] = new Array();
-					enunciados[�contadorpreguntas�].push('�q.statements.text�');
-					respuestas[�contadorpreguntas�] = new Array();
-					respuestascorrectas[�contadorpreguntas�] = new Array();
-					respuestascorrectas[�contadorpreguntas�].push(�q.correctanswer�);
-					respuestasEstudiante[�contadorpreguntas�] = new Array();
+					tipoPreguntas[«contadorpreguntas»] = 0;	
+					enunciados[«contadorpreguntas»] = new Array();
+					enunciados[«contadorpreguntas»].push('«q.statements.text»');
+					respuestas[«contadorpreguntas»] = new Array();
+					respuestascorrectas[«contadorpreguntas»] = new Array();
+					respuestascorrectas[«contadorpreguntas»].push(«q.correctanswer»);
+					respuestasEstudiante[«contadorpreguntas»] = new Array();
 				''';	
 				fileindex = fileindex + '''
-					<div class="col-md-6">
-    					<div class="list-group" data-value="�contadorpreguntas�">
-					        <p class="list-group-item-heading" id="enunciado�contadorpreguntas�" data-value="�contadorpreguntas�" >�q.statements.text�</br><span class="tipoPregunta"> (Single Answer)</span></p>
+					<div class="col-md-6 col-sm-12 col-xs-12"">
+    					<div class="list-group" data-value="«contadorpreguntas»">
+					        <p class="list-group-item-heading" id="enunciado«contadorpreguntas»" data-value="«contadorpreguntas»" >«q.statements.text»</br><span class="tipoPregunta"> «language.get(1)»</span></p>
 				'''.toString();
 				for (var i = 0; i < q.answers.length; i++){
 					var a = q.answers.get(i);				
 					fileindex = fileindex + '''				
-						        <a href="#" class="list-group-item respuesta" id="respuesta�contadorpreguntas��i+1�" data-value="�i+1�">�a.text�</a>
+						        <a href="#" class="list-group-item respuesta" id="respuesta«contadorpreguntas»«i+1»" data-value="«i+1»">«a.text»</a>
 					'''.toString();	
 					filejs = filejs +'''
-						respuestas[�contadorpreguntas�].push('�a.text�');
+						respuestas[«contadorpreguntas»].push('«a.text»');
 					'''.toString();									
 				}
-				fileindex = fileindex + '''
+				fileindex = fileindex + ''' 
 						    </div>
-						    <div class="feedbackCorrecto alert alert-success" role="alert" id="feedbackCorrecto�contadorpreguntas�">Correct.</div>
-						    <div class="feedbackIncorrecto alert alert-danger" role="alert" id="feedbackIncorrecto�contadorpreguntas�">Incorrect.</div>
+						    <div class="feedbackCorrecto alert alert-success" role="alert" id="feedbackCorrecto«contadorpreguntas»">«language.get(3)».</div>
+						    <div class="feedbackIncorrecto alert alert-danger" role="alert" id="feedbackIncorrecto«contadorpreguntas»">«language.get(4)».</div>
 						</div>
 				'''.toString();
 			}else if (q instanceof MultipleAnswer){
 				contadorpreguntas++;
 				val qt = q as MultipleAnswer
 				fileindex = fileindex + '''
-					<div class="col-md-6">
-    					<div class="list-group" data-value="�contadorpreguntas�">
-					        <p class="list-group-item-heading" id="enunciado�contadorpreguntas�" data-value="�contadorpreguntas�">�q.statements.text�</br><span class="tipoPregunta"> (Multiple Answer)</span></p>
+					<div class="col-md-6 col-sm-12 col-xs-12">
+    					<div class="list-group" data-value="«contadorpreguntas»">
+					        <p class="list-group-item-heading" id="enunciado«contadorpreguntas»" data-value="«contadorpreguntas»">«q.statements.text»</br><span class="tipoPregunta"> «language.get(2)»</span></p>
 				'''.toString();
 				filejs = filejs +'''
-					tipoPreguntas[�contadorpreguntas�] = 1;
-					enunciados[�contadorpreguntas�] = new Array();
-					enunciados[�contadorpreguntas�].push('�q.statements.text�');
-					respuestas[�contadorpreguntas�] = new Array();
-					respuestascorrectas[�contadorpreguntas�] = new Array();
-					respuestasEstudiante[�contadorpreguntas�] = new Array();
+					tipoPreguntas[«contadorpreguntas»] = 1;
+					enunciados[«contadorpreguntas»] = new Array();
+					enunciados[«contadorpreguntas»].push('«q.statements.text»');
+					respuestas[«contadorpreguntas»] = new Array();
+					respuestascorrectas[«contadorpreguntas»] = new Array();
+					respuestasEstudiante[«contadorpreguntas»] = new Array();
 				''';
 				for (var i = 0; i < q.answers.length; i++){
 					var a = q.answers.get(i);
 					var at = q.answers.get(i) as Multiple;						
 					
 					filejs = filejs +'''
-						respuestas[�contadorpreguntas�].push('�a.text�');
+						respuestas[«contadorpreguntas»].push('«a.text»');
 					'''.toString();
 					
 					if (a.value){
 						filejs = filejs +'''
-							respuestascorrectas[�contadorpreguntas�].push(�i+1�);
+							respuestascorrectas[«contadorpreguntas»].push(«i+1»);
 						''';
 					}				
 					fileindex = fileindex + '''				
-						        <a href="#" class="list-group-item respuesta" id="respuesta�contadorpreguntas��i+1�" data-value="�i+1�">�a.text�</a>
+						        <a href="#" class="list-group-item respuesta" id="respuesta«contadorpreguntas»«i+1»" data-value="«i+1»">«a.text»</a>
 					'''.toString();					
 				}
 				fileindex = fileindex + '''
 						    </div>
-						    <div class="feedbackCorrecto alert alert-success" role="alert" id="feedbackCorrecto�contadorpreguntas�">Correct.</div>
-						    <div class="feedbackIncorrecto alert alert-danger" role="alert" id="feedbackIncorrecto�contadorpreguntas�">Incorrect.</div>
+						    <div class="feedbackCorrecto alert alert-success" role="alert" id="feedbackCorrecto«contadorpreguntas»">«language.get(3)».</div>
+						    <div class="feedbackIncorrecto alert alert-danger" role="alert" id="feedbackIncorrecto«contadorpreguntas»">«language.get(4)».</div>
 						</div>
 				'''.toString();
 			}else if (q instanceof TrueOrFalse){
@@ -322,37 +335,37 @@ class UpctformaevaluaGenerator extends AbstractGenerator {
 						contadorpreguntas++;
 						var aser = q.assertions.get(j);
 						filejs = filejs +'''
-							tipoPreguntas[�contadorpreguntas�] = 2;
-							enunciados[�contadorpreguntas�] = new Array();
-							enunciados[�contadorpreguntas�].push('�aser.text�');
-							respuestas[�contadorpreguntas�] = new Array();
-							respuestas[�contadorpreguntas�].push('True');
-							respuestas[�contadorpreguntas�].push('False');
-							respuestascorrectas[�contadorpreguntas�]= new Array();
-							respuestasEstudiante[�contadorpreguntas�] = new Array();
+							tipoPreguntas[«contadorpreguntas»] = 2;
+							enunciados[«contadorpreguntas»] = new Array();
+							enunciados[«contadorpreguntas»].push('«aser.text»');
+							respuestas[«contadorpreguntas»] = new Array();
+							respuestas[«contadorpreguntas»].push('True');
+							respuestas[«contadorpreguntas»].push('False');
+							respuestascorrectas[«contadorpreguntas»]= new Array();
+							respuestasEstudiante[«contadorpreguntas»] = new Array();
 						''';
 						if (aser.value == true){
 							filejs = filejs +'''
-								respuestascorrectas[�contadorpreguntas�].push(1);
+								respuestascorrectas[«contadorpreguntas»].push(1);
 							''';
 						}else{
 							filejs = filejs +'''
-								respuestascorrectas[�contadorpreguntas�].push(2);
+								respuestascorrectas[«contadorpreguntas»].push(2);
 							''';
 						}	
 						fileindex = fileindex + '''
-							<div class="col-md-6">
-		    					<div class="list-group" data-value="�contadorpreguntas�">
-							        <p class="list-group-item-heading" id="enunciado�contadorpreguntas�" data-value="�contadorpreguntas�">�aser.text�</br><span class="tipoPregunta"> (True or False Question)</span></p>
+							<div class="col-md-6 col-sm-12 col-xs-12"">
+		    					<div class="list-group" data-value="«contadorpreguntas»">
+							        <p class="list-group-item-heading" id="enunciado«contadorpreguntas»" data-value="«contadorpreguntas»">«aser.text»</br><span class="tipoPregunta"> «language.get(5)»</span></p>
 						'''.toString();
 						fileindex = fileindex + '''				
-							        <a href="#" class="list-group-item respuesta" id="respuesta�contadorpreguntas�1" data-value="1">True</a>
-							        <a href="#" class="list-group-item respuesta" id="respuesta�contadorpreguntas�2" data-value="2">False</a>
+							        <a href="#" class="list-group-item respuesta" id="respuesta«contadorpreguntas»1" data-value="1">True</a>
+							        <a href="#" class="list-group-item respuesta" id="respuesta«contadorpreguntas»2" data-value="2">False</a>
 						'''.toString();
 						fileindex = fileindex + '''
 								    </div>
-								    <div class="feedbackCorrecto alert alert-success" role="alert" id="feedbackCorrecto�contadorpreguntas�">Correct.</div>
-								    <div class="feedbackIncorrecto alert alert-danger" role="alert" id="feedbackIncorrecto�contadorpreguntas�">Incorrect.</div>
+								    <div class="feedbackCorrecto alert alert-success" role="alert" id="feedbackCorrecto«contadorpreguntas»">«language.get(3)».</div>
+								    <div class="feedbackIncorrecto alert alert-danger" role="alert" id="feedbackIncorrecto«contadorpreguntas»">«language.get(4)».</div>
 								</div>
 						'''.toString();
 					}

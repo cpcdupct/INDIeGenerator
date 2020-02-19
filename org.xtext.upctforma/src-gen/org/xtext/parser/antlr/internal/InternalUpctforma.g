@@ -889,16 +889,35 @@ ruleContentUnit returns [EObject current=null]
 				}
 			)
 		)
-		otherlv_4='{'
+		(
+			(
+				{
+					newCompositeNode(grammarAccess.getContentUnitAccess().getLanguageLanguageTypeEnumRuleCall_4_0());
+				}
+				lv_language_4_0=ruleLanguageType
+				{
+					if ($current==null) {
+						$current = createModelElementForParent(grammarAccess.getContentUnitRule());
+					}
+					set(
+						$current,
+						"language",
+						lv_language_4_0,
+						"org.xtext.Upctforma.LanguageType");
+					afterParserOrEnumRuleCall();
+				}
+			)
+		)
+		otherlv_5='{'
 		{
-			newLeafNode(otherlv_4, grammarAccess.getContentUnitAccess().getLeftCurlyBracketKeyword_4());
+			newLeafNode(otherlv_5, grammarAccess.getContentUnitAccess().getLeftCurlyBracketKeyword_5());
 		}
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getContentUnitAccess().getSectionsSectionParserRuleCall_5_0());
+					newCompositeNode(grammarAccess.getContentUnitAccess().getSectionsSectionParserRuleCall_6_0());
 				}
-				lv_sections_5_0=ruleSection
+				lv_sections_6_0=ruleSection
 				{
 					if ($current==null) {
 						$current = createModelElementForParent(grammarAccess.getContentUnitRule());
@@ -906,23 +925,23 @@ ruleContentUnit returns [EObject current=null]
 					add(
 						$current,
 						"sections",
-						lv_sections_5_0,
+						lv_sections_6_0,
 						"org.xtext.Upctforma.Section");
 					afterParserOrEnumRuleCall();
 				}
 			)
 		)
 		(
-			otherlv_6=','
+			otherlv_7=','
 			{
-				newLeafNode(otherlv_6, grammarAccess.getContentUnitAccess().getCommaKeyword_6_0());
+				newLeafNode(otherlv_7, grammarAccess.getContentUnitAccess().getCommaKeyword_7_0());
 			}
 			(
 				(
 					{
-						newCompositeNode(grammarAccess.getContentUnitAccess().getSectionsSectionParserRuleCall_6_1_0());
+						newCompositeNode(grammarAccess.getContentUnitAccess().getSectionsSectionParserRuleCall_7_1_0());
 					}
-					lv_sections_7_0=ruleSection
+					lv_sections_8_0=ruleSection
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getContentUnitRule());
@@ -930,16 +949,16 @@ ruleContentUnit returns [EObject current=null]
 						add(
 							$current,
 							"sections",
-							lv_sections_7_0,
+							lv_sections_8_0,
 							"org.xtext.Upctforma.Section");
 						afterParserOrEnumRuleCall();
 					}
 				)
 			)
 		)*
-		otherlv_8='}'
+		otherlv_9='}'
 		{
-			newLeafNode(otherlv_8, grammarAccess.getContentUnitAccess().getRightCurlyBracketKeyword_7());
+			newLeafNode(otherlv_9, grammarAccess.getContentUnitAccess().getRightCurlyBracketKeyword_8());
 		}
 	)
 ;
@@ -1393,9 +1412,32 @@ ruleImage returns [EObject current=null]
 				)
 			)
 		)?
-		otherlv_5='}'
+		otherlv_5=','
 		{
-			newLeafNode(otherlv_5, grammarAccess.getImageAccess().getRightCurlyBracketKeyword_4());
+			newLeafNode(otherlv_5, grammarAccess.getImageAccess().getCommaKeyword_4());
+		}
+		(
+			(
+				{
+					newCompositeNode(grammarAccess.getImageAccess().getTypeImageTypeEnumRuleCall_5_0());
+				}
+				lv_type_6_0=ruleImageType
+				{
+					if ($current==null) {
+						$current = createModelElementForParent(grammarAccess.getImageRule());
+					}
+					set(
+						$current,
+						"type",
+						lv_type_6_0,
+						"org.xtext.Upctforma.ImageType");
+					afterParserOrEnumRuleCall();
+				}
+			)
+		)
+		otherlv_7='}'
+		{
+			newLeafNode(otherlv_7, grammarAccess.getImageAccess().getRightCurlyBracketKeyword_6());
 		}
 	)
 ;
@@ -1820,9 +1862,38 @@ ruleVideo returns [EObject current=null]
 				)
 			)
 		)?
-		otherlv_8='}'
+		otherlv_8=','
 		{
-			newLeafNode(otherlv_8, grammarAccess.getVideoAccess().getRightCurlyBracketKeyword_6());
+			newLeafNode(otherlv_8, grammarAccess.getVideoAccess().getCommaKeyword_6());
+		}
+		(
+			otherlv_9='type'
+			{
+				newLeafNode(otherlv_9, grammarAccess.getVideoAccess().getTypeKeyword_7_0());
+			}
+			(
+				(
+					{
+						newCompositeNode(grammarAccess.getVideoAccess().getTypeVideoTypeEnumRuleCall_7_1_0());
+					}
+					lv_type_10_0=ruleVideoType
+					{
+						if ($current==null) {
+							$current = createModelElementForParent(grammarAccess.getVideoRule());
+						}
+						set(
+							$current,
+							"type",
+							lv_type_10_0,
+							"org.xtext.Upctforma.VideoType");
+						afterParserOrEnumRuleCall();
+					}
+				)
+			)
+		)?
+		otherlv_11='}'
+		{
+			newLeafNode(otherlv_11, grammarAccess.getVideoAccess().getRightCurlyBracketKeyword_8());
 		}
 	)
 ;
@@ -2809,6 +2880,111 @@ ruleContentUnitType returns [Enumerator current=null]
 			{
 				$current = grammarAccess.getContentUnitTypeAccess().getPreviewEnumLiteralDeclaration_2().getEnumLiteral().getInstance();
 				newLeafNode(enumLiteral_2, grammarAccess.getContentUnitTypeAccess().getPreviewEnumLiteralDeclaration_2());
+			}
+		)
+	)
+;
+
+// Rule VideoType
+ruleVideoType returns [Enumerator current=null]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		(
+			enumLiteral_0='Normal'
+			{
+				$current = grammarAccess.getVideoTypeAccess().getNormalEnumLiteralDeclaration_0().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_0, grammarAccess.getVideoTypeAccess().getNormalEnumLiteralDeclaration_0());
+			}
+		)
+		    |
+		(
+			enumLiteral_1='Interactive'
+			{
+				$current = grammarAccess.getVideoTypeAccess().getInteractiveEnumLiteralDeclaration_1().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_1, grammarAccess.getVideoTypeAccess().getInteractiveEnumLiteralDeclaration_1());
+			}
+		)
+	)
+;
+
+// Rule LanguageType
+ruleLanguageType returns [Enumerator current=null]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		(
+			enumLiteral_0='ES'
+			{
+				$current = grammarAccess.getLanguageTypeAccess().getESEnumLiteralDeclaration_0().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_0, grammarAccess.getLanguageTypeAccess().getESEnumLiteralDeclaration_0());
+			}
+		)
+		    |
+		(
+			enumLiteral_1='EN'
+			{
+				$current = grammarAccess.getLanguageTypeAccess().getENEnumLiteralDeclaration_1().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_1, grammarAccess.getLanguageTypeAccess().getENEnumLiteralDeclaration_1());
+			}
+		)
+		    |
+		(
+			enumLiteral_2='FR'
+			{
+				$current = grammarAccess.getLanguageTypeAccess().getFREnumLiteralDeclaration_2().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_2, grammarAccess.getLanguageTypeAccess().getFREnumLiteralDeclaration_2());
+			}
+		)
+		    |
+		(
+			enumLiteral_3='GR'
+			{
+				$current = grammarAccess.getLanguageTypeAccess().getGREnumLiteralDeclaration_3().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_3, grammarAccess.getLanguageTypeAccess().getGREnumLiteralDeclaration_3());
+			}
+		)
+		    |
+		(
+			enumLiteral_4='LI'
+			{
+				$current = grammarAccess.getLanguageTypeAccess().getLIEnumLiteralDeclaration_4().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_4, grammarAccess.getLanguageTypeAccess().getLIEnumLiteralDeclaration_4());
+			}
+		)
+	)
+;
+
+// Rule ImageType
+ruleImageType returns [Enumerator current=null]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		(
+			enumLiteral_0='Original'
+			{
+				$current = grammarAccess.getImageTypeAccess().getOriginalEnumLiteralDeclaration_0().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_0, grammarAccess.getImageTypeAccess().getOriginalEnumLiteralDeclaration_0());
+			}
+		)
+		    |
+		(
+			enumLiteral_1='Fit'
+			{
+				$current = grammarAccess.getImageTypeAccess().getFitEnumLiteralDeclaration_1().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_1, grammarAccess.getImageTypeAccess().getFitEnumLiteralDeclaration_1());
 			}
 		)
 	)

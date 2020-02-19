@@ -21,6 +21,8 @@ EvaluationUnit returns EvaluationUnit:
 Question returns Question:
 	Question_Impl |  SingleAnswer | MultipleAnswer | FillingAnswer | TrueOrFalse;
 
+enum EvaluationLanguageType returns EvaluationLanguageType:
+	ES = 'ES' | EN = 'EN' | FR = 'FR' | GR = 'GR' | LI = 'LI';	
 
 
 
@@ -33,6 +35,7 @@ EvaluationUnit_Impl returns EvaluationUnit:
 	{EvaluationUnit}
 	'EvaluationUnit'
 	name=EString
+	language = EvaluationLanguageType
 	'{'
 		('numberquestions' numberquestions=EInt)?
 		('questions' '{' questions+=Question ( "," questions+=Question)* '}' )?
@@ -53,6 +56,7 @@ Training returns Training:
 	{Training}
 	'Training'
 	name=EString
+	language = EvaluationLanguageType
 	'{'
 		('numberquestions' numberquestions=EInt)?
 		('Attempts' Attempts=EInt)?
@@ -64,6 +68,7 @@ Final returns Final:
 	{Final}
 	'Final'
 	name=EString
+	language = EvaluationLanguageType
 	'{'
 		('numberquestions' numberquestions=EInt)?
 		('questions' '{' questions+=Question ( "," questions+=Question)* '}' )?

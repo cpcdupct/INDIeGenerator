@@ -37,6 +37,9 @@ public class UpctformaParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getEStringAccess().getAlternatives(), "rule__EString__Alternatives");
 			builder.put(grammarAccess.getEPrimitiveTypesAccess().getAlternatives(), "rule__EPrimitiveTypes__Alternatives");
 			builder.put(grammarAccess.getContentUnitTypeAccess().getAlternatives(), "rule__ContentUnitType__Alternatives");
+			builder.put(grammarAccess.getVideoTypeAccess().getAlternatives(), "rule__VideoType__Alternatives");
+			builder.put(grammarAccess.getLanguageTypeAccess().getAlternatives(), "rule__LanguageType__Alternatives");
+			builder.put(grammarAccess.getImageTypeAccess().getAlternatives(), "rule__ImageType__Alternatives");
 			builder.put(grammarAccess.getSectionTypeAccess().getAlternatives(), "rule__SectionType__Alternatives");
 			builder.put(grammarAccess.getContentDefinitionAccess().getGroup(), "rule__ContentDefinition__Group__0");
 			builder.put(grammarAccess.getContentDefinitionAccess().getGroup_4(), "rule__ContentDefinition__Group_4__0");
@@ -54,7 +57,7 @@ public class UpctformaParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getTemplateDefAccess().getGroup_4(), "rule__TemplateDef__Group_4__0");
 			builder.put(grammarAccess.getTemplateDefAccess().getGroup_4_1(), "rule__TemplateDef__Group_4_1__0");
 			builder.put(grammarAccess.getContentUnitAccess().getGroup(), "rule__ContentUnit__Group__0");
-			builder.put(grammarAccess.getContentUnitAccess().getGroup_6(), "rule__ContentUnit__Group_6__0");
+			builder.put(grammarAccess.getContentUnitAccess().getGroup_7(), "rule__ContentUnit__Group_7__0");
 			builder.put(grammarAccess.getType_ImplAccess().getGroup(), "rule__Type_Impl__Group__0");
 			builder.put(grammarAccess.getRowAccess().getGroup(), "rule__Row__Group__0");
 			builder.put(grammarAccess.getRowAccess().getGroup_3(), "rule__Row__Group_3__0");
@@ -82,6 +85,7 @@ public class UpctformaParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getVideoAccess().getGroup(), "rule__Video__Group__0");
 			builder.put(grammarAccess.getVideoAccess().getGroup_3(), "rule__Video__Group_3__0");
 			builder.put(grammarAccess.getVideoAccess().getGroup_5(), "rule__Video__Group_5__0");
+			builder.put(grammarAccess.getVideoAccess().getGroup_7(), "rule__Video__Group_7__0");
 			builder.put(grammarAccess.getSimpleElement_ImplAccess().getGroup(), "rule__SimpleElement_Impl__Group__0");
 			builder.put(grammarAccess.getPlaceHolderAccess().getGroup(), "rule__PlaceHolder__Group__0");
 			builder.put(grammarAccess.getGameAccess().getGroup(), "rule__Game__Group__0");
@@ -121,8 +125,9 @@ public class UpctformaParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getContentUnitAccess().getNameAssignment_1(), "rule__ContentUnit__NameAssignment_1");
 			builder.put(grammarAccess.getContentUnitAccess().getAuthorAssignment_2(), "rule__ContentUnit__AuthorAssignment_2");
 			builder.put(grammarAccess.getContentUnitAccess().getTypeAssignment_3(), "rule__ContentUnit__TypeAssignment_3");
-			builder.put(grammarAccess.getContentUnitAccess().getSectionsAssignment_5(), "rule__ContentUnit__SectionsAssignment_5");
-			builder.put(grammarAccess.getContentUnitAccess().getSectionsAssignment_6_1(), "rule__ContentUnit__SectionsAssignment_6_1");
+			builder.put(grammarAccess.getContentUnitAccess().getLanguageAssignment_4(), "rule__ContentUnit__LanguageAssignment_4");
+			builder.put(grammarAccess.getContentUnitAccess().getSectionsAssignment_6(), "rule__ContentUnit__SectionsAssignment_6");
+			builder.put(grammarAccess.getContentUnitAccess().getSectionsAssignment_7_1(), "rule__ContentUnit__SectionsAssignment_7_1");
 			builder.put(grammarAccess.getType_ImplAccess().getNameAssignment_2(), "rule__Type_Impl__NameAssignment_2");
 			builder.put(grammarAccess.getRowAccess().getColumnsAssignment_3_0(), "rule__Row__ColumnsAssignment_3_0");
 			builder.put(grammarAccess.getRowAccess().getColumnsAssignment_3_1_1(), "rule__Row__ColumnsAssignment_3_1_1");
@@ -134,6 +139,7 @@ public class UpctformaParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getUseTemplateAccess().getTemplateelementsAssignment_2_1(), "rule__UseTemplate__TemplateelementsAssignment_2_1");
 			builder.put(grammarAccess.getUseTemplateAccess().getTemplateelementsAssignment_2_2_1(), "rule__UseTemplate__TemplateelementsAssignment_2_2_1");
 			builder.put(grammarAccess.getImageAccess().getUrlAssignment_3_1(), "rule__Image__UrlAssignment_3_1");
+			builder.put(grammarAccess.getImageAccess().getTypeAssignment_5(), "rule__Image__TypeAssignment_5");
 			builder.put(grammarAccess.getWidgetAccess().getNameAssignment_1(), "rule__Widget__NameAssignment_1");
 			builder.put(grammarAccess.getWidgetAccess().getWidgettypeAssignment_3(), "rule__Widget__WidgettypeAssignment_3");
 			builder.put(grammarAccess.getWidgetAccess().getWidgetelementsAssignment_4_1(), "rule__Widget__WidgetelementsAssignment_4_1");
@@ -143,6 +149,7 @@ public class UpctformaParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getLiteralAccess().getLiteralAssignment_2(), "rule__Literal__LiteralAssignment_2");
 			builder.put(grammarAccess.getVideoAccess().getIdAssignment_3_1(), "rule__Video__IdAssignment_3_1");
 			builder.put(grammarAccess.getVideoAccess().getTitleAssignment_5_1(), "rule__Video__TitleAssignment_5_1");
+			builder.put(grammarAccess.getVideoAccess().getTypeAssignment_7_1(), "rule__Video__TypeAssignment_7_1");
 			builder.put(grammarAccess.getPlaceHolderAccess().getTypeAssignment_1(), "rule__PlaceHolder__TypeAssignment_1");
 			builder.put(grammarAccess.getGameAccess().getIdAssignment_3_1(), "rule__Game__IdAssignment_3_1");
 			builder.put(grammarAccess.getFieldValueAccess().getNameAssignment_0(), "rule__FieldValue__NameAssignment_0");

@@ -91,6 +91,7 @@ public class QuestionImpl extends MinimalEObjectImpl.Container implements Questi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getCorrectfeedback() {
 		return correctfeedback;
 	}
@@ -100,6 +101,7 @@ public class QuestionImpl extends MinimalEObjectImpl.Container implements Questi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setCorrectfeedback(String newCorrectfeedback) {
 		String oldCorrectfeedback = correctfeedback;
 		correctfeedback = newCorrectfeedback;
@@ -112,6 +114,7 @@ public class QuestionImpl extends MinimalEObjectImpl.Container implements Questi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getIncorrectfeedback() {
 		return incorrectfeedback;
 	}
@@ -121,6 +124,7 @@ public class QuestionImpl extends MinimalEObjectImpl.Container implements Questi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setIncorrectfeedback(String newIncorrectfeedback) {
 		String oldIncorrectfeedback = incorrectfeedback;
 		incorrectfeedback = newIncorrectfeedback;
@@ -205,7 +209,7 @@ public class QuestionImpl extends MinimalEObjectImpl.Container implements Questi
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (correctfeedback: ");
 		result.append(correctfeedback);
 		result.append(", incorrectfeedback: ");

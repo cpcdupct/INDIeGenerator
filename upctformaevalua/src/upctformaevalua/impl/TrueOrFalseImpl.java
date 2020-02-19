@@ -66,6 +66,7 @@ public class TrueOrFalseImpl extends QuestionImpl implements TrueOrFalse {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Assertion> getAssertions() {
 		if (assertions == null) {
 			assertions = new EObjectContainmentEList<Assertion>(Assertion.class, this, UpctformaevaluaPackage.TRUE_OR_FALSE__ASSERTIONS);

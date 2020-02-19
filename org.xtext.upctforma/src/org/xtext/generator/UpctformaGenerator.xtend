@@ -24,6 +24,8 @@ import upctforma.ListValue
 import upctforma.RecordValue
 import java.util.List
 import java.util.ArrayList
+import java.util.HashMap;
+import java.util.Map;
 /**
  * Generates code from your model files on save.
  * 
@@ -33,12 +35,20 @@ class UpctformaGenerator extends AbstractGenerator {
 	/* Variable global que almacena los objetivos a superar en una unidad */
 	var String progresoobj = '';
 	
+	
 	/*Variable global que almacena el contenido del fichero index.php a generar */
+	var List<String> language;
+	
+	/* 	'EN' -> #["Match each image with its text","Click on the schema","Click on the correct option","Click on the images","Click on the term","Answer each question","Match each concept with its definition","Click on the button","Click on each tab","Click on the image"], 
+		'ES' -> #["Match each image with its text","Click on the schema","Click on the correct option","Click on the images","Click on the term","Answer each question","Match each concept with its definition","Click on the button","Click on each tab","Click on the image"]
+	);*/
+	
 	var String fileindex = ''; 
 	var String filetextual = ''; 
 	var String filevideo1 = '';	
 	var String filevideo2 = '';
 	var String filevideo3 = '';
+	var String filetruefalse = '';
 	var String fileanimation = '';
 	var String fileanimationcss = '';
 	var String filetest = '';
@@ -48,7 +58,8 @@ class UpctformaGenerator extends AbstractGenerator {
 		
 	var Integer containsRectangleDragAndDrop = 0;
 	var	Integer	containsTextualDragAndDrop = 0;
-	var Integer containsContainerTest = 0; 
+	var Integer containsContainerTest = 0;
+	var Integer containsTrueFalse = 0;  
 	
 	var primervideo = 0;
 	var AnimationInOut animation = null;
@@ -56,7 +67,7 @@ class UpctformaGenerator extends AbstractGenerator {
 
 	/**
 	 * Recuperamos todas las metaclases y nos quedamos con las ContentUnit.
-	 * Por cada ContentUnit llamamos al método compile. 
+	 * Por cada ContentUnit llamamos al mÃ©todo compile. 
 	 */
 	override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
 		for (e : resource.allContents.toIterable.filter(ContentUnit)){
@@ -64,7 +75,90 @@ class UpctformaGenerator extends AbstractGenerator {
 		}
 	}
 	
+	def generateTrueFalse(Widget wg, String idgen, String title, List<ContentElement> args, int j, IFileSystemAccess2 fsa, Integer tipo){
+		fileindex = fileindex + '''
+			<div class="row">
+				<div class="col-md-12 interview">
+					<h4><i class="fa fa-mouse-pointer"></i>&nbsp;Â«language.get(10)Â» </h4>
+					<i id="objetivoÂ«idgenÂ»" class="far fa-check-square fa-2x" aria-hidden="true"></i>
+				</div>
+			</div>
+		'''
+		
+		var ListValue tempwg1;
+		if (tipo==1){
+			tempwg1= wg.widgetelements.get(0) as ListValue;	
+		}else{
+			val arge = args.get(j) as Widget;				
+			tempwg1= arge.widgetelements.get(0) as ListValue;
+		}
+		
+		filetruefalse = filetruefalse + '''var solutionÂ«idgenÂ» = ['''
+		
+		for (var i = 0; i < tempwg1.listvalues.length; i++){
+			val tempwg2 = tempwg1.listvalues.get(i) as RecordValue;
+			val tempwg3 = tempwg2.recordvalues.get(0).fieldvalue as Text;
+			val tempwg4 = tempwg2.recordvalues.get(1).fieldvalue as Text;
+		
+		
+			fileindex = fileindex + '''		
+	    	    <div class="row padtf" style="background-color: rgba(75, 187, 139, 0.5);">
+			    	<div class="col-md-7 col-sm-9 col-xs-9" >
+			        	<p class="marzero">Â«tempwg3.htmlÂ»</p>
+			        </div>                            
+			        <div class="col-md-4 col-sm-2 col-xs-2 centered">
+			     	     <input name="Â«idgenÂ»Â«iÂ»" type="checkbox" class="switched" checked data-toggle="toggle" data-on="True" data-off="False" data-onstyle="success" data-offstyle="danger">  
+			     	</div>
+			     	<div class="col-md-1 col-sm-1 col-xs-1 iconresult centered"></div>
+				</div>
+			'''
+			filetruefalse = filetruefalse + '''Â«tempwg4.html.toLowerCaseÂ»'''if (i !=(tempwg1.listvalues.length-1)){filetruefalse = filetruefalse + ''','''}
+		}
+		
+		filetruefalse = filetruefalse + '''];
+		'''
+		
+		fileindex = fileindex + '''
+			<div class="row" style="margin-bottom: 80px;">
+				<div class="col-md-3 col-sm-6 col-xs-6">
+			    	<a class="btn btn-lg btn-success boton_truefalseÂ«idgenÂ»">Â«language.get(11)Â»</a>
+			    </div>
+			    <div class="col-md-9 col-sm-6 col-xs-6 resultado_truefalseÂ«idgenÂ»"></div>
+			</div>
+		'''
+		
+		filetruefalse = filetruefalse + '''
+			var victoriaÂ«idgenÂ» = 0;
+			
+			$('.boton_truefalseÂ«idgenÂ»').click(function(ev) {
+			    var contÂ«idgenÂ» = 0;
+			    var resÂ«idgenÂ» = [];
+			
+			    for (var i = 0; i < solutionÂ«idgenÂ».length; i++) {
+			        resÂ«idgenÂ»[i] = $('input:checkbox[name=Â«idgenÂ»' + i + ']').prop('checked');
+			        if (solutionÂ«idgenÂ»[i] == resÂ«idgenÂ»[i]) {
+			        	$('input:checkbox[name=Â«idgenÂ»' + i + ']').parent().parent().siblings('.iconresult').html('<i class="fas fa-2x fa-check"></i>');
+			            contÂ«idgenÂ»++;
+			        }else{
+			        	 $('input:checkbox[name=Â«idgenÂ»' + i + ']').parent().parent().siblings('.iconresult').html('<i class="fas fa-2x fa-times"></i>');
+			        }
+			    }
+			
+			    if(contÂ«idgenÂ» == solutionÂ«idgenÂ».length){
+			        victoriaÂ«idgenÂ» = 1;
+			        setObjetivoCompleto("objetivoÂ«idgenÂ»","Â«wg.nameÂ»","Â«wg.nameÂ»");				        
+			    }
+			
+			    $('.resultado_truefalseÂ«idgenÂ»').html('<h4>' + contÂ«idgenÂ» + ' Â«language.get(12)Â»</h4>');
+			});
+		'''
+		
+		progresoobj = progresoobj + '''
+			,"objetivoÂ«idgenÂ»"
+		'''		
+	}
 	def generateCouples(Widget wg, String idgen, String title, List<ContentElement> args, int j, IFileSystemAccess2 fsa, Integer tipo){
+		
 		var ListValue tempwg1;
 		if (tipo==1){
 			tempwg1= wg.widgetelements.get(0) as ListValue;	
@@ -73,23 +167,24 @@ class UpctformaGenerator extends AbstractGenerator {
 			tempwg1= arge.widgetelements.get(0) as ListValue;
 		}
 			
+		
 		fileindex = fileindex + '''
 			<div class="row">
 				<div class="col-md-12 interview">
-					<h4><i class="fa fa-mouse-pointer"></i>&nbsp;Match each image with its text </h4>
-					<i id="objetivo«idgen»" class="far fa-check-square fa-2x" aria-hidden="true"></i>
+					<h4><i class="fa fa-mouse-pointer"></i>&nbsp;Â«language.get(0)Â» </h4>
+					<i id="objetivoÂ«idgenÂ»" class="far fa-check-square fa-2x" aria-hidden="true"></i>
 				</div>
 			</div>
 		'''
 		
 		filecouples = filecouples + '''
-			var data_couples«idgen» = {
+			var data_couplesÂ«idgenÂ» = {
 		    	0: {
 		    			imagenes: [],
 		    			textos: []
 		    	}
 		    }
-		    var indexes«idgen» = [];		    
+		    var indexesÂ«idgenÂ» = [];		    
 		'''
 		var cont = 0;
 		for (var i = 0; i < tempwg1.listvalues.length; i++){
@@ -98,13 +193,13 @@ class UpctformaGenerator extends AbstractGenerator {
 			val tempwg4 = tempwg2.recordvalues.get(1).fieldvalue as Image;
 			
 			filecouples = filecouples + '''
-				 data_couples«idgen»[0].imagenes[«i»] = {content: '«tempwg4.url»', tipo: '1', pareja: '«i»'};
-				 data_couples«idgen»[0].textos[«i»] = {content: '«tempwg3.html»', tipo: '2', pareja: '«i»'};
-				 indexes«idgen»[«cont»] = '«cont»';				 				 
+				 data_couplesÂ«idgenÂ»[0].imagenes[Â«iÂ»] = {content: 'Â«tempwg4.urlÂ»', tipo: '1', pareja: 'Â«iÂ»'};
+				 data_couplesÂ«idgenÂ»[0].textos[Â«iÂ»] = {content: 'Â«tempwg3.htmlÂ»', tipo: '2', pareja: 'Â«iÂ»'};
+				 indexesÂ«idgenÂ»[Â«contÂ»] = 'Â«contÂ»';				 				 
 			'''
 			cont++;
 			filecouples = filecouples + '''
-				indexes«idgen»[«cont»] = '«cont»';
+				indexesÂ«idgenÂ»[Â«contÂ»] = 'Â«contÂ»';
 			'''
 			cont++;
 		}
@@ -116,23 +211,24 @@ class UpctformaGenerator extends AbstractGenerator {
 			}
 						
 			var actual, last;
+			var countAciertosÂ«idgenÂ» = 0;
 			$(document).ready(function () {
-			    $('.parejas«idgen»').each(function () {
+			    $('.parejasÂ«idgenÂ»').each(function () {
 			        var dataindex = $(this).attr('data-index');
-			        var initialArray = data_couples«idgen»[dataindex].imagenes.concat(data_couples«idgen»[dataindex].textos);
+			        var initialArray = data_couplesÂ«idgenÂ»[dataindex].imagenes.concat(data_couplesÂ«idgenÂ»[dataindex].textos);
 			        
-			        var shuffledArray = shuffle(initialArray, indexes«idgen»);
-	                $(this).append($('<div />').addClass('row').append($('<div />').addClass('col-xs-12 col-sm-12 col-md-12 inicio')).append($('<div />')));
+			        var shuffledArray = shuffle(initialArray, indexesÂ«idgenÂ»);
+	                $(this).append($('<div />').addClass('row').append($('<div />').addClass('col-xs-12 col-sm-12 col-md-12 inicioÂ«idgenÂ»')).append($('<div />')));
 
 	                var countrow = 1, countcol = 1;
 	                $.each(shuffledArray, function (key, value) {
 	                    if (countcol == 1) {
-	                        $('.inicio').append($('<div />').addClass('col-xs-12 col-sm-12 col-md-12 row' + countrow));
+	                        $('.inicioÂ«idgenÂ»').append($('<div />').addClass('col-xs-12 col-sm-12 col-md-12 rowÂ«idgenÂ»'+ countrow));
 	                    }
 	                    if (value.tipo == 1) {
-	                        $('.row' + countrow).append($('<div />').addClass('col-xs-3 col-sm-3 col-md-3 col' + countcol).attr('data-id', indexes«idgen»[key]).attr('data-position', value.pareja).append($('<img />').addClass('img-responsive').attr('src', value.content)));
+	                        $('.rowÂ«idgenÂ»'+ countrow).append($('<div />').addClass('col-xs-3 col-sm-3 col-md-3 colÂ«idgenÂ»').attr('data-id', 'Â«idgenÂ»/' + indexesÂ«idgenÂ»[key]).attr('data-position', 'Â«idgenÂ»/' + value.pareja).append($('<img />').addClass('img-responsive').attr('src', value.content)));
 	                    } else {
-	                        $('.row' + countrow).append($('<div />').addClass('col-xs-3 col-sm-3 col-md-3 col' + countcol).attr('data-id', indexes«idgen»[key]).attr('data-position', value.pareja).append($('<button />').text(value.content)));
+	                        $('.rowÂ«idgenÂ»'+ countrow).append($('<div />').addClass('col-xs-3 col-sm-3 col-md-3 colÂ«idgenÂ»').attr('data-id', 'Â«idgenÂ»/' + indexesÂ«idgenÂ»[key]).attr('data-position', 'Â«idgenÂ»/' + value.pareja).append($('<button />').text(value.content)));
 	                    }
 	                    countcol++;
 	                    if (countcol > 4) {
@@ -141,7 +237,7 @@ class UpctformaGenerator extends AbstractGenerator {
 	                    }
 	                });
 	            });
-	               $('div[class*="row"]:not(.row) > div[class*="col"]').on('click', function () {
+	               $('div[class*="rowÂ«idgenÂ»"]:not(.row) > div[class*="colÂ«idgenÂ»"]').on('click', function () {
 	                    actual = $(this).attr('data-position');
 	                    actual2 = $(this).attr('data-id');
 	                    if (typeof (last) === 'undefined') {
@@ -156,6 +252,7 @@ class UpctformaGenerator extends AbstractGenerator {
 	                        if (actual == last) {
 	                            $('div[data-position="' + actual + '"]').unbind('click').addClass('correcto');
 	                            $('div[data-position="' + last + '"]').unbind('click').addClass('correcto');
+	                            countAciertosÂ«idgenÂ» = countAciertosÂ«idgenÂ» + 2;
 	                        } else {
 	                            $('div[data-id="' + actual2 + '"]').addClass('fallo');
 	                            $('div[data-id="' + last2 + '"]').addClass('fallo');
@@ -168,47 +265,25 @@ class UpctformaGenerator extends AbstractGenerator {
 	                            last = undefined;
 	                            actual = undefined;
 	                        }, 300);
-	                        if ($('.correcto').length === indexes«idgen».length) {
-	                            setObjetivoCompleto('objetivo«idgen»','«wg.name»','«wg.name»');		
+	                        if (countAciertosÂ«idgenÂ» === indexesÂ«idgenÂ».length) {
+	                            setObjetivoCompleto('objetivoÂ«idgenÂ»','Â«wg.nameÂ»','Â«wg.nameÂ»');		
 	                        }
 	                    }
 	                });
 	            });
 	            
-	            // Fisher-Yates Shuffle array
-	            function shuffle(array, indexes) {
-	                var m = array.length, t, i, ti;
 	            
-	                // While there remain elements to shuffle…
-	                while (m) {
-	            
-	                    // Pick a remaining element…
-	                    i = Math.floor(Math.random() * m--);
-	            
-	                    // And swap it with the current element.
-	                    t = array[m];
-	                    ti = indexes[m];
-	            
-	                    array[m] = array[i];
-	                    indexes[m] = indexes[i];
-	            
-	                    array[i] = t;
-	                    indexes[i] = ti;
-	                }
-	            
-	                return array;
-	            }
 		'''
 		
 		fileindex = fileindex + '''
 			<div class="row" style="margin-bottom: 80px;">
 			    <div class="col-md-12 centered">			    	
-			    	<div class="container parejas«idgen»" data-index="0"></div>
+			    	<div class="container parejasÂ«idgenÂ»" data-index="0"></div>
 				</div>
 			</div>
 		'''
 		progresoobj = progresoobj + '''
-			,"objetivo«idgen»"
+			,"objetivoÂ«idgenÂ»"
 		'''			
 	}
 	
@@ -224,8 +299,8 @@ class UpctformaGenerator extends AbstractGenerator {
 		fileindex = fileindex + '''
 			<div class="row">
 				<div class="col-md-12 interview">
-					<h4><i class="fa fa-mouse-pointer"></i>&nbsp;Click on the schema </h4>
-					<i id="objetivo«idgen»" class="far fa-check-square fa-2x" aria-hidden="true"></i>
+					<h4><i class="fa fa-mouse-pointer"></i>&nbsp;Â«language.get(1)Â» </h4>
+					<i id="objetivoÂ«idgenÂ»" class="far fa-check-square fa-2x" aria-hidden="true"></i>
 				</div>
 			</div>
 		'''
@@ -234,13 +309,13 @@ class UpctformaGenerator extends AbstractGenerator {
 		fileindex = fileindex + '''
 			<div class="row" style="margin-bottom: 80px;">
 	            <div class="col-md-12 centered">                       
-    	            <p class="centered"><img class="img-responsive empezar«idgen» mano" data-obj="objetivo«idgen»" data-type="ClickImage" data-desc="ClickImage" src="«tempwg2.url»" alt="diagrama 1"></p> 
+    	            <p class="centered"><img class="img-responsive empezarÂ«idgenÂ» mano" data-obj="objetivoÂ«idgenÂ»" data-type="ClickImage" data-desc="ClickImage" src="Â«tempwg2.urlÂ»" alt="diagrama 1"></p> 
                 </div>
             </div>
         '''
         fileSchema = fileSchema + '''
-	        var bloqueado«idgen» = false;
-	        $(document).on('click', '.empezar«idgen»', function(){	
+	        var bloqueadoÂ«idgenÂ» = false;
+	        $(document).on('click', '.empezarÂ«idgenÂ»', function(){	
 	        	var objetivo = $(this).attr('data-obj');
 	        	var descripcion = $(this).attr('data-desc');
 	        	var tipo = $(this).attr('data-type');
@@ -250,21 +325,21 @@ class UpctformaGenerator extends AbstractGenerator {
 		
 		for (var i = 1; i < tempwg1.listvalues.length; i++){
 			val tempwg3 = tempwg1.listvalues.get(i) as Image;
-			 fileSchema = fileSchema + '''"«tempwg3.url»"'''if (i !=(tempwg1.listvalues.length-1)){fileSchema = fileSchema + ''','''}			
+			 fileSchema = fileSchema + '''"Â«tempwg3.urlÂ»"'''if (i !=(tempwg1.listvalues.length-1)){fileSchema = fileSchema + ''','''}			
 		}
 		fileSchema = fileSchema + '''
 			];
 					
-			if (bloqueado«idgen» == false) {
-				bloqueado«idgen» = true;
+			if (bloqueadoÂ«idgenÂ» == false) {
+				bloqueadoÂ«idgenÂ» = true;
 					var i = 0;
 					var timer = setInterval(function(){
 					if (i < orden.length) {
-						$('.empezar«idgen»').attr('src',orden[i]);
+						$('.empezarÂ«idgenÂ»').attr('src',orden[i]);
 						i++;
 					} else {
 						clearInterval(timer);
-						setObjetivoCompleto("objetivo«idgen»", "«wg.name»", "«wg.name»");
+						setObjetivoCompleto("objetivoÂ«idgenÂ»", "Â«wg.nameÂ»", "Â«wg.nameÂ»");
 					}		
 				}, 1000);
 			}	
@@ -272,7 +347,7 @@ class UpctformaGenerator extends AbstractGenerator {
 		'''
 		
 		progresoobj = progresoobj + '''
-			,"objetivo«idgen»"
+			,"objetivoÂ«idgenÂ»"
 		'''	
 	}
 
@@ -297,34 +372,34 @@ class UpctformaGenerator extends AbstractGenerator {
 		fileindex = fileindex + '''
 			<div class="row">
 				<div class="col-md-12 interview">
-					<h4><i class="fa fa-mouse-pointer"></i>&nbsp;Click on the correct option</h4>
-					<i id="objetivo«idgen»" class="far fa-check-square fa-2x" aria-hidden="true"></i>
+					<h4><i class="fa fa-mouse-pointer"></i>&nbsp;Â«language.get(2)Â»</h4>
+					<i id="objetivoÂ«idgenÂ»" class="far fa-check-square fa-2x" aria-hidden="true"></i>
 				</div>
 			</div>
 		'''
 		fileindex = fileindex + '''
 			<div class="row">
-				<div class="col-md-6 col-md-offset-3">
-					<div id="«idgen»" class="pictograma" data-desc="«wg.name»" data-obj="objetivo«idgen»" data-value="«tempwg8.num»">
+				<div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+					<div id="Â«idgenÂ»" class="pictograma" data-desc="Â«wg.nameÂ»" data-obj="objetivoÂ«idgenÂ»" data-value="Â«tempwg8.numÂ»">
 						<div class="containerpregunta">
 							<div class="no-padding">
-								<h4 class="text-center">«tempwg2.html»</h4>
+								<h4 class="text-center">Â«tempwg2.htmlÂ»</h4>
 							</div>
 							<div class="no-padding">
-								<figure data-question="«idgen»"><img src="«tempwg3.url»" alt="Imagen 1" class="img-responsive"></figure>
+								<figure data-question="Â«idgenÂ»"><img src="Â«tempwg3.urlÂ»" alt="Imagen 1" class="img-responsive"></figure>
 							</div>
 							<div class="no-padding" >
-								<div class="col-md-6 no-padding respuesta" >
-									<a class="btn btn-lg btn-success response w98m1" data-response="1" data-question="«idgen»">«tempwg4.html»</a>
+								<div class="col-md-6 col-sm-6 col-xs-6 no-padding respuesta" >
+									<a class="btn btn-lg btn-success response w98m1" data-response="1" data-question="Â«idgenÂ»">Â«tempwg4.htmlÂ»</a>
 								</div>
-								<div class="col-md-6 no-padding respuesta">
-									<a class="btn btn-lg btn-success response w98m1" data-response="2" data-question="«idgen»">«tempwg5.html»</a>
+								<div class="col-md-6 col-sm-6 col-xs-6 no-padding respuesta">
+									<a class="btn btn-lg btn-success response w98m1" data-response="2" data-question="Â«idgenÂ»">Â«tempwg5.htmlÂ»</a>
 								</div>
-								<div class="col-md-6 no-padding respuesta">
-									<a class="btn btn-lg btn-success response w98m1" data-response="3" data-question="«idgen»">«tempwg6.html»</a>
+								<div class="col-md-6 col-sm-6 col-xs-6 no-padding respuesta">
+									<a class="btn btn-lg btn-success response w98m1" data-response="3" data-question="Â«idgenÂ»">Â«tempwg6.htmlÂ»</a>
 								</div>
-								<div class="col-md-6 no-padding respuesta">
-									<a class="btn btn-lg btn-success response w98m1" data-response="4" data-question="«idgen»" >«tempwg7.html»</a>
+								<div class="col-md-6 col-sm-6 col-xs-6 no-padding respuesta">
+									<a class="btn btn-lg btn-success response w98m1" data-response="4" data-question="Â«idgenÂ»" >Â«tempwg7.htmlÂ»</a>
 								</div>
 							</div>
 						</div>
@@ -334,7 +409,7 @@ class UpctformaGenerator extends AbstractGenerator {
 			</div>
 		'''
 		progresoobj = progresoobj + '''
-			,"objetivo«idgen»"
+			,"objetivoÂ«idgenÂ»"
 		'''	
 	}
 
@@ -348,15 +423,15 @@ class UpctformaGenerator extends AbstractGenerator {
 		}
 
 		fileImageSound = fileImageSound +'''
-			var imageSound«idgen» = [];
-			var contador«idgen» = 0;		
+			var imageSoundÂ«idgenÂ» = [];
+			var contadorÂ«idgenÂ» = 0;		
 		'''
 				
 		fileindex = fileindex + '''
 			<div class="row">
 				<div class="col-md-12 interview">
-					<h4><i class="fa fa-mouse-pointer"></i>&nbsp;Click on the images  </h4>
-					<i id="objetivo«idgen»" class="far fa-check-square fa-2x" aria-hidden="true"></i>
+					<h4><i class="fa fa-mouse-pointer"></i>&nbsp;Â«language.get(3)Â»  </h4>
+					<i id="objetivoÂ«idgenÂ»" class="far fa-check-square fa-2x" aria-hidden="true"></i>
 				</div>
 			</div>
 		'''
@@ -371,15 +446,15 @@ class UpctformaGenerator extends AbstractGenerator {
 		
 
 			fileImageSound = fileImageSound +'''
-				imageSound«idgen»[«i»]=false;
+				imageSoundÂ«idgenÂ»[Â«iÂ»]=false;
 			'''			
 			fileindex = fileindex + '''
-				<div class="col-md-6 col-sm-6 centered">
+				<div class="centered">
 			    	<div class="ContenedorGeneral ImageSoundTransicion">
-			        	<img id="«idgen»«i»" class="mano img-responsive vocabulary«idgen»" src="«tempwg4.url»" data-value="«i»" data-sound="audio«idgen»«i»" data-text="text«idgen»«i»" alt="">
-			            <audio id="audio«idgen»«i»" src="«tempwg3.html»" type="audio/mp3"></audio>
-			            <div id="text«idgen»«i»" class="Contenido3">
-			            	<h3 style="padding-top: 20%;">«tempwg5.html»</h3>
+			        	<img id="Â«idgenÂ»Â«iÂ»" class="mano img-responsive vocabularyÂ«idgenÂ»" src="Â«tempwg4.urlÂ»" data-value="Â«iÂ»" data-sound="audioÂ«idgenÂ»Â«iÂ»" data-text="textÂ«idgenÂ»Â«iÂ»" alt="">
+			            <audio id="audioÂ«idgenÂ»Â«iÂ»" src="Â«tempwg3.htmlÂ»" type="audio/mp3"></audio>
+			            <div id="textÂ«idgenÂ»Â«iÂ»" class="Contenido3">
+			            	<h3 style="padding-top: 20%;">Â«tempwg5.htmlÂ»</h3>
 			            </div>
 			        </div>
 			    </div>
@@ -391,32 +466,37 @@ class UpctformaGenerator extends AbstractGenerator {
 			</div>           
 		'''
 		fileImageSound = fileImageSound +'''
-			$(document).on('click', '.vocabulary«idgen»', function(){
+			$(document).on('click', '.vocabularyÂ«idgenÂ»', function(){
 				var track = $(this).attr('data-sound');
 				var pos = $(this).attr('data-value');
 				var text = $(this).attr('data-text');
 				$('#' + text).addClass("ImageSoundTransicionActive");
 				
-				imageSound«idgen»[pos] = true;
+				imageSoundÂ«idgenÂ»[pos] = true;
 				
 				$('audio').trigger('pause');
 				$('audio').prop("currentTime", 0);
 				$('#' + track).trigger('play');
 				
-				contador«idgen» = 0;
-				for (i = 0; i < imageSound«idgen».length; i++) {
-					if(imageSound«idgen»[i] == true){
-						contador«idgen»++;
+				contadorÂ«idgenÂ» = 0;
+				for (i = 0; i < imageSoundÂ«idgenÂ».length; i++) {
+					if(imageSoundÂ«idgenÂ»[i] == true){
+						contadorÂ«idgenÂ»++;
 					}
 				}
-				if (imageSound«idgen».length ==contador«idgen»){
-					setObjetivoCompleto("objetivo«idgen»","«wg.name»","«wg.name»");			
-				}	
+				if (imageSoundÂ«idgenÂ».length ==contadorÂ«idgenÂ»){
+					setObjetivoCompleto("objetivoÂ«idgenÂ»","Â«wg.nameÂ»","Â«wg.nameÂ»");			
+				}
+				$(document).on('click', '#'+text, function(){
+				    $('audio').trigger('pause');
+				    $('audio').prop("currentTime", 0);
+				    $('#' + track).trigger('play');
+				  });	
 			});			
 		'''
 		
 		progresoobj = progresoobj + '''
-				,"objetivo«idgen»"
+				,"objetivoÂ«idgenÂ»"
 		'''
 	}	
 	def generateAudioTerm(Widget wg, String idgen, String title, List<ContentElement> args, int j, IFileSystemAccess2 fsa, Integer tipo){
@@ -437,48 +517,48 @@ class UpctformaGenerator extends AbstractGenerator {
 				<div class="row">
 					<div class="col-md-12 interview">
 			'''
-			if (i==0){fileindex = fileindex + '''<h4><i class="fa fa-mouse-pointer"></i>&nbsp;Click on the term </h4>'''}
+			if (i==0){fileindex = fileindex + '''<h4><i class="fa fa-mouse-pointer"></i>&nbsp;Â«language.get(4)Â» </h4>'''}
 			fileindex = fileindex + '''									
-						<i id="objetivo«idgen»«i»" class="far fa-check-square fa-2x" aria-hidden="true"></i>
+						<i id="objetivoÂ«idgenÂ»Â«iÂ»" class="far fa-check-square fa-2x" aria-hidden="true"></i>
 					</div>
 				</div>
 			'''		
 			fileindex = fileindex + '''
 				<div class="row">
-					<div class="col-md-3">
-						<audio id="audio«idgen»«i»">
-	  						<source src="«tempwg3.html»" type="audio/mpeg" />
+					<div class="col-md-3 col-sm-3 col-xs-3">
+						<audio id="audioÂ«idgenÂ»Â«iÂ»">
+	  						<source src="Â«tempwg3.htmlÂ»" type="audio/mpeg" />
 						</audio>
-	  					<p id="«idgen»«i»" data-desc="«wg.name»" class="termino btnmostrar mano control_objetivo_unico_click" data-audio="audio«idgen»«i»" data-target="#term«idgen»«i»" data-type="ShowTextAudio">«tempwg4.html»</p>
+	  					<p id="Â«idgenÂ»Â«iÂ»" data-desc="Â«wg.nameÂ»" class="termino btnmostrar mano control_objetivo_unico_click" data-audio="audioÂ«idgenÂ»Â«iÂ»" data-target="#termÂ«idgenÂ»Â«iÂ»" data-type="ShowTextAudio">Â«tempwg4.htmlÂ»</p>
 					</div>
-					<div id="term«idgen»«i»" class="col-md-9 hidden definicion_termino">
-	  					«tempwg5.html»
+					<div id="termÂ«idgenÂ»Â«iÂ»" class="col-md-9 col-sm-9 col-xs-9 hidden definicion_termino">
+	  					<p>Â«tempwg5.htmlÂ»</p>
 					</div>
 				</div>				
 			'''
 			
 			progresoobj = progresoobj + '''
-				,"objetivo«idgen»«i»"
+				,"objetivoÂ«idgenÂ»Â«iÂ»"
 			'''
 		}
 	}
 
 	def generateContainerTest(Widget wg, String idgen, String title, List<ContentElement> args, int j, IFileSystemAccess2 fsa, Integer tipo){
 		filetest = filetest +'''
-			var solution«idgen» = 'true';
-			var res«idgen» = [];
-			var victoria«idgen» = 0;
-			var contador«idgen»;
+			var solutionÂ«idgenÂ» = 'true';
+			var resÂ«idgenÂ» = [];
+			var victoriaÂ«idgenÂ» = 0;
+			var contadorÂ«idgenÂ»;
 			
-			$('#buttontest«idgen»').click(function(ev) {
-				contador«idgen» = 0;
+			$('#buttontestÂ«idgenÂ»').click(function(ev) {
+				contadorÂ«idgenÂ» = 0;
 			
 		'''
 		fileindex = fileindex + '''
 			<div class="row">
 				<div class="col-md-12 interview">
-					<h4><i class="fa fa-mouse-pointer"></i>&nbsp;Answer each question </h4>
-					<i id="objetivo«idgen»" class="far fa-check-square fa-2x" aria-hidden="true"></i>
+					<h4><i class="fa fa-mouse-pointer"></i>&nbsp;Â«language.get(5)Â» </h4>
+					<i id="objetivoÂ«idgenÂ»" class="far fa-check-square fa-2x" aria-hidden="true"></i>
 				</div>
 			</div>
 		'''
@@ -494,6 +574,10 @@ class UpctformaGenerator extends AbstractGenerator {
 			tempwg1= arge.widgetelements.get(0) as ListValue;
 		}	
 		
+		fileindex = fileindex + '''         				
+	    	<div class="row padtf">
+	    '''
+	    
 		for (var i = 0; i < tempwg1.listvalues.length; i++){
 			val tempwg2 = tempwg1.listvalues.get(i) as RecordValue;
 			val tempwg3 = tempwg2.recordvalues.get(0).fieldvalue as Text;
@@ -503,61 +587,68 @@ class UpctformaGenerator extends AbstractGenerator {
 			val question = tempwg3.html.replace('[blank]', '____');
 			
 			filetest = filetest +'''
-				if( solution«idgen» == $('input:radio[name=«idgen»«i»]:checked').val() ){res«idgen»[«i»]=true;'''
+				if( solutionÂ«idgenÂ» == $('input:radio[name=Â«idgenÂ»Â«iÂ»]:checked').val() ){resÂ«idgenÂ»[Â«iÂ»]=true;'''
 				
-			fileindex = fileindex + '''         
-					<div class="col-md-4 col-sm-4">
-	                      <div class="row padtf">
-	                            <div class="col-md-12 col-sm-12 col-xs-12">
-	                                <p class="marzero">«question»</p>
+			fileindex = fileindex + '''         					                   
+	                            <div class="col-md-4 col-sm-6 col-xs-12">
+	                                <p>Â«questionÂ»</p>
+	        '''
+	        for (var x = 0; x < tempwg4.listvalues.length; x++){
+				val response = tempwg4.listvalues.get(x) as Text;
+				fileindex = fileindex + '''
+				        	<p class="marzero"><label class="labeltest"><input class="events" type="radio" id="Â«idgenÂ»Â«iÂ»Â«xÂ»" data-desc="objetivoÂ«idgenÂ»" name="Â«idgenÂ»Â«iÂ»" value="'''if (tempwg5.num == (x+1)){fileindex = fileindex +'''true''' filetest = filetest + '''$("#Â«idgenÂ»Â«iÂ»Â«xÂ»").parent().addClass("verdetest");}'''}else{fileindex = fileindex +'''false'''}fileindex = fileindex +'''">
+				                            Â«response.htmlÂ»
+				            </label></p>
+				'''
+			}
+	        fileindex = fileindex + '''
 	                            </div>
-	                        </div>
+	                       
 			'''         
-			for (var x = 0; x < tempwg4.listvalues.length; x++){
+			/*for (var x = 0; x < tempwg4.listvalues.length; x++){
 				val response = tempwg4.listvalues.get(x) as Text;
 				fileindex = fileindex + '''
 					<div class="row padtf">
 				    	<div class="col-md-12 col-sm-12 col-xs-12">
-				        	<input class="events" type="radio" id="«idgen»«i»«x»" data-desc="objetivo«idgen»" name="«idgen»«i»" value="'''if (tempwg5.num == (x+1)){fileindex = fileindex +'''true''' filetest = filetest + '''$("#«idgen»«i»«x»").parent().addClass("verdetest");}'''}else{fileindex = fileindex +'''false'''}fileindex = fileindex +'''">
-				                            «response.html»
+				        	<input class="events" type="radio" id="Â«idgenÂ»Â«iÂ»Â«xÂ»" data-desc="objetivoÂ«idgenÂ»" name="Â«idgenÂ»Â«iÂ»" value="'''if (tempwg5.num == (x+1)){fileindex = fileindex +'''true''' filetest = filetest + '''$("#Â«idgenÂ»Â«iÂ»Â«xÂ»").parent().addClass("verdetest");}'''}else{fileindex = fileindex +'''false'''}fileindex = fileindex +'''">
+				                            Â«response.htmlÂ»
 				        </div>
 				   </div>
 				'''
-			}      
-			fileindex = fileindex + '''
-		        </div>
-			'''         
+			}   */   
+			       
 		}
 		fileindex = fileindex + '''
+		 	</div>
 		   </div>
 		'''         
 		
 		fileindex = fileindex + '''
 		 	<div class="row" style="margin-bottom: 80px;">
-		    	<div class="col-md-3">
-		        	<a id="buttontest«idgen»" class="btn btn-lg btn-success events boton_test">Check your answer</a>
+		    	<div class="col-md-3 col-sm-6 col-xs-6">
+		        	<a id="buttontestÂ«idgenÂ»" class="btn btn-lg btn-success events">Â«language.get(11)Â»</a>
 		        </div>
-		        <div class="col-md-9 hidden resultado«idgen»">
-		        	<h4>Number of correct answers <span id="«idgen»" class="contador«idgen»"></span></h4>
+		        <div class="col-md-9 col-sm-6 col-xs-6 hidden resultado resultadoÂ«idgenÂ»">
+		        	<h4>Number of correct answers <span id="Â«idgenÂ»" class="contadorÂ«idgenÂ»"></span></h4>
 		        </div>
 		    </div>
 		'''
 		filetest = filetest +'''
-			for (i = 0; i < res«idgen».length; i++) {
-				if(res«idgen»[i] == true){
-					contador«idgen»++;
+			for (i = 0; i < resÂ«idgenÂ».length; i++) {
+				if(resÂ«idgenÂ»[i] == true){
+					contadorÂ«idgenÂ»++;
 				}
 			}
-			$('.contador«idgen»').html(contador«idgen»);
-			$('.resultado«idgen»').removeClass('hidden');
+			$('.contadorÂ«idgenÂ»').html(contadorÂ«idgenÂ»);
+			$('.resultadoÂ«idgenÂ»').removeClass('hidden');
 				
-			if (res«idgen».length ==contador«idgen»){
-				setObjetivoCompleto("objetivo«idgen»","«wg.name»","«wg.name»");			
+			if (resÂ«idgenÂ».length ==contadorÂ«idgenÂ»){
+				setObjetivoCompleto("objetivoÂ«idgenÂ»","Â«wg.nameÂ»","Â«wg.nameÂ»");			
 			}		
 			});
 		'''
 		progresoobj = progresoobj + '''
-			,"objetivo«idgen»"
+			,"objetivoÂ«idgenÂ»"
 		'''		
 	}
 		
@@ -566,8 +657,8 @@ class UpctformaGenerator extends AbstractGenerator {
 		fileindex = fileindex + '''
 			<div class="row">
 				<div class="col-md-12 interview">
-					<h4><i class="fa fa-mouse-pointer"></i>&nbsp;Match each concept with its definition</h4>
-					<i id="objetivo«idgen»" class="far fa-check-square fa-2x" aria-hidden="true"></i>
+					<h4><i class="fa fa-mouse-pointer"></i>&nbsp;Â«language.get(6)Â»</h4>
+					<i id="objetivoÂ«idgenÂ»" class="far fa-check-square fa-2x" aria-hidden="true"></i>
 				</div>
 			</div>
 		'''
@@ -588,15 +679,15 @@ class UpctformaGenerator extends AbstractGenerator {
 		 		fileindex = fileindex + '''
 					<div class="row">
 						<div class="col-md-3 col-sm-3 col-xs-3">
-					    	<div id="drop«idgen»«i»«i»" class="ui-droppable drops drop«idgen»«i» smar1 ui-helper-reset">
-					        	<img src="«tempwg3.url»" id="«idgen»«tempwg31»" class="img img-responsive ui-widget-content ui-draggable">
+					    	<div id="dropÂ«idgenÂ»Â«iÂ»Â«iÂ»" class="ui-droppable drops dropÂ«idgenÂ»Â«iÂ» smar1 ui-helper-reset">
+					        	<img src="Â«tempwg3.urlÂ»" id="Â«idgenÂ»Â«tempwg31Â»" class="img img-responsive ui-widget-content ui-draggable">
 					        </div>
 						</div>
 						<div class="col-md-3 col-sm-3 col-xs-3">
-							<div id="drop«idgen»«i»" class="smar1 ui-droppable ui-widget-content drops drop«idgen»«i»"></div>
+							<div id="dropÂ«idgenÂ»Â«iÂ»" class="smar1 ui-droppable ui-widget-content drops dropÂ«idgenÂ»Â«iÂ»"></div>
 						</div>
 						<div class="col-md-6 col-sm-6 col-xs-6">
-							<img src="«tempwg4.url»" class="img img-responsive textdrag">
+							<img src="Â«tempwg4.urlÂ»" class="img img-responsive textdrag">
 						</div>
 					</div>
 				'''
@@ -604,14 +695,14 @@ class UpctformaGenerator extends AbstractGenerator {
 		}
 		fileindex = fileindex + '''
 			<div class="row">
-				<div class="col-md-3">
-					<a class="btn btn-lg btn-success boton_quiz«idgen»">Check your answers</a>
+				<div class="col-md-3 col-sm-6 col-xs-6">
+					<a class="btn btn-lg btn-success boton_quizÂ«idgenÂ»">Â«language.get(11)Â»</a>
 				</div>
-				<div class="col-md-9 resultado"></div>
+				<div class="col-md-9 col-sm-6 col-xs-6 resultado"></div>
 			</div>		
 		'''		
 		progresoobj = progresoobj + '''
-			,"objetivo«idgen»"
+			,"objetivoÂ«idgenÂ»"
 		'''
 
 	}
@@ -619,12 +710,12 @@ class UpctformaGenerator extends AbstractGenerator {
 	def generateDragAndDropJS(Widget wg, String idgen, String title, List<ContentElement> args, int j, IFileSystemAccess2 fsa, Integer tipo){
 		var dandjs = '';
 		dandjs = dandjs + '''
-			var ident«idgen»;
-			var ident2«idgen»;
+			var identÂ«idgenÂ»;
+			var ident2Â«idgenÂ»;
 			$(function() {    
 			    $(".row").on("drag",function(e){
-			        ident«idgen» =e.target.id;
-			        ident2«idgen» =e.target.src;
+			        identÂ«idgenÂ» =e.target.id;
+			        ident2Â«idgenÂ» =e.target.src;
 			    });
 		'''
 		var ListValue tempwg1;
@@ -644,22 +735,22 @@ class UpctformaGenerator extends AbstractGenerator {
 			val tempwg51 = tempwg5.url.split('\\.').get(0);
 			
 			dandjs = dandjs + '''
-				$( "#«idgen»«tempwg31»" ).draggable(
+				$( "#Â«idgenÂ»Â«tempwg31Â»" ).draggable(
 					{revert: "invalid"}
 				);
-				$( ".drop«idgen»«i»" ).droppable({	
+				$( ".dropÂ«idgenÂ»Â«iÂ»" ).droppable({	
 					activeClass: "ui-state-hover",
 					hoverClass: "ui-state-active",
 					drop: function( event, ui ) {
-						accion(this,ident«idgen»,ident2«idgen»);
+						accion(this,identÂ«idgenÂ»,ident2Â«idgenÂ»);
 						var cadevento = '{ "draganddrop" : [';
-						if (($("#drop«idgen»«i»").children().first()).attr("id") != "«idgen»«tempwg51»") {
-							cadevento = cadevento + '{ "Question" : "«idgen»«tempwg51»" , "Response" :"' + ($("#drop«idgen»«i»").children().first()).attr("id") + '", "Solution" : "Incorrect"}';	
+						if (($("#dropÂ«idgenÂ»Â«iÂ»").children().first()).attr("id") != "Â«idgenÂ»Â«tempwg51Â»") {
+							cadevento = cadevento + '{ "Question" : "Â«idgenÂ»Â«tempwg51Â»" , "Response" :"' + ($("#dropÂ«idgenÂ»Â«iÂ»").children().first()).attr("id") + '", "Solution" : "Incorrect"}';	
 						}else{
-							cadevento = cadevento + '{ "Question" : "«idgen»«tempwg51»" , "Response" :"' + ($("#drop«idgen»«i»").children().first()).attr("id") + '", "Solution" : "Correct"}';	
+							cadevento = cadevento + '{ "Question" : "Â«idgenÂ»Â«tempwg51Â»" , "Response" :"' + ($("#dropÂ«idgenÂ»Â«iÂ»").children().first()).attr("id") + '", "Solution" : "Correct"}';	
 						}
 						cadevento = cadevento + ']}';
-						setObjetivoInteraccionMovimiento("objetivo«idgen»","«wg.name»",cadevento);
+						setObjetivoInteraccionMovimiento("objetivoÂ«idgenÂ»","Â«wg.nameÂ»",cadevento);
 					}
 				});
 				
@@ -669,9 +760,9 @@ class UpctformaGenerator extends AbstractGenerator {
 		}
 		dandjs = dandjs + '''
 			});	
-			$('.boton_quiz«idgen»').click(function(ev) {
+			$('.boton_quizÂ«idgenÂ»').click(function(ev) {
 				ev.preventDefault();
-			    var resultado«idgen» = 0;
+			    var resultadoÂ«idgenÂ» = 0;
 			   
 			   
 		''' 
@@ -685,19 +776,19 @@ class UpctformaGenerator extends AbstractGenerator {
 			val tempwg51 = tempwg5.url.split('\\.').get(0);
 			
 			dandjs = dandjs + '''				
-				if (($("#drop«idgen»«i»").children().first()).attr("id") == "«idgen»«tempwg51»") {
+				if (($("#dropÂ«idgenÂ»Â«iÂ»").children().first()).attr("id") == "Â«idgenÂ»Â«tempwg51Â»") {
 			'''
 
 		}
 		dandjs = dandjs + '''
-			resultado«idgen» = 1;
+			resultadoÂ«idgenÂ» = 1;
 		'''
 		for (var i = 0; i < tempwg1.listvalues.length; i++){
 			dandjs = dandjs + '''}'''
 		}
 		dandjs = dandjs + '''			
-		if (resultado«idgen» == 1) {
-			setObjetivoCompleto("objetivo«idgen»","«wg.name»","RectangleDragAndDrop");
+		if (resultadoÂ«idgenÂ» == 1) {
+			setObjetivoCompleto("objetivoÂ«idgenÂ»","Â«wg.nameÂ»","RectangleDragAndDrop");
 			$('.resultado').html('');
 			$('.resultado').append('<h4>Correct</h4>');
 		'''
@@ -710,8 +801,8 @@ class UpctformaGenerator extends AbstractGenerator {
 			val tempwg51 = tempwg5.url.split('\\.').get(0);
 							
 			dandjs = dandjs + '''
-				$("#drop«idgen»«i»").empty();
-				$("#drop«idgen»«i»").prepend('<img src="«tempwg5.url»" id="«idgen»«tempwg51»" class="img img-responsive ui-widget-content" style="position: relative; margin-top: 0px;">');
+				$("#dropÂ«idgenÂ»Â«iÂ»").empty();
+				$("#dropÂ«idgenÂ»Â«iÂ»").prepend('<img src="Â«tempwg5.urlÂ»" id="Â«idgenÂ»Â«tempwg51Â»" class="img img-responsive ui-widget-content" style="position: relative; margin-top: 0px;">');
 			'''
 		}	
 		dandjs = dandjs + '''			
@@ -733,23 +824,23 @@ class UpctformaGenerator extends AbstractGenerator {
 				
 			}
 			dandjs = dandjs + '''
-				if (($("#drop«idgen»«i»").children().first()).attr("id") != "«idgen»«tempwg51»") {
-					cadevento = cadevento + '{ "Question" : "«idgen»«tempwg51»" , "Response" :"' + ($("#drop«idgen»«i»").children().first()).attr("id") + '", "Solution" : "Incorrect"}';								
-					if (($("#drop«idgen»«i»").children().first()).attr("id") != undefined){
-						$(primeraLibre()).prepend('<img src="'+($("#drop«idgen»«i»").children().first()).attr("src")+'" id="'+($("#drop«idgen»«i»").children().first()).attr("id")+'" class="img img-responsive ui-widget-content ui-draggable" style="position: relative; margin-top: 0px;">');
-						$( "#"+($("#drop«idgen»«i»").children().first()).attr("id")+"" ).draggable({revert: "invalid"});
+				if (($("#dropÂ«idgenÂ»Â«iÂ»").children().first()).attr("id") != "Â«idgenÂ»Â«tempwg51Â»") {
+					cadevento = cadevento + '{ "Question" : "Â«idgenÂ»Â«tempwg51Â»" , "Response" :"' + ($("#dropÂ«idgenÂ»Â«iÂ»").children().first()).attr("id") + '", "Solution" : "Incorrect"}';								
+					if (($("#dropÂ«idgenÂ»Â«iÂ»").children().first()).attr("id") != undefined){
+						$(primeraLibre()).prepend('<img src="'+($("#dropÂ«idgenÂ»Â«iÂ»").children().first()).attr("src")+'" id="'+($("#dropÂ«idgenÂ»Â«iÂ»").children().first()).attr("id")+'" class="img img-responsive ui-widget-content ui-draggable" style="position: relative; margin-top: 0px;">');
+						$( "#"+($("#dropÂ«idgenÂ»Â«iÂ»").children().first()).attr("id")+"" ).draggable({revert: "invalid"});
 					}
-					$("#drop«idgen»«i»").empty();
+					$("#dropÂ«idgenÂ»Â«iÂ»").empty();
 				}else{
-					cadevento = cadevento + '{ "Question" : "«idgen»«tempwg51»" , "Response" :"' + ($("#drop«idgen»«i»").children().first()).attr("id") + '", "Solution" : "Correct"}';								
-					$("#drop«idgen»«i»").empty();
-					$("#drop«idgen»«i»").prepend('<img src="«tempwg5.url»" id="«idgen»«tempwg51»" class="img img-responsive ui-widget-content" style="position: relative; margin-top: 0px;">');
+					cadevento = cadevento + '{ "Question" : "Â«idgenÂ»Â«tempwg51Â»" , "Response" :"' + ($("#dropÂ«idgenÂ»Â«iÂ»").children().first()).attr("id") + '", "Solution" : "Correct"}';								
+					$("#dropÂ«idgenÂ»Â«iÂ»").empty();
+					$("#dropÂ«idgenÂ»Â«iÂ»").prepend('<img src="Â«tempwg5.urlÂ»" id="Â«idgenÂ»Â«tempwg51Â»" class="img img-responsive ui-widget-content" style="position: relative; margin-top: 0px;">');
 				}					
 			'''
 		}
 		dandjs = dandjs + '''
 				cadevento = cadevento + ']}';
-				setObjetivoInteraccion("objetivo«idgen»","«wg.name»",cadevento);
+				setObjetivoInteraccion("objetivoÂ«idgenÂ»","Â«wg.nameÂ»",cadevento);
 				$('.resultado').html('');
 		        $('.resultado').append('<h4>Incorrect</h4>');
 				}
@@ -772,8 +863,8 @@ class UpctformaGenerator extends AbstractGenerator {
 		'''
 		for (var i = 0; i < tempwg1.listvalues.length; i++){	
 			dandjs = dandjs + '''
-				if (!$.trim($("#drop«idgen»«i»«i»").html()).length) {
-						return "#drop«idgen»«i»«i»";							
+				if (!$.trim($("#dropÂ«idgenÂ»Â«iÂ»Â«iÂ»").html()).length) {
+						return "#dropÂ«idgenÂ»Â«iÂ»Â«iÂ»";							
 			'''
 			if (i!=tempwg1.listvalues.length){
 				dandjs = dandjs + '''}else{'''
@@ -800,12 +891,15 @@ class UpctformaGenerator extends AbstractGenerator {
 		fileindex = fileindex + '''
 			<div class="row">
 				<div class="col-md-12 interview">
-					<h4><i class="fa fa-mouse-pointer"></i>&nbsp;Click on the button </h4>
-					<i id="objetivo«idgen»" class="far fa-check-square fa-2x" aria-hidden="true"></i>
+					<h4><i class="fa fa-mouse-pointer"></i>&nbsp;Â«language.get(7)Â» </h4>
+					<i id="objetivoÂ«idgenÂ»" class="far fa-check-square fa-2x" aria-hidden="true"></i>
 				</div>
 			</div>
 		'''
-
+		progresoobj = progresoobj + '''
+			,"objetivoÂ«idgenÂ»"
+		'''
+		
 		var RecordValue tempwg1;
 		if (tipo==1){
 			tempwg1= wg.widgetelements.get(0) as RecordValue;
@@ -820,18 +914,18 @@ class UpctformaGenerator extends AbstractGenerator {
 		fileindex = fileindex + '''
 			<div class="row">
 				<div class="col-md-12 col-sm-12 col-xs-12 centered">
-					<a class="btn btn-lg btn-primary control_objetivo_unico_click" data-type="modal" data-desc="Open 'modal«idgen»'" id="objetivo«idgen»" data-target="#modal«idgen»" href="#modal«idgen»" data-toggle="modal">«tempwg2.html»</a>
+					<a class="btn btn-lg btn-success control_objetivo_unico_click" data-type="modal" data-desc="Open 'modalÂ«idgenÂ»'" id="Â«idgenÂ»" data-target="#modalÂ«idgenÂ»" href="#modalÂ«idgenÂ»" data-toggle="modal">Â«tempwg2.htmlÂ»</a>
 				</div>
 			</div>
 		'''
 		
 		fileindex = fileindex + '''
-			<div class="modal fade" id="modal«idgen»" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal fade" id="modalÂ«idgenÂ»" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     			<div class="modal-dialog">
       				<div class="modal-content">
         				<div class="modal-header">
           					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          					<h4 class="modal-title">«tempwg2.html»</h4>
+          					<h4 class="modal-title">Â«tempwg2.htmlÂ»</h4>
         				</div>
         				<div class="modal-body table-responsive" style="max-height:600px; overflow: auto;">
 		'''        				
@@ -853,10 +947,10 @@ class UpctformaGenerator extends AbstractGenerator {
 	}
 	
 	/**
-	 * Método encargado de agregar el código para el widget HorizontalTabs.
+	 * MÃ©todo encargado de agregar el cÃ³digo para el widget HorizontalTabs.
 	 * 
 	 * @param wg Widget
-	 * @param idgen Identificador único
+	 * @param idgen Identificador Ãºnico
 	 *  
 	 */
 	def generateHorizontalTabs(Widget wg, String idgen, String title, List<ContentElement> args, int j, IFileSystemAccess2 fsa, Integer tipo){
@@ -865,7 +959,7 @@ class UpctformaGenerator extends AbstractGenerator {
 		fileindex = fileindex + '''
 			<div class="row">
 				<div class="col-md-12 interview">
-					<h4><i class="fa fa-mouse-pointer"></i>&nbsp;Click on each tab</h4>
+					<h4><i class="fa fa-mouse-pointer"></i>&nbsp;Â«language.get(8)Â»</h4>
 		'''
 		var ListValue tempwg1;
 		if (tipo==1){
@@ -877,10 +971,10 @@ class UpctformaGenerator extends AbstractGenerator {
 		for (var i = 0; i < tempwg1.listvalues.length; i++){		
 			if (i != 0){
 				fileindex = fileindex + '''
-					<i id="objetivo«idgen»«i»" class="far fa-check-square fa-2x" aria-hidden="true"></i>
+					<i id="objetivoÂ«idgenÂ»Â«iÂ»" class="far fa-check-square fa-2x" aria-hidden="true"></i>
 				'''
 				progresoobj = progresoobj + '''
-					,"objetivo«idgen»«i»"
+					,"objetivoÂ«idgenÂ»Â«iÂ»"
 				'''
 			}
 		}
@@ -900,7 +994,7 @@ class UpctformaGenerator extends AbstractGenerator {
 			val tempwg3 = tempwg2.recordvalues.get(0).fieldvalue as Text;
 			
 			fileindex = fileindex + '''
-           		<li role="presentation" id="«idgen»«i»" data-type="HorizontalTabs" data-desc="«idgen»«i»" class="'''if (i==0){fileindex = fileindex + '''active'''} else {fileindex = fileindex + '''control_objetivo_unico_click'''} fileindex = fileindex + '''"><a class="events" href="#pes«idgen»«i»" aria-controls="pes«idgen»«i»" role="tab" data-toggle="tab">'''
+           		<li role="presentation" id="Â«idgenÂ»Â«iÂ»" data-type="HorizontalTabs" data-desc="Â«idgenÂ»Â«iÂ»" class="'''if (i==0){fileindex = fileindex + '''active'''} else {fileindex = fileindex + '''control_objetivo_unico_click'''} fileindex = fileindex + '''"><a class="events" href="#pesÂ«idgenÂ»Â«iÂ»" aria-controls="pesÂ«idgenÂ»Â«iÂ»" role="tab" data-toggle="tab">'''
            		var secIdi = idgen + "e" + i.toString();
 				processElement(args,(i+j),tempwg3,secIdi,title, fsa);
 			fileindex = fileindex + '''
@@ -916,7 +1010,7 @@ class UpctformaGenerator extends AbstractGenerator {
 			val tempwg4 = tempwg2.recordvalues.get(1).fieldvalue as ListValue;
 			
 			fileindex = fileindex + '''
-				<div role="tabpanel" class="col-md-12 tab-pane'''if (i==0){fileindex = fileindex + ''' active'''} fileindex = fileindex + '''" id="pes«idgen»«i»">
+				<div role="tabpanel" class="col-md-12 tab-pane'''if (i==0){fileindex = fileindex + ''' active'''} fileindex = fileindex + '''" id="pesÂ«idgenÂ»Â«iÂ»">
 			'''
 		
 			for (var x = 0; x < tempwg4.listvalues.length; x++){
@@ -935,10 +1029,10 @@ class UpctformaGenerator extends AbstractGenerator {
 	}
 		 
 	/**
-	 * Método encargado de agregar el código para el widget VerticalAccordion.
+	 * MÃ©todo encargado de agregar el cÃ³digo para el widget VerticalAccordion.
 	 * 
 	 * @param wg Widget
-	 * @param idgen Identificador único
+	 * @param idgen Identificador Ãºnico
 	 *  
 	 */
 	def generateVerticalAccordion(Widget wg, String idgen, String title, List<ContentElement> args, int j, IFileSystemAccess2 fsa, Integer tipo){
@@ -946,7 +1040,7 @@ class UpctformaGenerator extends AbstractGenerator {
 		fileindex = fileindex + '''
 			<div class="row">
 				<div class="col-md-12 interview">
-					<h4><i class="fa fa-mouse-pointer"></i>&nbsp;Click on each tab</h4>
+					<h4><i class="fa fa-mouse-pointer"></i>&nbsp;Â«language.get(8)Â»</h4>
 		'''
 		var ListValue tempwg1;
 		if (tipo==1){
@@ -960,15 +1054,15 @@ class UpctformaGenerator extends AbstractGenerator {
 			val tempwg3 = tempwg2.recordvalues.get(0).fieldvalue as Text;
 			val tempwg4 = tempwg2.recordvalues.get(1).fieldvalue as ContentElement;
 			
-			if (i != 0){
+			//if (i != 0){
 				fileindex = fileindex + '''
 					
-					<i id="objetivo«idgen»«i»" class="far fa-check-square fa-2x" aria-hidden="true"></i>
+					<i id="objetivoÂ«idgenÂ»Â«iÂ»" class="far fa-check-square fa-2x" aria-hidden="true"></i>
 				'''
 				progresoobj = progresoobj + '''
-					,"objetivo«idgen»«i»"
+					,"objetivoÂ«idgenÂ»Â«iÂ»"
 				'''
-			}
+			//}
 
 		}
 		 	
@@ -978,7 +1072,7 @@ class UpctformaGenerator extends AbstractGenerator {
 		'''
 
 		fileindex = fileindex + '''
-			<div class="panel-group" id="«idgen»" role="tablist" aria-multiselectable="true">
+			<div class="panel-group" id="Â«idgenÂ»" role="tablist" aria-multiselectable="true">
 		'''
 		for (var i = 0; i < tempwg1.listvalues.length; i++){
 			val tempwg2 = tempwg1.listvalues.get(i) as RecordValue;
@@ -987,16 +1081,17 @@ class UpctformaGenerator extends AbstractGenerator {
 			
 				fileindex = fileindex + '''
 					<div class="panel panel-default">
-		                <div class="panel-heading" role="tab" id="«idgen»«i»">
-		                    <h4 class="panel-title''' if (i!=0){fileindex = fileindex + ''' control_objetivo_unico_click" id="«idgen»«i»" data-type="VerticalAccordion" data-desc="«wg.name»"'''}else{fileindex = fileindex + '''"'''}fileindex = fileindex + '''>
-		                        <a class="events" data-toggle="collapse" data-parent="«idgen»" href="#collapse«idgen»«i»" aria-expanded="true" aria-controls="collapse1">
+		                <div class="panel-heading" role="tab" id="Â«idgenÂ»Â«iÂ»">
+
+		                    <h4 class="panel-title''' fileindex = fileindex + ''' control_objetivo_unico_click" id="Â«idgenÂ»Â«iÂ»" data-type="VerticalAccordion" data-desc="Â«wg.nameÂ»"'''fileindex = fileindex + '''>
+		                        <a class="events" data-toggle="collapse" data-parent="Â«idgenÂ»" href="#collapseÂ«idgenÂ»Â«iÂ»" aria-expanded="true" aria-controls="collapse1">
 		         '''
 		        var secIdi1 = idgen + "e" + i.toString();
 		        processElement(args, (i+j), tempwg3,secIdi1,title, fsa);
 				fileindex = fileindex + '''</a>						
 		                    </h4>
 		                </div>        
-		                <div id="collapse«idgen»«i»" class="panel-collapse collapse'''if (i==0){fileindex = fileindex + '''in'''}fileindex = fileindex + '''" role="tabpanel" aria-labelledby="heading«idgen»«i»"> 
+		                <div id="collapseÂ«idgenÂ»Â«iÂ»" class="panel-collapse collapse'''fileindex = fileindex + '''" role="tabpanel" aria-labelledby="headingÂ«idgenÂ»Â«iÂ»"> 
 		                    <div class="panel-body">
 				'''		                 
 				for (var x = 0; x < tempwg4.listvalues.length; x++){
@@ -1017,10 +1112,10 @@ class UpctformaGenerator extends AbstractGenerator {
 	
 
 	/**
-	 * Método encargado de agregar el código para el widget ImageTextRight.
+	 * MÃ©todo encargado de agregar el cÃ³digo para el widget ImageTextRight.
 	 * 
 	 * @param wg Widget
-	 * @param idgen Identificador único
+	 * @param idgen Identificador Ãºnico
 	 *  
 	 */
 	def generateImageTextRight(Widget wg, String idgen){
@@ -1029,29 +1124,29 @@ class UpctformaGenerator extends AbstractGenerator {
 		fileindex = fileindex + '''
 			<div class="row">
 				<div class="col-md-12 interview">
-					<h4><i class="fa fa-mouse-pointer"></i>&nbsp;Click on the image </h4>
-					<i id="objetivo«idgen»" class="far fa-check-square fa-2x" aria-hidden="true"></i>
+					<h4><i class="fa fa-mouse-pointer"></i>&nbsp;Â«language.get(9)Â» </h4>
+					<i id="objetivoÂ«idgenÂ»" class="far fa-check-square fa-2x" aria-hidden="true"></i>
 				</div>
 			</div>
 		
 			<div class="col-md-6">
-				<img id="«idgen»" class="img-responsive btnmostrar mano events control_objetivo_unico_click" data-type="ImageTextRight" data-desc="«wg.name»" data-target="#imagen«idgen»" src="«tempwg1.url»" alt="">
+				<img id="Â«idgenÂ»" class="img-responsive btnmostrar mano events control_objetivo_unico_click" data-type="ImageTextRight" data-desc="Â«wg.nameÂ»" data-target="#imagenÂ«idgenÂ»" src="Â«tempwg1.urlÂ»" alt="">
 			</div>
-			<div id="imagen«idgen»" class="col-md-6 hidden">   
-				«tempwg2.html»			
+			<div id="imagenÂ«idgenÂ»" class="col-md-6 hidden">   
+				Â«tempwg2.htmlÂ»			
 			</div>		
 		'''
 		progresoobj = progresoobj + '''
-			,"objetivo«idgen»"
+			,"objetivoÂ«idgenÂ»"
 		'''
 						
 	}
 	
 	/**
-	 * Método encargado de agregar el código para el widget ImageTextOver.
+	 * MÃ©todo encargado de agregar el cÃ³digo para el widget ImageTextOver.
 	 * 
 	 * @param wg Widget
-	 * @param idgen Identificador único
+	 * @param idgen Identificador Ãºnico
 	 *  
 	 */
 	def generateImageTextOver(Widget wg, String idgen){
@@ -1060,15 +1155,15 @@ class UpctformaGenerator extends AbstractGenerator {
 		fileindex = fileindex + '''			
 			<div class="row">
 				<div class="col-md-12 interview">
-					<h4><i class="fa fa-mouse-pointer"></i>&nbsp;Click on the image </h4>
-					<i id="objetivo«idgen»" class="far fa-check-square fa-2x" aria-hidden="true"></i>
+					<h4><i class="fa fa-mouse-pointer"></i>&nbsp;Â«language.get(9)Â» </h4>
+					<i id="objetivoÂ«idgenÂ»" class="far fa-check-square fa-2x" aria-hidden="true"></i>
 				</div>
 			</div>
 			<div class="grid mask">
 				<figure class="text">
-					<img id="«idgen»" data-type="ImageTextOver" data-desc="«wg.name»" class="img-responsive mano btnmostrar control_objetivo_unico_click" title="Imagen" alt="figcaption" src="«tempwg1.url»">
+					<img id="Â«idgenÂ»" data-type="ImageTextOver" data-desc="Â«wg.nameÂ»" class="img-responsive mano btnmostrar control_objetivo_unico_click" title="Imagen" alt="figcaption" src="Â«tempwg1.urlÂ»">
 				    	<figcaption>
-				    		«tempwg2.html»
+				    		Â«tempwg2.htmlÂ»
 				    		
 				        </figcaption>
 				</figure>
@@ -1076,130 +1171,195 @@ class UpctformaGenerator extends AbstractGenerator {
 		'''
 		
 		progresoobj = progresoobj + '''
-			,"objetivo«idgen»"
+			,"objetivoÂ«idgenÂ»"
 		'''
 		
 	}
 	
 	
-	//«processText(tempwg2)»
+	//Â«processText(tempwg2)Â»
 	
 	/**
-	 * Método encargado de agregar el código para la metaclase Video.
+	 * MÃ©todo encargado de agregar el cÃ³digo para la metaclase Video.
 	 * 
 	 * @param vid Video
-	 * @param idgen Identificador único
+	 * @param idgen Identificador Ãºnico
 	 *  
 	 */	
 	def processVideo(Video vid, String idgen){
 		fileindex = fileindex + '''
 			<div class="row">
 				<div class="col-md-12 interview">
-					<i id="objetivo«idgen»" class="far fa-check-square fa-2x" aria-hidden="true"></i>
+					<i id="objetivoÂ«idgenÂ»" class="far fa-check-square fa-2x" aria-hidden="true"></i>
 				</div>
 			</div>	
 		'''
 		if (vid.id.contains('youtube')){
 
 			fileindex = fileindex + '''
-			   <h3>«vid.title»</h3>
+			   <h3>Â«vid.titleÂ»</h3>		   
 			   <div class="embed-responsive embed-responsive-16by9">			
-			   	<div id="player«idgen»" class="centered"></div>
+			   	<div id="playerÂ«idgenÂ»" class="centered"></div>
 			   </div>
 			'''
 			if (primervideo ==0){
 				primervideo=1;				
 			}			
 			filevideo1 = filevideo1 + '''
-			      var tag«idgen» = document.createElement('script');
+			      var tagÂ«idgenÂ» = document.createElement('script');
 			
-			      tag«idgen».src = "https://www.youtube.com/iframe_api";
-			      var firstScriptTag«idgen» = document.getElementsByTagName('script')[0];
-			      firstScriptTag«idgen».parentNode.insertBefore(tag«idgen», firstScriptTag«idgen»);
+			      tagÂ«idgenÂ».src = "https://www.youtube.com/iframe_api";
+			      var firstScriptTagÂ«idgenÂ» = document.getElementsByTagName('script')[0];
+			      firstScriptTagÂ«idgenÂ».parentNode.insertBefore(tagÂ«idgenÂ», firstScriptTagÂ«idgenÂ»);
 			
-			      var player«idgen»;
+			      var playerÂ«idgenÂ»;
 			     
 			      
-			      function visualizando«idgen»(){
-						if (player«idgen».getPlayerState()==1){
-							setObjetivoInteraccion("objetivo«idgen»","Video«idgen»/«vid.title»",'{ "video" : [ { "Type" : "Playing", "Position" : "' + player«idgen».getCurrentTime() + '", "Duration" : "' + player«idgen».getDuration() + '" }]}');
-							setTimeout(visualizando«idgen», 100);
+			      function visualizandoÂ«idgenÂ»(){
+						if (playerÂ«idgenÂ».getPlayerState()==1){
+							setObjetivoInteraccion("objetivoÂ«idgenÂ»","VideoÂ«idgenÂ»/Â«vid.titleÂ»",'{ "video" : [ { "Type" : "Playing", "Position" : "' + playerÂ«idgenÂ».getCurrentTime() + '", "Duration" : "' + playerÂ«idgenÂ».getDuration() + '" }]}');
+							setTimeout(visualizandoÂ«idgenÂ», 100);
 						}			      	
 			      }
-			      function onPlayerStateChange«idgen»(event) {
+			      function onPlayerStateChangeÂ«idgenÂ»(event) {
 			      	switch(event.data) {
 				   	   	case 0:
-				   	   		setObjetivoCompleto("objetivo«idgen»","Video«idgen»/«vid.title»","Video«idgen»");
+				   	   		setObjetivoCompleto("objetivoÂ«idgenÂ»","VideoÂ«idgenÂ»/Â«vid.titleÂ»","VideoÂ«idgenÂ»");
 				   	        break;
 				   	    case 1:
-				   			visualizando«idgen»();
+				   			visualizandoÂ«idgenÂ»();
 				   		    break;
 				   		case 2:
-				   		   	setObjetivoInteraccion("objetivo«idgen»","Video«idgen»/«vid.title»",'{ "video" : [ { "Type" : "Pause", "Position" : "' + player«idgen».getCurrentTime() + '", "Duration" : "' + player«idgen».getDuration() + '" }]}');
+				   		   	setObjetivoInteraccion("objetivoÂ«idgenÂ»","VideoÂ«idgenÂ»/Â«vid.titleÂ»",'{ "video" : [ { "Type" : "Pause", "Position" : "' + playerÂ«idgenÂ».getCurrentTime() + '", "Duration" : "' + playerÂ«idgenÂ».getDuration() + '" }]}');
 				   		   	break;   	  	    
 			      	}
 			      }
 			'''
+			var partvideo = vid.id.split('/embed/').get(1);
+			var part1 = partvideo.split('\\?').get(0);
+			var part2 = partvideo.split('\\?').get(1).split('\\=').get(1);
 			filevideo2 = filevideo2 + '''			
-			     player«idgen» = new YT.Player('player«idgen»', {
+			     playerÂ«idgenÂ» = new YT.Player('playerÂ«idgenÂ»', {
+			     	  playerVars: {start: Â«part2Â»},
 			          height: 'auto',
 			          width: '100%',
-			          videoId: '«vid.id.split('/embed/').get(1)»',
+			          videoId: 'Â«part1Â»',
 			          events: {
-			            'onStateChange': onPlayerStateChange«idgen»
+			            'onStateChange': onPlayerStateChangeÂ«idgenÂ»
 			          }
 			     });
 			'''									
+		}else if (vid.type.value == 0) {
+			if (primervideo ==0){
+				primervideo=1;				
+			}
+			fileindex = fileindex + '''
+				<div>
+					<?php require_once('../../contentunit/php/funcionesgenerales.php'); echo getVideoIndieMediaAM("Â«vid.idÂ»","Â«idgenÂ»", "Â«vid.titleÂ»"); ?>
+				</div>
+			'''
+			filevideo3 = filevideo3 + '''
+			 	var playerÂ«idgenÂ» = amp('Â«idgenÂ»');
+				playerÂ«idgenÂ».addEventListener(amp.eventName.ended, function (e) { setObjetivoCompleto("objetivoÂ«idgenÂ»","VideoÂ«idgenÂ»/Â«vid.titleÂ»","VideoÂ«idgenÂ»");});
+				playerÂ«idgenÂ».addEventListener(amp.eventName.pause, function (e) { setObjetivoInteraccion("objetivoÂ«idgenÂ»","VideoÂ«idgenÂ»/Â«vid.titleÂ»",'{ "video" : [ { "Type" : "Pause", "Position" : "' + playerÂ«idgenÂ».currentTime() + '", "Duration" : "' + playerÂ«idgenÂ».duration() + '" }]}');});
+				playerÂ«idgenÂ».addEventListener(amp.eventName.play, function (e) { setObjetivoInteraccion("objetivoÂ«idgenÂ»","VideoÂ«idgenÂ»/Â«vid.titleÂ»",'{ "video" : [ { "Type" : "Play", "Position" : "' + playerÂ«idgenÂ».currentTime() + '", "Duration" : "' + playerÂ«idgenÂ».duration() + '" }]}');});
+				playerÂ«idgenÂ».addEventListener(amp.eventName.playing, function (e) { setObjetivoInteraccion("objetivoÂ«idgenÂ»","VideoÂ«idgenÂ»/Â«vid.titleÂ»",'{ "video" : [ { "Type" : "Playing" , "Position" : "' + playerÂ«idgenÂ».currentTime() + '" ,"Duration" : "' + playerÂ«idgenÂ».duration() + '" }]}');});			
+			'''
+			/*filevideo3 = filevideo3 + '''
+				playerInstanceÂ«idgenÂ».on('time', function (e) {
+					setObjetivoInteraccion("objetivoÂ«idgenÂ»","VideoÂ«idgenÂ»/Â«vid.titleÂ»",'{ "video" : [ { "Type" : "Playing" , "Position" : "' + e.position + '" ,"Duration" : "' + e.duration + '" }]}');				
+				});
+				
+				playerInstanceÂ«idgenÂ».on('seek', function (e) {	
+					setObjetivoInteraccion("objetivoÂ«idgenÂ»","VideoÂ«idgenÂ»/Â«vid.titleÂ»",'{ "video" : [ { "Type" : "Seek" , "Position" : "' + e.position + '" ,"Offset" : "' + e.offset + '" ,"Duration" : "' + playerInstanceÂ«idgenÂ».getDuration() + '" }]}');
+				});		
+	
+				playerInstanceÂ«idgenÂ».on('play', function (e) {
+					setObjetivoInteraccion("objetivoÂ«idgenÂ»","VideoÂ«idgenÂ»/Â«vid.titleÂ»",'{ "video" : [ { "Type" : "Play", "Position" : "' + playerInstanceÂ«idgenÂ».getPosition() + '", "Duration" : "' + playerInstanceÂ«idgenÂ».getDuration() + '" }]}');
+	
+				});
+	
+				playerInstanceÂ«idgenÂ».on('pause', function (e) {
+					setObjetivoInteraccion("objetivoÂ«idgenÂ»","VideoÂ«idgenÂ»/Â«vid.titleÂ»",'{ "video" : [ { "Type" : "Pause", "Position" : "' + playerInstanceÂ«idgenÂ».getPosition() + '", "Duration" : "' + playerInstanceÂ«idgenÂ».getDuration() + '" }]}');
+				});
+	
+				playerInstanceÂ«idgenÂ».on('complete', function (e) {
+					setObjetivoCompleto("objetivoÂ«idgenÂ»","VideoÂ«idgenÂ»/Â«vid.titleÂ»","VideoÂ«idgenÂ»");
+				});		
+			'''*/
 		}else{
 			if (primervideo ==0){
 				primervideo=1;				
 			}
 			fileindex = fileindex + '''
 				<div>
-					<?php require_once('../../contentunit/php/funcionesgenerales.php'); echo getVideoIndieMedia("«vid.id»","«idgen»", "«vid.title»"); ?>
+					<?php require_once('../../contentunit/php/funcionesgenerales.php'); echo getVideoIndieMediaInteractivo("Â«vid.idÂ»","Â«idgenÂ»", "Â«vid.titleÂ»"); ?>
 				</div>
 			'''
-			filevideo3 = filevideo3 + '''
-				playerInstance«idgen».on('time', function (e) {
-					setObjetivoInteraccion("objetivo«idgen»","Video«idgen»/«vid.title»",'{ "video" : [ { "Type" : "Playing" , "Position" : "' + e.position + '" ,"Duration" : "' + e.duration + '" }]}');				
+			/*filevideo3 = filevideo3 + '''
+			 	var playerÂ«idgenÂ» = amp('Â«idgenÂ»');			 
+				playerÂ«idgenÂ».addEventListener(amp.eventName.ended, function (e) { console.log("Video ended!"); setObjetivoCompleto("objetivoÂ«idgenÂ»","VideoÂ«idgenÂ»/Â«vid.titleÂ»","VideoÂ«idgenÂ»");});
+				playerÂ«idgenÂ».addEventListener(amp.eventName.pause, function (e) { console.log("Video paused!"); setObjetivoInteraccion("objetivoÂ«idgenÂ»","VideoÂ«idgenÂ»/Â«vid.titleÂ»",'{ "video" : [ { "Type" : "Pause", "Position" : "' + playerÂ«idgenÂ»currentTime() + '", "Duration" : "' + playerÂ«idgenÂ».duration() + '" }]}');});
+				playerÂ«idgenÂ».addEventListener(amp.eventName.play, function (e) { console.log("Video play!"); setObjetivoInteraccion("objetivoÂ«idgenÂ»","VideoÂ«idgenÂ»/Â«vid.titleÂ»",'{ "video" : [ { "Type" : "Play", "Position" : "' + playerÂ«idgenÂ».currentTime() + '", "Duration" : "' + playerÂ«idgenÂ».duration() + '" }]}');});
+				playerÂ«idgenÂ».addEventListener(amp.eventName.playing, function (e) { console.log("Video playing!"); setObjetivoInteraccion("objetivoÂ«idgenÂ»","VideoÂ«idgenÂ»/Â«vid.titleÂ»",'{ "video" : [ { "Type" : "Playing" , "Position" : "' + playerÂ«idgenÂ».currentTime() + '" ,"Duration" : "' + playerÂ«idgenÂ».duration() + '" }]}');});			
+			'''*/
+/* 			filevideo3 = filevideo3 + '''
+				playerInstanceÂ«idgenÂ».on('time', function (e) {
+					setObjetivoInteraccion("objetivoÂ«idgenÂ»","VideoÂ«idgenÂ»/Â«vid.titleÂ»",'{ "video" : [ { "Type" : "Playing" , "Position" : "' + e.position + '" ,"Duration" : "' + e.duration + '" }]}');				
 				});
 				
-				playerInstance«idgen».on('seek', function (e) {	
-					setObjetivoInteraccion("objetivo«idgen»","Video«idgen»/«vid.title»",'{ "video" : [ { "Type" : "Seek" , "Position" : "' + e.position + '" ,"Offset" : "' + e.offset + '" ,"Duration" : "' + playerInstance«idgen».getDuration() + '" }]}');
+				playerInstanceÂ«idgenÂ».on('seek', function (e) {	
+					setObjetivoInteraccion("objetivoÂ«idgenÂ»","VideoÂ«idgenÂ»/Â«vid.titleÂ»",'{ "video" : [ { "Type" : "Seek" , "Position" : "' + e.position + '" ,"Offset" : "' + e.offset + '" ,"Duration" : "' + playerInstanceÂ«idgenÂ».getDuration() + '" }]}');
 				});		
 	
-				playerInstance«idgen».on('play', function (e) {
-					setObjetivoInteraccion("objetivo«idgen»","Video«idgen»/«vid.title»",'{ "video" : [ { "Type" : "Play", "Position" : "' + playerInstance«idgen».getPosition() + '", "Duration" : "' + playerInstance«idgen».getDuration() + '" }]}');
+				playerInstanceÂ«idgenÂ».on('play', function (e) {
+					setObjetivoInteraccion("objetivoÂ«idgenÂ»","VideoÂ«idgenÂ»/Â«vid.titleÂ»",'{ "video" : [ { "Type" : "Play", "Position" : "' + playerInstanceÂ«idgenÂ».getPosition() + '", "Duration" : "' + playerInstanceÂ«idgenÂ».getDuration() + '" }]}');
 	
 				});
 	
-				playerInstance«idgen».on('pause', function (e) {
-					setObjetivoInteraccion("objetivo«idgen»","Video«idgen»/«vid.title»",'{ "video" : [ { "Type" : "Pause", "Position" : "' + playerInstance«idgen».getPosition() + '", "Duration" : "' + playerInstance«idgen».getDuration() + '" }]}');
+				playerInstanceÂ«idgenÂ».on('pause', function (e) {
+					setObjetivoInteraccion("objetivoÂ«idgenÂ»","VideoÂ«idgenÂ»/Â«vid.titleÂ»",'{ "video" : [ { "Type" : "Pause", "Position" : "' + playerInstanceÂ«idgenÂ».getPosition() + '", "Duration" : "' + playerInstanceÂ«idgenÂ».getDuration() + '" }]}');
 				});
 	
-				playerInstance«idgen».on('complete', function (e) {
-					setObjetivoCompleto("objetivo«idgen»","Video«idgen»/«vid.title»","Video«idgen»");
+				playerInstanceÂ«idgenÂ».on('complete', function (e) {
+					setObjetivoCompleto("objetivoÂ«idgenÂ»","VideoÂ«idgenÂ»/Â«vid.titleÂ»","VideoÂ«idgenÂ»");
 				});		
-			'''
+			'''*/
 		}
 		progresoobj = progresoobj + '''
-			,"objetivo«idgen»"
+			,"objetivoÂ«idgenÂ»"
 		'''
 	}
 		
 	/**
-	 * Método encargado de agregar el códgio para la metaclase Image. Agrega una img de HTML. 
+	 * MÃ©todo encargado de agregar el cÃ³dgio para la metaclase Image. Agrega una img de HTML. 
 	 */	
 	def processImage(Image im){
-		fileindex = fileindex + '''
-			<img src="«im.url»" alt="Imagen" title="Imagen" class="img-responsive">			
-		'''	
+		switch (im.type.value){
+			case 1:{
+				fileindex = fileindex + '''
+					<img src="Â«im.urlÂ»" alt="Imagen" title="Imagen" class="img-responsive" style="width:100%;">			
+				'''	
+			}
+			case 0:{
+				fileindex = fileindex + '''
+					<img src="Â«im.urlÂ»" alt="Imagen" title="Imagen" class="img-responsive">			
+				'''		
+			}
+			default :{
+				fileindex = fileindex + '''
+					<img src="Â«im.urlÂ»" alt="Imagen" title="Imagen" class="img-responsive">			
+				'''	
+			}
+		}
+		
+		
 	}
 	
 	/**
-	 * Método encargado de agregar el código para la metaclase Text. Recibe código HTML que es agregado al código.
+	 * MÃ©todo encargado de agregar el cÃ³digo para la metaclase Text. Recibe cÃ³digo HTML que es agregado al cÃ³digo.
 	 * 
-	 * @param te Código HTML formateado.
+	 * @param te CÃ³digo HTML formateado.
 	 * 
 	 */
 	def processText(Text te){
@@ -1207,10 +1367,10 @@ class UpctformaGenerator extends AbstractGenerator {
 	}
 	
 	/**
-	 * Método encargado de comprobar el tipo del elemento recibido y generar su código.
+	 * MÃ©todo encargado de comprobar el tipo del elemento recibido y generar su cÃ³digo.
 	 * 
 	 * @param e1 ContentElment
-	 * @param secId Identificador único
+	 * @param secId Identificador Ãºnico
 	 * @param title Nombre del elemento
 	 *   
 	 */
@@ -1255,7 +1415,7 @@ class UpctformaGenerator extends AbstractGenerator {
 	  				generateModalButton(el, secId,title,args,i, fsa, 1);
 	  			}
 	  			case 'AnimationInOut':{
-	  				var List<String> animationreturn = animation.generateAnimationInOut(el, secId,title,args,i, fsa, fileindex, progresoobj,fileanimation,fileanimationcss, 1);
+	  				var List<String> animationreturn = animation.generateAnimationInOut(el, secId,title,args,i, fsa, fileindex, progresoobj,fileanimation,fileanimationcss, 1,language);
 	  				fileindex = animationreturn.get(0);
 	  				progresoobj= animationreturn.get(1);
 	  				fileanimation= animationreturn.get(2);
@@ -1267,7 +1427,7 @@ class UpctformaGenerator extends AbstractGenerator {
 	  			}
 	  			case 'TextualDragAndDrop':{
 	  				containsTextualDragAndDrop = 1;
-	  				var List<String> textualreturn = textualdraganddrop.generateTextualDragAndDrop(el, secId,title,args,i, fsa, fileindex, progresoobj,filetextual,1);
+	  				var List<String> textualreturn = textualdraganddrop.generateTextualDragAndDrop(el, secId,title,args,i, fsa, fileindex, progresoobj,filetextual,1,language);
 	  				fileindex = textualreturn.get(0);
 	  				progresoobj= textualreturn.get(1);	  				
 	  				filetextual= textualreturn.get(2);
@@ -1275,6 +1435,11 @@ class UpctformaGenerator extends AbstractGenerator {
 	  			case 'ContainerAudioTerm':{
 	  				val elv = el as Widget
 	  				generateAudioTerm(el, secId,title,args,i,fsa, 1);	  				
+	  			}
+	  			case 'ContainerTrueFalse':{
+	  				containsTrueFalse = 1; 
+	  				val elv = el as Widget
+	  				generateTrueFalse(el, secId,title,args,i,fsa, 1);	  				
 	  			}
 	  			case 'ImageSound':{
 	  				val elv = el as Widget
@@ -1323,7 +1488,7 @@ class UpctformaGenerator extends AbstractGenerator {
 	  			}
 	  			case 'AnimationInOut':{
 	  				val typeWidget = arge as Widget
-	  				var List<String> animationreturn = animation.generateAnimationInOut(typeWidget, secId,title,args,i, fsa, fileindex, progresoobj,fileanimation,fileanimationcss, 2);
+	  				var List<String> animationreturn = animation.generateAnimationInOut(typeWidget, secId,title,args,i, fsa, fileindex, progresoobj,fileanimation,fileanimationcss, 2,language);
 	  				fileindex = animationreturn.get(0);
 	  				progresoobj= animationreturn.get(1);
 	  				fileanimation= animationreturn.get(2);
@@ -1337,7 +1502,7 @@ class UpctformaGenerator extends AbstractGenerator {
 	  			case 'TextualDragAndDrop':{	  				
 	  				containsTextualDragAndDrop = 1;
 	  				val typeWidget = arge as Widget	  				
-	  				var List<String> textualreturn = textualdraganddrop.generateTextualDragAndDrop(typeWidget, secId,title,args,i, fsa, fileindex, progresoobj,filetextual,2);	  				
+	  				var List<String> textualreturn = textualdraganddrop.generateTextualDragAndDrop(typeWidget, secId,title,args,i, fsa, fileindex, progresoobj,filetextual,2,language);	  				
 	  				fileindex = textualreturn.get(0);	  				
 	  				progresoobj= textualreturn.get(1);	  				
 	  				filetextual= textualreturn.get(2);
@@ -1345,6 +1510,11 @@ class UpctformaGenerator extends AbstractGenerator {
 	  			case 'ContainerAudioTerm':{
 	  				val typeWidget = arge as Widget
 	  				generateAudioTerm(typeWidget, secId,title,args,i, fsa, 2);
+	  			}
+	  			case 'ContainerTrueFalse':{
+	  				containsTrueFalse =1;
+	  				val typeWidget = arge as Widget
+	  				generateTrueFalse(typeWidget, secId,title,args,i, fsa, 2);
 	  			}
 	  			case 'ImageSound':{
 	  				val typeWidget = arge as Widget
@@ -1373,12 +1543,12 @@ class UpctformaGenerator extends AbstractGenerator {
 	}
 	
 	/**
-	 * Agrega el código HTML para cualquier columna. Agrega su marca al identificador y recorre los elementos que componen 
-	 * una columna llamando al método que procesa estos elementos. Finalmente agrega el código HTLM que cierra cualquier columna.
+	 * Agrega el cÃ³digo HTML para cualquier columna. Agrega su marca al identificador y recorre los elementos que componen 
+	 * una columna llamando al mÃ©todo que procesa estos elementos. Finalmente agrega el cÃ³digo HTLM que cierra cualquier columna.
 	 */
 	def processColumn(List<ContentElement> args, int indexcol, Column co, String secId, String title, IFileSystemAccess2 fsa){
 		fileindex = fileindex + '''
-			 <div class="col-md-«co.width»">			
+			 <div class="col-md-Â«co.widthÂ»">			
 		'''
 		
 		for (var i = 0; i < co.elements.length; i++){
@@ -1392,8 +1562,8 @@ class UpctformaGenerator extends AbstractGenerator {
 	}
 	
 	/**
-	 * Agrega el código común para cada fila. Concatena al identificar su marca y llama a la función
-	 * que procesa las columnas contenidas en la fila. Finalmente cierra la sección.
+	 * Agrega el cÃ³digo comÃºn para cada fila. Concatena al identificar su marca y llama a la funciÃ³n
+	 * que procesa las columnas contenidas en la fila. Finalmente cierra la secciÃ³n.
 	 */
 	def processRow(List<ContentElement> args, Row ro, String secId, String title, IFileSystemAccess2 fsa){
 		fileindex = fileindex + '''
@@ -1428,27 +1598,27 @@ class UpctformaGenerator extends AbstractGenerator {
 		'''			        
 	} 
 	/**
-	 * Agregar el código de cada sección HTML5 y llama a la función que genera el código por cada fila.
-	 * Si la fila está basada en una plantilla se llama a la función por cada fila que compone la plantilla.
-	 * Se crea una cadena de caracteres única conforme se recorre el metamodelo que servirá como identificadores
-	 * únidos para HTML. 
+	 * Agregar el cÃ³digo de cada secciÃ³n HTML5 y llama a la funciÃ³n que genera el cÃ³digo por cada fila.
+	 * Si la fila estÃ¡ basada en una plantilla se llama a la funciÃ³n por cada fila que compone la plantilla.
+	 * Se crea una cadena de caracteres Ãºnica conforme se recorre el metamodelo que servirÃ¡ como identificadores
+	 * Ãºnidos para HTML. 
 	 * 
 	 * */
 	def processSections(Section se, Integer secId, IFileSystemAccess2 fsa){
 		if (se.type.value == 1){
 			fileindex = fileindex + '''
-				<section id="apdo«secId»" class="section-divider textdividersub divider1" >
+				<section id="apdoÂ«secIdÂ»" class="section-divider textdividersub divider1" >
 			'''
 		}else{
 			fileindex = fileindex + '''
-				<section id="apdo«secId»" class="section-divider textdividersubimage divider1" style="background:url('«se.image»');">
+				<section id="apdoÂ«secIdÂ»" class="section-divider textdividersubimage divider1" style="background:url('Â«se.imageÂ»');">
 			'''
 		}
-		/** <section id="apdo«secId»" class="section-divider textdividersub divider1" style="background:url('«se.image»');">*/
-		/** <section id="apdo«secId»" class="section-divider textdividersub divider1" > */
+		/** <section id="apdoÂ«secIdÂ»" class="section-divider textdividersub divider1" style="background:url('Â«se.imageÂ»');">*/
+		/** <section id="apdoÂ«secIdÂ»" class="section-divider textdividersub divider1" > */
 		fileindex = fileindex + '''		
 	      <div class="container">
-	        <h1>«se.title»</h1>
+	        <h1>Â«se.titleÂ»</h1>
 	        <hr>
 	        <p></p>
 	      </div>
@@ -1473,8 +1643,8 @@ class UpctformaGenerator extends AbstractGenerator {
 	}
 	
 	/**
-	 * Existe código del fichero index.php que es común a todas las unidades independientemente de su contenido.
-	 * Esta función encargada devuelve la tercera parte de este código común.
+	 * Existe cÃ³digo del fichero index.php que es comÃºn a todas las unidades independientemente de su contenido.
+	 * Esta funciÃ³n encargada devuelve la tercera parte de este cÃ³digo comÃºn.
 	 */
 	def writefileindexp3(){'''
 	 <!-- Modal -->
@@ -1508,15 +1678,7 @@ class UpctformaGenerator extends AbstractGenerator {
 				
 			}
 		</script>
-		<?php 
-			if ($tipo=="gamification"){
-				echo '<div class="social">';
-				echo '<ul>';
-				echo '<li><a onclick="entrarRanking( ' . $LINK->id . ')" target="_blank" ><i class="fa fa-trophy" style="font-size:48px;" aria-hidden="true"></i></a></li>';
-				echo '</ul>';
-				echo '</div>';
-			}
-		?>
+		
 		<footer id="footerwrap">
 					<div class="container-fluid">
 						<div class="row">
@@ -1537,7 +1699,9 @@ class UpctformaGenerator extends AbstractGenerator {
 	            </div>
 	        </div>
 	
+	 	
 	    <script type="text/javascript" src="../../contentunit/bootstrap/js/bootstrap.min.js"></script>
+	    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 	    <script type="text/javascript" src="../../contentunit/progreso/lib/jquery.line.js"></script>
 	    <script src="../../contentunit/progreso/lib/jQuery-plugin-progressbar.js"></script>
 	    <!-- MAPA DE PROGRESO / Control de OBJETIVOS-->
@@ -1550,14 +1714,16 @@ class UpctformaGenerator extends AbstractGenerator {
 		<script type="text/javascript" src="imagesound.js"></script>
 	    <script type="text/javascript" src="schema.js"></script>
 	    <script type="text/javascript" src="couples.js"></script>
+	   </body>
+	  </html>
 	'''	
 	}
 	
 	/**
-	 * Existe código del fichero index.php que es común a todas las unidades independientemente de su contenido.
-	 * Esta función encargada devuelve la segunda parte de este código común.
+	 * Existe cÃ³digo del fichero index.php que es comÃºn a todas las unidades independientemente de su contenido.
+	 * Esta funciÃ³n encargada devuelve la segunda parte de este cÃ³digo comÃºn.
 	 */
-	def writefileindexp2(){'''
+	def writefileindexp2(String name){'''
 	</ul>
 					</div>
 					<!--/.nav-collapse -->
@@ -1566,14 +1732,21 @@ class UpctformaGenerator extends AbstractGenerator {
 		</div>	
 	  
 	    <div id="progreso_mp"></div>
+	    <section class="section-divider1 textdividersub">
+	    	<div class="container-fluid">
+	      		<h1>Â«nameÂ»</h1>
+	    	</div>
+	    </section>
 	'''}
 	
+	
 	/**
-	 * Existe código del fichero index.php que es común a todas las unidades independientemente de su contenido.
-	 * Esta función encargada devuelve la primera parte de este código común.
+	 * Existe cÃ³digo del fichero index.php que es comÃºn a todas las unidades independientemente de su contenido.
+	 * Esta funciÃ³n encargada devuelve la primera parte de este cÃ³digo comÃºn.
 	 */
 	def writefileindexp1(){'''
 	    <!--Progreso-->
+	    <link rel="stylesheet" type="text/css" href="../../contentunit/css/iaVideo.min.css">
 	    <link rel="stylesheet" type="text/css" href="../../contentunit/progreso/css/progreso_mapa.css">
 	
 	<link rel="icon" href="../../contentunit/img/favicon.png" type="image/png">
@@ -1581,6 +1754,9 @@ class UpctformaGenerator extends AbstractGenerator {
 	   <script type="text/javascript" src="../../contentunit/jquery/jquery-1.11.3.min.js"></script>
 	   <script src="https://code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script>
 	   <script src="../../contentunit/jquery-ui-touch-punch-master/jquery.ui.touch-punch.min.js"></script>
+	    	
+	    	<script src="//amp.azure.net/libs/amp/2.3.2/azuremediaplayer.min.js"></script>
+	   	   	<script src="../../contentunit/js/iaVideo.min.js"></script>
 	    <script src="https://content.jwplatform.com/libraries/47wx7PfZ.js"></script>
 		<script type="text/x-mathjax-config">
 		  MathJax.Hub.Config({
@@ -1610,7 +1786,7 @@ class UpctformaGenerator extends AbstractGenerator {
 		<div id="navbar-main">
 			<!-- Fixed navbar -->
 			<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-				<div class="container">
+				<div class="container-fluid">
 					<div class="navbar-header">
 						<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
 							<span class="icon icon-menu" style="font-size:30px; color:#3498db;"></span>
@@ -1624,11 +1800,12 @@ class UpctformaGenerator extends AbstractGenerator {
 	'''
 	}
 	/**
-	 * Existe código del fichero index.php que es común a todas las unidades independientemente de su contenido.
-	 * Esta función encargada devuelve la primera parte de este código común sin interoperabilidad.
+	 * Existe cÃ³digo del fichero index.php que es comÃºn a todas las unidades independientemente de su contenido.
+	 * Esta funciÃ³n encargada devuelve la primera parte de este cÃ³digo comÃºn sin interoperabilidad.
 	 */
 	def writefileindexp1WithoutInteroperability(){'''
 	    <!--Progreso-->
+	    <link rel="stylesheet" type="text/css" href="../../contentunit/css/iaVideo.min.css">
 	    <link rel="stylesheet" type="text/css" href="../../contentunit/progreso/css/progreso_mapa.css">
 	
 		<link rel="icon" href="../../contentunit/img/favicon.png" type="image/png">
@@ -1636,6 +1813,9 @@ class UpctformaGenerator extends AbstractGenerator {
 	   <script type="text/javascript" src="../../contentunit/jquery/jquery-1.11.3.min.js"></script>
 	   <script src="https://code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script>
 	   <script src="../../contentunit/jquery-ui-touch-punch-master/jquery.ui.touch-punch.min.js"></script>
+	   	<script src="//amp.azure.net/libs/amp/2.3.2/azuremediaplayer.min.js"></script>
+	   	<script src="../../contentunit/js/iaVideo.min.js"></script>
+	   
 	    <script src="https://content.jwplatform.com/libraries/47wx7PfZ.js"></script>
 		<script type="text/x-mathjax-config">
 		  MathJax.Hub.Config({
@@ -1650,7 +1830,7 @@ class UpctformaGenerator extends AbstractGenerator {
 		<div id="navbar-main">
 			<!-- Fixed navbar -->
 			<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-				<div class="container">
+				<div class="container-fluid">
 					<div class="navbar-header">
 						<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
 							<span class="icon icon-menu" style="font-size:30px; color:#3498db;"></span>
@@ -1707,14 +1887,17 @@ class UpctformaGenerator extends AbstractGenerator {
 		<html>
 		  <head>
 		    <meta charset="utf-8">
-		    <title>«cu.name»</title>
+		    <title>Â«cu.nameÂ»</title>
 		    <!-- Bootstrap 3.3.5 -->
 		    <link rel="stylesheet" href="../../contentunit/bootstrap/css/bootstrap.css" media="screen" charset="utf-8">
+		    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+		    <link href="//amp.azure.net/libs/amp/latest/skins/amp-default/azuremediaplayer.min.css" rel="stylesheet">
 		    <!-- Font Awesome -->
 		    <link rel="stylesheet" href="../../contentunit/font-awesome/css/fontawesome-all.min.css" media="screen" charset="utf-8">		    
 		    <!-- Base -->
 
 		    <link rel="stylesheet" href="../../contentunit/css/styles.min.css" media="screen" charset="utf-8">
+		    <link rel="stylesheet" href="../../contentunit/css/truefalse.css" media="screen" charset="utf-8">
 			<link rel="stylesheet" type="text/css" href="animation.css">
 
 		'''
@@ -1731,15 +1914,18 @@ class UpctformaGenerator extends AbstractGenerator {
 		<html>
 		  <head>
 		    <meta charset="utf-8">
-		    <title>«cu.name»</title>
+		    <title>Â«cu.nameÂ»</title>
 		    <!-- Bootstrap 3.3.5 -->
 		    <link rel="stylesheet" href="../../contentunit/bootstrap/css/bootstrap.css" media="screen" charset="utf-8">
+		    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+		    <link href="//amp.azure.net/libs/amp/latest/skins/amp-default/azuremediaplayer.min.css" rel="stylesheet">
 		    <!-- Font Awesome -->
 		    <link rel="stylesheet" href="../../contentunit/font-awesome/css/fontawesome-all.min.css" media="screen" charset="utf-8">		    
 		    <!-- Base -->
 
 
 		    <link rel="stylesheet" href="../../contentunit/css/styles.min.css" media="screen" charset="utf-8">
+		    <link rel="stylesheet" href="../../contentunit/css/truefalse.css" media="screen" charset="utf-8">
 			<link rel="stylesheet" type="text/css" href="animation.css">		    
 
 		'''
@@ -1747,11 +1933,11 @@ class UpctformaGenerator extends AbstractGenerator {
 	
 	def writeCode(CharSequence content)
 	'''
-		«content»
+		Â«contentÂ»
 	'''
 	
 	/**
-	 * Función encargada de crear el fichero progreso_datos.js.
+	 * FunciÃ³n encargada de crear el fichero progreso_datos.js.
 	 * Este fichero es utilizado para crear la cabecera de las unidades.
 	 * 
 	 * @param cu ContentUnit
@@ -1767,7 +1953,7 @@ class UpctformaGenerator extends AbstractGenerator {
 		
 		for (var i = 0; i < cu.sections.length; i++){
 			if (i != 0) {fileobjective = fileobjective + ''','''.toString()}
-			fileobjective = fileobjective + '''[80,«250*(i)»,150,275]'''.toString()			
+			fileobjective = fileobjective + '''[80,Â«250*(i)Â»,150,275]'''.toString()			
 		}
 		fileobjective = fileobjective + ''');'''.toString()
 		
@@ -1775,7 +1961,7 @@ class UpctformaGenerator extends AbstractGenerator {
 		for (var i = 0; i < cu.sections.length; i++){
 			if (i > 0){
 				if (i > 1){fileobjective = fileobjective +  ''','''.toString()}
-				fileobjective = fileobjective + '''[«i»,«i+1»]'''.toString()
+				fileobjective = fileobjective + '''[Â«iÂ»,Â«i+1Â»]'''.toString()
 			}	
 		}
 		fileobjective = fileobjective + ''');'''.toString()
@@ -1783,7 +1969,7 @@ class UpctformaGenerator extends AbstractGenerator {
 		fileobjective = fileobjective + '''var titulos= new Array('''.toString()
 		for (var i = 0; i < cu.sections.length; i++){
 			if (i != 0) {fileobjective = fileobjective + ''','''.toString()}
-			fileobjective = fileobjective + '''[245,«250*(i)-117»,155,35,3,"«cu.sections.get(i).name»"]'''.toString()
+			fileobjective = fileobjective + '''[245,Â«250*(i)-117Â»,155,35,3,"Â«cu.sections.get(i).nameÂ»"]'''.toString()
 		}
 		fileobjective = fileobjective + ''');'''.toString()
 
@@ -1792,7 +1978,7 @@ class UpctformaGenerator extends AbstractGenerator {
 				
 
 	/**
-	 * Función encargada de devolver la cabecera común a las animaciones HTML5 con Canvas
+	 * FunciÃ³n encargada de devolver la cabecera comÃºn a las animaciones HTML5 con Canvas
 	 * 
 	 * @param ph 
 	 */
@@ -1808,19 +1994,19 @@ class UpctformaGenerator extends AbstractGenerator {
 	}
 	 
 	 /**
-	  * Recibe una ContentUnit y genera el código para crear una unidad de contenido independiente.
+	  * Recibe una ContentUnit y genera el cÃ³digo para crear una unidad de contenido independiente.
 	  * 	  
 	  * @param cu ContentUnit
 	  * 
 	  * 1. Agrega a la variable fileindex la cabecera del fichero index.php
 	  * 2. Inicializa la variable progresoobj para almacenar los objetivos a superar divididos por secciones.
 	  * 3. Crea el fichero progreso_datos.js
-	  * 4. Recorre las secciones de una ContentUnit. Por cada sección sus filas y por cada fila mira si la fila está basada en una plantilla.
+	  * 4. Recorre las secciones de una ContentUnit. Por cada secciÃ³n sus filas y por cada fila mira si la fila estÃ¡ basada en una plantilla.
 	  * 	En cuyo caso recorre las filas de la plantilla. Por cada fila sus columnas. Por cada columna filtra los PlaceHolder. 
 	  * 	Por cada PlaceHolder comprueba si es un WidgetType en cuyo caso agrega el enlace a las librerias CSS
 	  * 	predefinidas para cada tipo de Widget excepto para las animaciones de HTML5 con canvas donde se crea un
-	  * 	fichero por cada animación indicando el ancho de la animación.
-	  * 5. Agrega a filindex la parte 1 del código común para todos los index.php
+	  * 	fichero por cada animaciÃ³n indicando el ancho de la animaciÃ³n.
+	  * 5. Agrega a filindex la parte 1 del cÃ³digo comÃºn para todos los index.php
 	  * 			
 	  * 		 
 	  * 
@@ -1831,7 +2017,8 @@ class UpctformaGenerator extends AbstractGenerator {
 		fileindex = ''; 
 		filetest = '';
 		filetextual = ''; 
-		filevideo1 = '';	
+		filevideo1 = '';
+		filetruefalse = '';	
 		filevideo2 = '';
 		filevideo3 = '';
 		fileanimation = '';
@@ -1843,6 +2030,14 @@ class UpctformaGenerator extends AbstractGenerator {
 		animation = new AnimationInOut();
 		textualdraganddrop = new TextualDragAndDrop();
 
+		switch cu.language.value{
+			case 0: language = #["Match each image with its text","Click on the schema","Click on the correct option","Click on the images","Click on the term","Answer each question","Match each concept with its definition","Click on the button","Click on each tab","Click on the image","Classify in true or false", "Check your answers","correct answers"]				
+			case 1: language = #["Enlaza cada texto con su imagen","Pulsa sobre el esquema","Pulsa sobre la opciÃ³n correcta","Pulsa en las imÃ¡genes","Pulsa en el termino","Responde cada pregunta","Enlaza cada concepto con su definiciÃ³n","Pulsa sobre el botÃ³n","Pulsa en cada pestaÃ±a","Pulsa en la imagen", "Clasifica en verdadero o falso", "Comprueba tus respuestas","respuestas correctas"]
+			case 2: language = #["Associe chaque image avec le texte correspondant","Clique sur le schÃ©ma","Choisis l'option correcte","Clique sur l'images","Clique sur chaque terme","RÃ©ponds Ã  chaque question","Associe chaque concept avec sa dÃ©finition","Clique sur le bouton","Clique sur chaque onglet","Clique sur l'image","Indiquez Vrai ou Faux", "VerÃ­fier les rÃ©ponses","rÃ©ponses correctes"]
+			case 3: language = #["Î¤Î±Î¹ÏÎ¹Î¬Î¾Ï„Îµ ÎºÎ¬Î¸Îµ ÎµÎ¹ÎºÏŒÎ½Î± Î¼Îµ Ï„Î¿ ÎºÎµÎ¯Î¼ÎµÎ½Î¿ Ï„Î·Ï‚","ÎšÎ¬Î½Ï„Îµ ÎºÎ»Î¹Îº ÏƒÏ„Î¿ ÏƒÏ‡Î®Î¼Î±","ÎšÎ¬Î½Ï„Îµ ÎºÎ»Î¹Îº ÏƒÏ„Î·Î½ ÏƒÏ‰ÏƒÏ„Î® ÎµÏ€Î¹Î»Î¿Î³Î®","ÎšÎ¬Î½Ï„Îµ ÎºÎ»Î¹Îº ÏƒÏ„Î¹Ï‚ ÎµÎ¹ÎºÏŒÎ½ÎµÏ‚","ÎšÎ¬Î½Ï„Îµ ÎºÎ»Î¹Îº ÏƒÏ„Î¿Î½ ÏŒÏÎ¿","Î‘Ï€Î±Î½Ï„Î®ÏƒÏ„Îµ ÏƒÎµ ÎºÎ¬Î¸Îµ ÎµÏÏŽÏ„Î·ÏƒÎ·","Î¤Î±Î¹ÏÎ¹Î¬Î¾Ï„Îµ ÎºÎ¬Î¸Îµ Î­Î½Î½Î¿Î¹Î± Î¼Îµ Ï„Î¿Î½ Î¿ÏÎ¹ÏƒÎ¼ÏŒ Ï„Î·Ï‚","ÎšÎ¬Î½Ï„Îµ ÎºÎ»Î¹Îº ÏƒÏ„Î¿ ÎºÎ¿Ï…Î¼Ï€Î¯","ÎšÎ¬Î½Ï„Îµ ÎºÎ»Î¹Îº ÏƒÎµ ÎºÎ¬Î¸Îµ ÎºÎ±ÏÏ„Î­Î»Î±","ÎšÎ¬Î½Ï„Îµ ÎºÎ»Î¹Îº ÏƒÏ„Î·Î½ ÎµÎ¹ÎºÏŒÎ½Î±","ÎšÎ±Ï„Î±Ï„Î¬Î¾Ï„Îµ Ï‰Ï‚ ÏƒÏ‰ÏƒÏ„ÏŒ Î® Î»Î¬Î¸Î¿Ï‚", "Î•Î»Î­Î³Î¾Ï„Îµ Ï„Î¹Ï‚ Î±Ï€Î±Î½Ï„Î®ÏƒÎµÎ¹Ï‚ ÏƒÎ±Ï‚","ÏƒÏ‰ÏƒÏ„Î­Ï‚ Î±Ï€Î±Î½Ï„Î®ÏƒÎµÎ¹Ï‚"]
+			case 4: language = #["Sujunkite paveikslÄ—lÄ¯ su tekstu","Spustelkite  schemÄ…","Spustelkite teisingÄ… atsakymÄ…","Spustelkite paveikslÄ—lius","Spustelkite terminÄ…","Atsakykite  Ä¯ klausimus","Sujunkite sÄ…vokÄ… su jos apibudinimu","Spustelkite mygtukÄ…","Spustelkite skirtukus","Spustelkite paveikslÄ—lÄ¯","PaÅ¾ymÄ—kite teisingus ir neteisingus atsakymus", "Tikrinti","teisingÅ³ atsakymÅ³"]
+		}
+		
 		//Agrega a la variable fileindex (variable global para generar el index.php) la cabecera del fichero index.php
 		
 		if (cu.type.value == 0){
@@ -1868,11 +2063,11 @@ class UpctformaGenerator extends AbstractGenerator {
 		//Crea el fichero progreso_datos.js
 		initializeObjective(cu,fsa)
 		
-		/** Recorre las secciones de una ContentUnit. Por cada sección sus filas y por cada fila mira si la fila está basada en una plantilla.
+		/** Recorre las secciones de una ContentUnit. Por cada secciÃ³n sus filas y por cada fila mira si la fila estÃ¡ basada en una plantilla.
 		  * 	En cuyo caso recorre las filas de la plantilla. Por cada fila sus columnas. Por cada columna filtra los PlaceHolder. 
 		  * 	Por cada PlaceHolder comprueba si es un WidgetType en cuyo caso agrega el enlace a las librerias CSS
 		  * 	predefinidas para cada tipo de Widget excepto para las animaciones de HTML5 con canvas donde se crea un
-		  * 	fichero por cada animación indicando el ancho de la animación.
+		  * 	fichero por cada animaciÃ³n indicando el ancho de la animaciÃ³n.
 		  */
 
 
@@ -1883,7 +2078,7 @@ class UpctformaGenerator extends AbstractGenerator {
 		}
 		
 		/*if (pathcadena !== null){
-			// Agrega a filindex la parte 1 del código común para todos los index.php
+			// Agrega a filindex la parte 1 del cÃ³digo comÃºn para todos los index.php
 			if (pathcadena.contains("preview")){
 				fileindex = fileindex + writefileindexp1WithoutInteroperability().toString()
 			}else{
@@ -1893,23 +2088,23 @@ class UpctformaGenerator extends AbstractGenerator {
 			fileindex = fileindex + writefileindexp1WithoutInteroperability().toString()
 		}*/
 		
-		// Agrega a fileindex el menú de navegación creando un enlace a cada una de las secciones de la unidad.
+		// Agrega a fileindex el menÃº de navegaciÃ³n creando un enlace a cada una de las secciones de la unidad.
 		for (var i = 0; i < cu.sections.length; i++){
-			fileindex = fileindex + '''<li> <a href="#apdo«i»" class="scold navbar-link">«cu.sections.get(i).name»</a></li>'''.toString()
+			fileindex = fileindex + '''<li> <a href="#apdoÂ«iÂ»" class="scold navbar-link">Â«cu.sections.get(i).nameÂ»</a></li>'''.toString()
 		}
 		
-		//Agrega a filindex la parte 2 del código común para todos los index.php
-		fileindex = fileindex + writefileindexp2().toString()
+		//Agrega a filindex la parte 2 del cÃ³digo comÃºn para todos los index.php
+		fileindex = fileindex + writefileindexp2(cu.name).toString()
 		
-		//Por cada sección contenida en la unidad llama al método processSections para generar su contenido.
+		//Por cada secciÃ³n contenida en la unidad llama al mÃ©todo processSections para generar su contenido.
 		for (var i = 0; i < cu.sections.length; i++){
 			processSections(cu.sections.get(i),i,fsa)			
 		}
 		
-		//Agrega a filindex la parte 3 del código común para todos los index.php
+		//Agrega a filindex la parte 3 del cÃ³digo comÃºn para todos los index.php
 		fileindex = fileindex + writefileindexp3().toString()
 		if (primervideo == 1){
-			fileindex = fileindex + '''
+			fileindex = fileindex + '''				
 				<script type="text/javascript" src="video.js"></script>
 			'''
 		}		
@@ -1926,6 +2121,20 @@ class UpctformaGenerator extends AbstractGenerator {
 		if (containsContainerTest == 1){
 			fileindex = fileindex + '''
 				<script type="text/javascript" src="test.js"></script>
+			'''
+		}
+		if (containsTrueFalse == 1){
+			filetruefalse = filetruefalse + '''
+				$('.switched').change(function() {
+				    if ($(this).prop('checked') == true) {
+				        $(this).parents('div.row.padtf').css('background-color','rgba(75,187,139,0.5)');
+				    } else {
+				        $(this).parents('div.row.padtf').css('background-color','rgba(252,60,60,0.5)');
+				    }
+				})				
+			'''
+			fileindex = fileindex + '''
+				<script type="text/javascript" src="truefalse.js"></script>
 			'''
 		}
 		
@@ -1974,7 +2183,33 @@ class UpctformaGenerator extends AbstractGenerator {
 		fsa.generateFile("test.js",filetest);
 		fsa.generateFile("imagesound.js",fileImageSound);
 		fsa.generateFile("schema.js",fileSchema);
+		
+		filecouples = filecouples + '''
+				       function shuffle(array, indexes) {
+			                var m = array.length, t, i, ti;
+			            
+			                // While there remain elements to shuffleâ€¦
+			                while (m) {
+			            
+			                    // Pick a remaining elementâ€¦
+			                    i = Math.floor(Math.random() * m--);
+			            
+			                    // And swap it with the current element.
+			                    t = array[m];
+			                    ti = indexes[m];
+			            
+			                    array[m] = array[i];
+			                    indexes[m] = indexes[i];
+			            
+			                    array[i] = t;
+			                    indexes[i] = ti;
+			                }
+			            
+			                return array;
+			            }
+		'''
 		fsa.generateFile("couples.js",filecouples);
+		fsa.generateFile("truefalse.js",filetruefalse);
 		
 		if (containsTextualDragAndDrop==1){
 			filetextual = filetextual + '''})();'''
@@ -1982,6 +2217,39 @@ class UpctformaGenerator extends AbstractGenerator {
 				(function () {
 					DragDropPlugin.initializePlugin();
 			'''+filetextual;
+			filetextualv2 = filetextualv2 + '''
+				function getAltura(param){
+					// quito la altura que hay en css para probar
+					$('#drag-options-' + param + ' .drag-item','#drag-options-' + param + ' .drag-container').css('height', 'auto');
+					$('#drag-elections-' + param + ' .drag-container, #drag-descriptions-' + param + ' .drag-description').css('height', 'auto');	
+					
+					// calculamos la altura de la columna de las opciones
+					var maxHeightOptions = Math.max.apply(null, $("div#drag-options-"+ param + ">div.drag-container>div.drag-item").map(function ()
+					{	
+						var alturasumada = parseInt($(this).height()); // paso la altura a int
+						alturasumada = alturasumada + 15; // sumamos el padding de 15px para obtener la altura real
+					
+						return alturasumada;
+					}).get());
+					
+					// calculamos la altura de la columna de las definiciones
+					var maxHeightDescription = Math.max.apply(null, $("div#drag-descriptions-" + param + ">div.drag-description").map(function ()
+					{
+						var alturasumada = parseInt($(this).height()); // paso la altura a int
+						alturasumada = alturasumada + 15; // sumamos el padding de 15px para obtener la altura real
+					
+						return alturasumada;
+					}).get());
+					
+					// obtenemos la altura mÃ¡xima comparando las dos altura que hemos calculado
+					var maxHeight = ((maxHeightOptions < maxHeightDescription) ? maxHeightDescription : maxHeightOptions);
+					
+					// establecemos la altura mÃ¡xima en el css
+					$('#drag-options-' + param + ' .drag-container .drag-item').css('height', maxHeight);
+					$('#drag-options-' + param + ' .drag-container').css('height', maxHeight);
+					$('#drag-elections-' + param + ' .drag-container, #drag-descriptions-' + param + ' .drag-description').css('height', maxHeight);	
+				}
+			'''
 			fsa.generateFile("textualdraganddrop.js",filetextualv2); 		
 		}
 	} 
