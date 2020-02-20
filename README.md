@@ -10,7 +10,7 @@ following paper: [INDIeAuthor: A Metamodel-Based Textual Language for Authoring 
 
 ### The project
 
-Two Eclipse Modeling Framework and two Xtext Project can be find inside the INDIeGenerator repository.
+Two Eclipse Modeling Framework and two Xtext Projects can be found inside the INDIeGenerator repository.
 
 #### Eclipse Modeling Framework Projects
 The metamodel for content and assessment DSL are included in these projects.
