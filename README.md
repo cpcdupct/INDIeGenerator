@@ -152,7 +152,7 @@ Upctformaevalua.xtext excerpt
 UpctformaevaluaGenerator.xtend excerpt
 
 ## Creators and contributors
-INDIeAuthor has been created at **Digital Content Creation Center** (CPCD), in the Universidad Politécnica de Cartagena.
+INDIeAuthor has been created at the **Digital Content Creation Center** (CPCD), in the Universidad Politécnica de Cartagena.
 
 ## License
 Apache License 2.0
